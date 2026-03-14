@@ -3,4 +3,10 @@
     <string name="title_activity_presentation">PresentationActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="menu_jugar">Jugar</string>
+    <string name="menu_ranking">Ranking</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_configuracion">Configuración</string>
+    <string name="open">Abrir menú</string>
+    <string name="close">Cerrar menú</string>
 </resources>

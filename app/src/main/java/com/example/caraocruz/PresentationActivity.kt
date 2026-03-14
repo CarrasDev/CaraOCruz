@@ -22,7 +22,7 @@ class PresentationActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 4000)        // 4000 milisegundos
+        }, 2500)        // 4000 milisegundos
 
     }
 }

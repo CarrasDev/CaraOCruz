@@ -1,73 +1,57 @@
 package com.example.caraocruz
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.appbar.MaterialToolbar
-import com.google.android.material.navigation.NavigationView
+import com.example.caraocruz.databinding.ActivityMainBinding
+import com.example.caraocruz.databinding.ActivityPresentationBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var navigationView: NavigationView
-    lateinit var toolbar: MaterialToolbar
+    private lateinit var bindingMain: ActivityMainBinding
+    private lateinit var bindingPresentation: ActivityPresentationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        // Cargar primero el layout de presentación
+        bindingPresentation = ActivityPresentationBinding.inflate(layoutInflater)
+        setContentView(bindingPresentation.root)
 
-        drawerLayout = findViewById(R.id.drawerLayout)
-        navigationView = findViewById(R.id.navigationView)
-        toolbar = findViewById(R.id.toolbar)
+        // Cuando la presentación termine, se inicializa el layout principal:
+        finishPresentation()
+    }
+
+    private fun finishPresentation() {
+        // Cambiar al layout principal
+        bindingMain = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(bindingMain.root)
+
+        // Inicializar DrawerLayout, Toolbar, NavigationView, etc.
+        initMainLayout()
+    }
+
+    private fun initMainLayout() {
+        val drawerLayout = bindingMain.drawerLayout
+        val navigationView = bindingMain.navigationView
+        val toolbar = bindingMain.toolbar
 
         setSupportActionBar(toolbar)
 
-        val toggle = ActionBarDrawerToggle(
-            this,
-            drawerLayout,
-            toolbar,
-            R.string.open,
-            R.string.close
+        val toggle = androidx.appcompat.app.ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, R.string.open, R.string.close
         )
-
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
         navigationView.setNavigationItemSelectedListener {
-
             when (it.itemId) {
-
-                R.id.nav_home -> {
-                    // Acción jugar
-                }
-
-                R.id.nav_ranking -> {
-                    // Acción ranking
-                }
-
-                R.id.nav_profile -> {
-                    // Acción perfil
-                }
-
-                R.id.nav_settings -> {
-                    // Acción configuración
-                }
+                R.id.nav_home -> { /* Acción jugar */ }
+                R.id.nav_ranking -> { /* Acción ranking */ }
+                R.id.nav_profile -> { /* Acción perfil */ }
+                R.id.nav_settings -> { /* Acción configuración */ }
             }
-
             drawerLayout.closeDrawers()
             true
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
 }

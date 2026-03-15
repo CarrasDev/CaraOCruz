@@ -9,7 +9,7 @@ import kotlin.random.Random
 class JuegoViewModel : ViewModel() {
 
     // Observables:
-    private val _monedas = MutableStateFlow(200)    // 200 Monedas para empezar
+    private val _monedas = MutableStateFlow(200)    // TODO: Cargar desde la base de datos
     val monedas: StateFlow<Int> = _monedas
 
     private val _resultadoMensaje = MutableStateFlow("Introduce tu apuesta y elige")
@@ -35,6 +35,8 @@ class JuegoViewModel : ViewModel() {
             _monedas.value -= apuesta
             _resultadoMensaje.value = "Has perdido $apuesta monedas"
         }
+
+        // TODO: Añadir lógica para guardar las jugadas y el saldo en la base de datos
 
 
     }

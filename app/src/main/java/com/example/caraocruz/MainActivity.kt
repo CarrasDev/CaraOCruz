@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.nav_host_fragment, JuegoFragment())
                         .commit()
                 }
-                R.id.nav_ranking -> { /* Acción ranking */ }
+                R.id.nav_history -> { /* Acción ranking */ }
                 R.id.nav_profile -> { /* Acción perfil */ }
                 R.id.nav_settings -> { /* Acción configuración */ }
             }

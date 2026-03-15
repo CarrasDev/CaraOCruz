@@ -3,8 +3,10 @@ package com.example.caraocruz.ui.juego
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.caraocruz.R
+import com.example.caraocruz.databinding.FragmentJuegoBinding
 import kotlinx.coroutines.launch
 
 class JuegoFragment : Fragment(R.layout.fragment_juego) {

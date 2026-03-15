@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.caraocruz.databinding.ActivityMainBinding
 import com.example.caraocruz.databinding.ActivityPresentationBinding
 import com.example.caraocruz.ui.juego.JuegoFragment
+import com.example.caraocruz.ui.menu.HistoryFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -58,7 +59,11 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.nav_host_fragment, JuegoFragment())
                         .commit()
                 }
-                R.id.nav_history -> { /* Acción ranking */ }
+                R.id.nav_history -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, HistoryFragment())
+                        .commit()
+                }
                 R.id.nav_profile -> { /* Acción perfil */ }
                 R.id.nav_settings -> { /* Acción configuración */ }
             }

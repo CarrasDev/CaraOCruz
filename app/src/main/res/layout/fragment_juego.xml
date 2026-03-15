@@ -3,15 +3,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    tools:context=".ui.juego.JuegoFragment">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="243dp"
-        android:layout_height="225dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+    <!-- Indicador de Saldo -->
+    <TextView
+        android:id="@+id/tvSaldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saldo: 200 monedas"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/smartnexus" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Área de mensaje de resultado -->
+    <TextView
+        android:id="@+id/tvMensaje"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="¡Haz tu apuesta!"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvSaldo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Campo de entrada para la apuesta -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilApuesta"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="Cantidad a apostar"
+        app:layout_constraintTop_toBottomOf="@id/tvMensaje"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etApuesta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botón CARA -->
+    <Button
+        android:id="@+id/btnCara"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:text="CARA"
+        android:backgroundTint="#FFC107"
+        app:layout_constraintTop_toBottomOf="@id/tilApuesta"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCruz" />
+
+    <!-- Botón CRUZ -->
+    <Button
+        android:id="@+id/btnCruz"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:text="CRUZ"
+        android:backgroundTint="#757575"
+        app:layout_constraintTop_toTopOf="@id/btnCara"
+        app:layout_constraintStart_toEndOf="@id/btnCara"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Guía visual para la moneda (donde irán las animaciones después) -->
+    <ImageView
+        android:id="@+id/ivMoneda"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="32dp"
+        android:src="@android:drawable/ic_menu_help"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCara" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

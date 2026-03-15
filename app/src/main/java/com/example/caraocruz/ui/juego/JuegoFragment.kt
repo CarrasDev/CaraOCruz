@@ -23,7 +23,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         // Suscripción a los cambios en monedas:
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.monedas.collect { saldo ->
-                binding.tvSaldo.txt = "Saldo: $saldo monedas"
+                binding.tvSaldo.text = "Saldo: $saldo monedas"
             }
         }
 

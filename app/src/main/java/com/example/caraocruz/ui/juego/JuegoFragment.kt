@@ -30,7 +30,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         // Suscripción a los cambios en resultadoMensaje:
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.resultadoMensaje.collect { mensaje ->
-                binding.tvMensaje.txt = mensaje
+                binding.tvMensaje.text = mensaje
             }
 
         }

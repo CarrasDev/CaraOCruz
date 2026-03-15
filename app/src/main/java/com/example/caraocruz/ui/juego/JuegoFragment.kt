@@ -38,7 +38,6 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         binding.btnCara.setOnClickListener { procesarJugada(true) }
         binding.btnCruz.setOnClickListener { procesarJugada(false) }
 
-
     }
 
     private fun procesarJugada(esCara: Boolean) {

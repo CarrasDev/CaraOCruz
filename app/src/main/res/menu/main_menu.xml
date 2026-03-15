@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_ver_ranking"
+        android:title="Mejores Puntuaciones"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_reiniciar"
+        android:title="Reiniciar Juego"
+        app:showAsAction="never" />
+</menu>

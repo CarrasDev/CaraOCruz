@@ -3,4 +3,16 @@
     <string name="title_activity_presentation">PresentationActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="menu_jugar">Jugar</string>
+    <string name="menu_ranking">Ranking</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_configuracion">Configuración</string>
+    <string name="open">Abrir menú</string>
+    <string name="close">Cerrar menú</string>
+    <string name="background">Fondo de la aplicación</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_message">Bienvenido a Cara o Cruz</string>
+    <string name="hint_user_name">Introduce tu nombre</string>
+    <string name="btn_continue">Continuar</string>
+
 </resources>

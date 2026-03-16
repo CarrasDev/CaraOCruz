@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="@string/menu_jugar"
+        android:icon="@android:drawable/ic_menu_view"/>
+
+    <item
+        android:id="@+id/nav_history"
+        android:title="@string/menu_ranking"
+        android:icon="@android:drawable/ic_menu_myplaces"/>
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="@string/menu_perfil"
+        android:icon="@android:drawable/ic_menu_manage"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:title="@string/menu_configuracion"
+        android:icon="@android:drawable/ic_menu_preferences"/>
+
+</menu>

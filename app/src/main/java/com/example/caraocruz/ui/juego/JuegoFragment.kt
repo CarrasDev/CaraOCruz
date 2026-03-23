@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.caraocruz.R
+import com.example.caraocruz.data.AppDatabase
 import com.example.caraocruz.databinding.FragmentJuegoBinding
 import kotlinx.coroutines.launch
 
@@ -14,7 +15,8 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     private var _binding: FragmentJuegoBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: JuegoViewModel by viewModels()
+    private val database by lazy { AppDatabase.getDatabase(requireContext()) }
+    private val viewModel: JuegoViewModel by viewModels { JuegoViewModelFactory(database) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

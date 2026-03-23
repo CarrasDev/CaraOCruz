@@ -1,12 +1,16 @@
 package com.example.caraocruz.ui.juego
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.caraocruz.data.AppDatabase
+import com.example.caraocruz.data.Partida
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import java.util.Date
 import kotlin.random.Random
 
-class JuegoViewModel : ViewModel() {
+class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
 
     // Observables:
     private val _monedas = MutableStateFlow(200)    // TODO: Cargar desde la base de datos
@@ -26,8 +30,10 @@ class JuegoViewModel : ViewModel() {
         }
 
         val resultadoEsCara = Random.nextBoolean()
+        val gano = eleccionMoneda == resultadoEsCara
+        val resultadoTexto = if (resultadoEsCara) "Cara" else "Cruz"
 
-        if (eleccionMoneda == resultadoEsCara) {
+        if (gano) {
             _monedas.update { it + (apuesta * 2) }
             val ganancia = apuesta * 2
             _resultadoMensaje.value = "Has ganado $ganancia monedas"
@@ -36,9 +42,29 @@ class JuegoViewModel : ViewModel() {
             _resultadoMensaje.value = "Has perdido $apuesta monedas"
         }
 
-        // TODO: Añadir lógica para guardar las jugadas y el saldo en la base de datos
-
-
+        // Guardar la partida en la base de datos
+        val partida = Partida(
+            apuesta = apuesta,
+            resultado = resultadoTexto,
+            gano = gano,
+            fecha = Date()
+        )
+        
+        database.juegoDao().insertarPartida(partida)
+            .subscribeOn(io.reactivex.rxjava3.schedulers.Schedulers.io())
+            .subscribe()
     }
 
+}
+
+class JuegoViewModelFactory(
+    private val database: AppDatabase
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(JuegoViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return JuegoViewModel(database) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }

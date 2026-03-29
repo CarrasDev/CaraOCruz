@@ -3,7 +3,7 @@ package com.example.caraocruz.ui.juego
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
@@ -16,7 +16,14 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     private val binding get() = _binding!!
 
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
-    private val viewModel: JuegoViewModel by viewModels { JuegoViewModelFactory(database) }
+
+    // Método clásico y seguro para compartir el ViewModel con la Activity
+    private val viewModel: JuegoViewModel by lazy {
+        ViewModelProvider(
+            requireActivity(),
+            JuegoViewModelFactory(database)
+        )[JuegoViewModel::class.java]
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,12 +41,17 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
             viewModel.resultadoMensaje.collect { mensaje ->
                 binding.tvMensaje.text = mensaje
             }
+        }
 
+        // Suscripción al Fin de Juego
+        viewModel.juegoTerminado.observe(viewLifecycleOwner) { terminado ->
+            if (terminado == true) {
+                mostrarDialogoFinDeJuego()
+            }
         }
 
         binding.btnCara.setOnClickListener { procesarJugada(true) }
         binding.btnCruz.setOnClickListener { procesarJugada(false) }
-
     }
 
     private fun procesarJugada(esCara: Boolean) {
@@ -48,9 +60,16 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         viewModel.jugar(apuesta, esCara)
     }
 
+    private fun mostrarDialogoFinDeJuego() {
+        // Navegamos a la pantalla de Game Over usando el ID correcto de tu XML
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.nav_host_fragment, GameOverFragment())
+            .addToBackStack(null)
+            .commit()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

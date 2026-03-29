@@ -51,7 +51,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-
+    implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     // Room
     implementation(libs.room.runtime)

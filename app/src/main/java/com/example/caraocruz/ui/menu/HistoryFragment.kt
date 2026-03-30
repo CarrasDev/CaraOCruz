@@ -3,9 +3,12 @@ package com.example.caraocruz.ui.menu
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.caraocruz.R
+import com.example.caraocruz.data.AppDatabase
 import com.example.caraocruz.databinding.FragmentHistoryBinding
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
@@ -13,11 +16,10 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     private var _binding: FragmentHistoryBinding? = null
     private val binding get() = _binding!!
 
-    // TODO: Crear el ViewModel para consultar el historial de jugadas
-    // TODO: El ViewModel conecta con el DAO para recuperar los datos
-    // private val viewModel: HistoryViewModel by viewModels()
-
+    private val database by lazy { AppDatabase.getDatabase(requireContext()) }
+    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(database) }
     private val disposables = CompositeDisposable()
+    private lateinit var historyAdapter: HistoryAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,25 +30,26 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     }
 
     private fun setupRecyclerView() {
-        // binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
-        // TODO: Configurar el adaptador para el RecyclerView
-        // binding.rvHistory.adapter = HistoryAdapter()
+        historyAdapter = HistoryAdapter()
+        binding.rvHistory.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHistory.adapter = historyAdapter
     }
 
     private fun subscribeToHistory() {
-        // TODO: recuperar los datos del historial con RxJava
-        /*
         disposables.add(
-            viewModel.getAllApuestas()
+            viewModel.getAllPartidas()
                 .observeOn(AndroidSchedulers.mainThread())
-                .suscribe { lista ->
-                    // Actualizar el adaptador con los datos recuperados
-                    (binding.rvHistory.adapter as HistoryAdapter).submitList(lista)
+                .subscribe { partidas ->
+                    if (partidas.isEmpty()) {
+                        binding.rvHistory.visibility = View.GONE
+                        binding.tvEmpty.visibility = View.VISIBLE
+                    } else {
+                        binding.rvHistory.visibility = View.VISIBLE
+                        binding.tvEmpty.visibility = View.GONE
+                        historyAdapter.submitList(partidas)
+                    }
                 }
-         )
-         */
-
-
+        )
     }
 
     override fun onDestroy() {

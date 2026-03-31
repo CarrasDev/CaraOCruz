@@ -12,7 +12,7 @@
         android:id="@+id/tvSaldo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saldo: 200 monedas"
+        android:text="@string/msg_haz_apuesta"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="¡Haz tu apuesta!"
+        android:text="@string/msg_haz_apuesta"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/tvSaldo"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="Cantidad a apostar"
+        android:hint="@string/cantidad_a_apostar"
         app:layout_constraintTop_toBottomOf="@id/tvMensaje"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -50,7 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="1" />
+            android:text="1"
+            tools:ignore="HardcodedText" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botón CARA -->
@@ -60,11 +61,12 @@
         android:layout_height="80dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="CARA"
         android:backgroundTint="#FFC107"
-        app:layout_constraintTop_toBottomOf="@id/tilApuesta"
+        android:text="@string/btn_cara"
+        app:layout_constraintEnd_toStartOf="@+id/btnCruz"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCruz" />
+        app:layout_constraintTop_toBottomOf="@id/tilApuesta"
+        tools:ignore="TextContrastCheck" />
 
     <!-- Botón CRUZ -->
     <Button
@@ -72,7 +74,7 @@
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"
-        android:text="CRUZ"
+        android:text="@string/btn_cruz"
         android:backgroundTint="#757575"
         app:layout_constraintTop_toTopOf="@id/btnCara"
         app:layout_constraintStart_toEndOf="@id/btnCara"

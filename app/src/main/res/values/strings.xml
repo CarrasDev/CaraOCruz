@@ -39,4 +39,6 @@
     <string name="msg_vacio">No hay partidas registradas</string>
     <string name="label_resultado">Resultado: %1$s</string>
     <string name="label_apuesta">Apuesta: %1$d monedas</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$s</string>
 </resources>

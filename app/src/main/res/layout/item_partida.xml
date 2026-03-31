@@ -2,6 +2,7 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -24,7 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Apuesta: 10 monedas"
+                android:text="@string/label_apuesta"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -32,7 +33,7 @@
                 android:id="@+id/tvGanancia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+20"
+                android:text="@string/label_cantidad"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -43,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Resultado: Cara"
+            android:text="@string/label_resultado"
             android:textSize="14sp" />
 
         <TextView
@@ -51,9 +52,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="23/03/2026 16:45"
+            android:text="@string/label_fecha"
+            android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
-            android:textColor="@android:color/darker_gray" />
+            tools:ignore="TextContrastCheck" />
 
     </LinearLayout>
 

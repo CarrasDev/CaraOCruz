@@ -32,14 +32,20 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         // Suscripción a los cambios en monedas:
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.monedas.collect { saldo ->
-                binding.tvSaldo.text = "Saldo: $saldo monedas"
+                binding.tvSaldo.text = getString(R.string.label_saldo, saldo)
             }
         }
 
         // Suscripción a los cambios en resultadoMensaje:
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.resultadoMensaje.collect { mensaje ->
-                binding.tvMensaje.text = mensaje
+            viewModel.resultadoMensaje.collect { resultadoId ->
+                val mensaje = viewModel.ultimoValor.value
+
+                if (resultadoId == R.string.msg_ganaste || resultadoId == R.string.msg_perdiste) {
+                    binding.tvMensaje.text = getString(resultadoId, mensaje)
+                } else {
+                    binding.tvMensaje.text = getString(resultadoId)
+                }
             }
         }
 

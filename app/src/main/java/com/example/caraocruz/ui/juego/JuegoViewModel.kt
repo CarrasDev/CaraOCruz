@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
@@ -21,9 +22,12 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
     private val _monedas = MutableStateFlow(100)
     val monedas: StateFlow<Int> = _monedas
 
-    private val _resultadoMensaje = MutableStateFlow("Introduce tu apuesta y elige")
-    val resultadoMensaje: StateFlow<String> = _resultadoMensaje
+    private val _resultadoMensaje = MutableStateFlow(R.string.prompt_inicio)
+    val resultadoMensaje: StateFlow<Int> = _resultadoMensaje
+    private val _ultimoValor = MutableStateFlow(0)
+    val ultimoValor: StateFlow<Int> = _ultimoValor
 
+    // TODO Revisar hasta la función jugar
     // Control de Fin de Juego
     private val _juegoTerminado = MutableLiveData<Boolean>()
     val juegoTerminado: LiveData<Boolean> get() = _juegoTerminado
@@ -55,25 +59,29 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
 
     fun jugar(apuesta: Int, eleccionMoneda: Boolean) {
         if (apuesta <= 0) {
-            _resultadoMensaje.value = "La apuesta debe ser mayor que cero"
+            _resultadoMensaje.value = R.string.msg_apuesta_cero
             return
         }
         if (apuesta > _monedas.value) {
-            _resultadoMensaje.value = "No tienes suficientes monedas"
+            _resultadoMensaje.value = R.string.msg_sin_monedas
             return
         }
 
         val resultadoEsCara = Random.nextBoolean()
         val gano = eleccionMoneda == resultadoEsCara
-        val resultadoTexto = if (resultadoEsCara) "Cara" else "Cruz"
+        val resultadoTexto = if (gano) "Cara" else "Cruz"
+
+
+        _ultimoValor.value = apuesta
 
         // Beneficio 1 a 1
         if (gano) {
             _monedas.update { it + apuesta }
-            _resultadoMensaje.value = "Has ganado $apuesta monedas"
+            _resultadoMensaje.value = R.string.msg_ganaste
         } else {
             _monedas.value -= apuesta
-            _resultadoMensaje.value = "Has perdido $apuesta monedas"
+            _resultadoMensaje.value = R.string.msg_perdiste
+
         }
 
         //  Guardado completo: Partida + Saldo del Usuario
@@ -92,7 +100,7 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
             .subscribe({
                 comprobarFinDeJuego(_monedas.value)
             }, {
-                _resultadoMensaje.value = "Error al guardar en BD"
+                _resultadoMensaje.value = R.string.msg_error_db
             })
     }
 
@@ -111,7 +119,8 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
             .subscribe({
                 _monedas.value = 100
                 _juegoTerminado.value = false
-                _resultadoMensaje.value = "Introduce tu apuesta y elige"
+                _resultadoMensaje.value = R.string.prompt_inicio
+                _ultimoValor.value = 0
             }, {})
     }
 }

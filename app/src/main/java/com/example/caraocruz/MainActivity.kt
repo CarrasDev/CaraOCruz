@@ -129,11 +129,10 @@ class MainActivity : AppCompatActivity() {
                         .commit()
 
                 }
-
+                /* TODO Para la siguiente versión
                 R.id.nav_profile -> { /* Acción perfil */ }
-
                 R.id.nav_settings -> { /* Acción configuración */ }
-
+                */
             }
 
             drawerLayout.closeDrawers()

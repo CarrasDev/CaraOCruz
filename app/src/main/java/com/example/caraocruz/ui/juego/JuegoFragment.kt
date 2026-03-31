@@ -17,7 +17,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
 
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
 
-    // Método clásico y seguro para compartir el ViewModel con la Activity
+    // Mét_odo clásico y seguro para compartir el ViewModel con la Activity
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),

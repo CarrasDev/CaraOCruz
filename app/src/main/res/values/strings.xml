@@ -34,7 +34,7 @@
     <string name="btn_reiniciar">Reiniciar con 100 Monedas</string>
     <string name="btn_salir">Salir del juego</string>
 
-    <!-- Pantalla Historial -->
+    <!-- Pantalla Historial + item_partida -->
     <string name="title_historial">Historial de Partidas</string>
     <string name="msg_vacio">No hay partidas registradas</string>
     <string name="label_resultado">Resultado: %1$s</string>

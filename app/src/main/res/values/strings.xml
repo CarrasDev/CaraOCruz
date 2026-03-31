@@ -15,4 +15,27 @@
     <string name="hint_user_name">Introduce tu nombre</string>
     <string name="btn_continue">Continuar</string>
 
+    <!-- Pantalla Juego -->
+    <string name="btn_cara">CARA</string>
+    <string name="btn_cruz">CRUZ</string>
+    <string name="msg_haz_apuesta">¡Haz tu apuesta!</string>
+    <string name="msg_apuesta_cero">La apuesta debe ser mayor que cero</string>
+    <string name="msg_sin_monedas">No tienes suficientes monedas</string>
+    <string name="msg_ganaste">Has ganado %1$d monedas</string>
+    <string name="msg_perdiste">Has perdido %1$d monedas</string>
+    <string name="msg_error_db">Error al guardar en BBDD</string>
+    <string name="label_saldo">Saldo: %1$d monedas</string>
+    <string name="prompt_inicio">Introduce tu apuesta y elige</string>
+
+    <!-- Pantalla Game Over -->
+    <string name="title_bancarrota">¡BANCARROTA!</string>
+    <string name="msg_game_over">Te has quedado sin monedas</string>
+    <string name="btn_reiniciar">Reiniciar con 100 Monedas</string>
+    <string name="btn_salir">Salir del juego</string>
+
+    <!-- Pantalla Historial -->
+    <string name="title_historial">Historial de Partidas</string>
+    <string name="msg_vacio">No hay partidas registradas</string>
+    <string name="label_resultado">Resultado: %1$s</string>
+    <string name="label_apuesta">Apuesta: %1$d monedas</string>
 </resources>

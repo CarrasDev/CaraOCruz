@@ -29,7 +29,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentJuegoBinding.bind(view)
 
-        // Suscripción a los cambios en monedas:
+        // Suscripción a los cambios en saldo de moneda:
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.monedas.collect { saldo ->
                 binding.tvSaldo.text = getString(R.string.label_saldo, saldo)
@@ -46,6 +46,13 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
                 } else {
                     binding.tvMensaje.text = getString(resultadoId)
                 }
+            }
+        }
+
+        // Suscripción al cambio imagen de moneda segun resultado
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.monedaImagenResId.collect { resId ->
+                binding.ivMoneda.setImageResource(resId)
             }
         }
 

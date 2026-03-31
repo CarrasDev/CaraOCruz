@@ -26,11 +26,12 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
     val resultadoMensaje: StateFlow<Int> = _resultadoMensaje
     private val _ultimoValor = MutableStateFlow(0)
     val ultimoValor: StateFlow<Int> = _ultimoValor
-
-    // TODO Revisar hasta la función jugar
-    // Control de Fin de Juego
     private val _juegoTerminado = MutableLiveData<Boolean>()
     val juegoTerminado: LiveData<Boolean> get() = _juegoTerminado
+
+    private val _monedaImagenResId = MutableStateFlow(R.drawable.logocaraocruz)
+    val monedaImagenResId: StateFlow<Int> = _monedaImagenResId
+
 
     init {
         cargarSaldoInicial()
@@ -70,6 +71,13 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
         val resultadoEsCara = Random.nextBoolean()
         val gano = eleccionMoneda == resultadoEsCara
         val resultadoTexto = if (gano) "Cara" else "Cruz"
+
+        // Actualizar imagen de la moneda
+        _monedaImagenResId.value = if (resultadoEsCara) {
+            R.drawable.cara
+        } else {
+            R.drawable.cruz
+        }
 
 
         _ultimoValor.value = apuesta

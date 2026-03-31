@@ -26,6 +26,7 @@
     <string name="msg_error_db">Error al guardar en BBDD</string>
     <string name="label_saldo">Saldo: %1$d monedas</string>
     <string name="prompt_inicio">Introduce tu apuesta y elige</string>
+    <string name="cantidad_a_apostar">Cantidad a apostar</string>
 
     <!-- Pantalla Game Over -->
     <string name="title_bancarrota">¡BANCARROTA!</string>

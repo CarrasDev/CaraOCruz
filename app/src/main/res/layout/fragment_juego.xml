@@ -57,13 +57,14 @@
     <!-- Botón CARA -->
     <Button
         android:id="@+id/btnCara"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="#FFC107"
         android:text="@string/btn_cara"
         app:layout_constraintEnd_toStartOf="@+id/btnCruz"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilApuesta"
         tools:ignore="TextContrastCheck" />
@@ -71,8 +72,8 @@
     <!-- Botón CRUZ -->
     <Button
         android:id="@+id/btnCruz"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:layout_marginStart="8dp"
         android:text="@string/btn_cruz"
         android:backgroundTint="#757575"
@@ -85,12 +86,16 @@
         android:id="@+id/ivMoneda"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="32dp"
-        android:src="@android:drawable/ic_menu_help"
+        android:importantForAccessibility="no"
+        android:src="@drawable/logocaraocruz"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCara" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCara"
+        app:layout_constraintVertical_bias="0.05" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

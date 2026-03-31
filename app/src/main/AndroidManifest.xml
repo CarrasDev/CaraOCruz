@@ -13,6 +13,7 @@
         android:theme="@style/Theme.CaraOCruz">
         <activity
             android:name=".PresentationActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="true"
             android:label="@string/title_activity_presentation"
@@ -25,6 +26,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
         </activity>
     </application>

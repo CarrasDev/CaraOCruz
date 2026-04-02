@@ -17,7 +17,6 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
 
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
 
-    // Mét_odo clásico y seguro para compartir el ViewModel con la Activity
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
@@ -74,7 +73,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     }
 
     private fun mostrarDialogoFinDeJuego() {
-        // Navegamos a la pantalla de Game Over usando el ID correcto de tu XML
+        // Navegamos a la pantalla de Game Over
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.nav_host_fragment, GameOverFragment())
             .addToBackStack(null)

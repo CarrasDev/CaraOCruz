@@ -8,8 +8,11 @@ import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import java.util.Date
 import kotlin.random.Random
@@ -22,8 +25,8 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
     private val _monedas = MutableStateFlow(100)
     val monedas: StateFlow<Int> = _monedas
 
-    private val _resultadoMensaje = MutableStateFlow(R.string.prompt_inicio)
-    val resultadoMensaje: StateFlow<Int> = _resultadoMensaje
+    private val _resultadoMensaje = MutableSharedFlow<Int>(replay = 1)
+    val resultadoMensaje: SharedFlow<Int> = _resultadoMensaje.asSharedFlow()
     private val _ultimoValor = MutableStateFlow(0)
     val ultimoValor: StateFlow<Int> = _ultimoValor
     private val _juegoTerminado = MutableLiveData<Boolean>()
@@ -34,6 +37,7 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
 
 
     init {
+        _resultadoMensaje.tryEmit(R.string.prompt_inicio)
         cargarSaldoInicial()
     }
 
@@ -60,11 +64,11 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
 
     fun jugar(apuesta: Int, eleccionMoneda: Boolean) {
         if (apuesta <= 0) {
-            _resultadoMensaje.value = R.string.msg_apuesta_cero
+            _resultadoMensaje.tryEmit(R.string.msg_apuesta_cero)
             return
         }
         if (apuesta > _monedas.value) {
-            _resultadoMensaje.value = R.string.msg_sin_monedas
+            _resultadoMensaje.tryEmit(R.string.msg_sin_monedas)
             return
         }
 
@@ -85,10 +89,10 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
         // Beneficio 1 a 1
         if (gano) {
             _monedas.update { it + apuesta }
-            _resultadoMensaje.value = R.string.msg_ganaste
+            _resultadoMensaje.tryEmit(R.string.msg_ganaste)
         } else {
-            _monedas.value -= apuesta
-            _resultadoMensaje.value = R.string.msg_perdiste
+            _monedas.update { it - apuesta }
+            _resultadoMensaje.tryEmit(R.string.msg_perdiste)
 
         }
 
@@ -108,7 +112,7 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
             .subscribe({
                 comprobarFinDeJuego(_monedas.value)
             }, {
-                _resultadoMensaje.value = R.string.msg_error_db
+                _resultadoMensaje.tryEmit(R.string.msg_error_db)
             })
     }
 
@@ -127,7 +131,7 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
             .subscribe({
                 _monedas.value = 100
                 _juegoTerminado.value = false
-                _resultadoMensaje.value = R.string.prompt_inicio
+                _resultadoMensaje.tryEmit(R.string.prompt_inicio)
                 _ultimoValor.value = 0
             }, {})
     }

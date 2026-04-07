@@ -15,7 +15,7 @@ class GameOverFragment : Fragment(R.layout.fragment_game_over) {
 
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
 
-    // Mismo cerebro: Pedimos el ViewModel a la Activity principal
+    // Pedimos el ViewModel a la Activity principal
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
@@ -27,7 +27,7 @@ class GameOverFragment : Fragment(R.layout.fragment_game_over) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentGameOverBinding.bind(view)
 
-        // 1. El botón lanza la orden a la base de datos (y lo desactivamos para evitar doble clic)
+        // El botón lanza la orden a la base de datos (y lo desactivamos para evitar doble clic)
         binding.btnReiniciar.setOnClickListener {
             binding.btnReiniciar.isEnabled = false
             viewModel.reiniciarJuego()
@@ -38,7 +38,7 @@ class GameOverFragment : Fragment(R.layout.fragment_game_over) {
             requireActivity().finish()
         }
 
-        // 2. La magia: Escuchamos al ViewModel compartido. Cuando confirme que ya no hay fin de juego, volvemos.
+        // ViewModel compartido.
         viewModel.juegoTerminado.observe(viewLifecycleOwner) { terminado ->
             if (terminado == false) {
                 requireActivity().supportFragmentManager.popBackStack()

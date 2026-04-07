@@ -30,6 +30,7 @@ class HistoryAdapter : ListAdapter<Partida, HistoryAdapter.PartidaViewHolder>(Pa
         private val tvGanancia: TextView = itemView.findViewById(R.id.tvGanancia)
         private val tvFecha: TextView = itemView.findViewById(R.id.tvFecha)
 
+        // TODO Corregir harcodeo para la siguiente versión
         fun bind(partida: Partida) {
             tvApuesta.text = "Apuesta: ${partida.apuesta} monedas"
             tvResultado.text = "Resultado: ${partida.resultado}"

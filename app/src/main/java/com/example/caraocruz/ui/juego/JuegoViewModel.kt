@@ -41,6 +41,7 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
         cargarSaldoInicial()
     }
 
+    // TODO En siguiente versión refactorizar para evitar las advertencias del IDE
     // Modificado para que la persistencia funcione
     private fun cargarSaldoInicial() {
         database.juegoDao().getUsuario()
@@ -105,6 +106,7 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
         )
         val usuarioActualizado = Usuario(id = 1, monedas = _monedas.value)
 
+        // TODO En siguiente versión refactorizar para evitar las advertencias del IDE
         database.juegoDao().insertarPartida(partida)
             .andThen(database.juegoDao().guardarUsuario(usuarioActualizado))
             .subscribeOn(Schedulers.io())
@@ -125,6 +127,7 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
     fun reiniciarJuego() {
         val usuarioReiniciado = Usuario(id = 1, monedas = 100)
 
+        // TODO En siguiente versión refactorizar para evitar las advertencias del IDE
         database.juegoDao().guardarUsuario(usuarioReiniciado)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

@@ -19,7 +19,7 @@ class GameOverFragment : Fragment(R.layout.fragment_game_over) {
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            JuegoViewModelFactory(database)
+            JuegoViewModelFactory(database, requireContext())
         )[JuegoViewModel::class.java]
     }
 

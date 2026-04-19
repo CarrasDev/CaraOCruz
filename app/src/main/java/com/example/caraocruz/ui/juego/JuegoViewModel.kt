@@ -1,5 +1,7 @@
 package com.example.caraocruz.ui.juego
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.LiveData
@@ -8,6 +10,7 @@ import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
+import com.example.caraocruz.utils.MusicManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -19,7 +22,9 @@ import kotlin.random.Random
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 
-class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
+class JuegoViewModel(private val database: AppDatabase, private val context: Context) : ViewModel() {
+    
+    private val musicManager = MusicManager.getInstance(context)
 
     // Observables
     private val _monedas = MutableStateFlow(100)
@@ -73,6 +78,9 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
             return
         }
 
+        // Reproducir sonido de moneda al hacer la apuesta
+        musicManager.playCoinSound()
+
         val resultadoEsCara = Random.nextBoolean()
         val gano = eleccionMoneda == resultadoEsCara
         val resultadoTexto = if (gano) "Cara" else "Cruz"
@@ -84,17 +92,19 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
             R.drawable.cruz
         }
 
-
         _ultimoValor.value = apuesta
 
         // Beneficio 1 a 1
         if (gano) {
+            Log.d("JuegoViewModel", "¡GANADOR! Reproduciendo sonido de victoria")
             _monedas.update { it + apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_ganaste)
+            musicManager.playWinSound()
         } else {
+            Log.d("JuegoViewModel", "PERDEDOR. Reproduciendo sonido de derrota")
             _monedas.update { it - apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_perdiste)
-
+            musicManager.playLoseSound()
         }
 
         //  Guardado completo: Partida + Saldo del Usuario
@@ -141,12 +151,13 @@ class JuegoViewModel(private val database: AppDatabase) : ViewModel() {
 }
 
 class JuegoViewModelFactory(
-    private val database: AppDatabase
+    private val database: AppDatabase,
+    private val context: Context
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(JuegoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return JuegoViewModel(database) as T
+            return JuegoViewModel(database, context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

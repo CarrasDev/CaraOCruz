@@ -5,6 +5,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Jugar</string>
     <string name="menu_ranking">Historial</string>
+    <string name="menu_musica">Música</string>
     <string name="menu_perfil">Perfil</string>
     <string name="menu_configuracion">Configuración</string>
     <string name="open">Abrir menú</string>

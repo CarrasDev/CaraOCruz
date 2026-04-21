@@ -10,6 +10,12 @@
         android:title="@string/menu_ranking"
         android:icon="@android:drawable/ic_menu_myplaces"/>
 
+    <item
+        android:id="@+id/nav_music"
+        android:title="@string/menu_musica"
+        android:icon="@android:drawable/ic_lock_silent_mode"
+        android:checkable="true"/>
+
     <!-- TODO Para la siguiente versión
     <item
         android:id="@+id/nav_profile"

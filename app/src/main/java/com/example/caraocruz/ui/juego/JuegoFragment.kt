@@ -20,7 +20,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            JuegoViewModelFactory(database)
+            JuegoViewModelFactory(database, requireContext())
         )[JuegoViewModel::class.java]
     }
 

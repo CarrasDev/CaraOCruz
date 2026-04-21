@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
+import com.example.caraocruz.R
 import com.example.caraocruz.databinding.FragmentHelpBinding
 
-class HelpFragment : Fragment() {
+class HelpFragment : Fragment(R.layout.fragment_help) {
 
     private var _binding: FragmentHelpBinding? = null
     private val binding get() = _binding!!
@@ -17,10 +18,10 @@ class HelpFragment : Fragment() {
 
         // Configuración
         binding.webViewHelp.webViewClient = WebViewClient()
-        binding.webViewHelp.settings.javaScriptEnabled = true       // TODO: Quitar si no es necesario
+        binding.webViewHelp.settings.javaScriptEnabled = false
 
         // TODO: Cargo www.google.com para prueba, substituir por un archivo local
-        binding.webViewHelp.loadUrl("http://www.google.com")
+        binding.webViewHelp.loadUrl("https://www.google.com")
     }
 
     override fun onDestroyView() {

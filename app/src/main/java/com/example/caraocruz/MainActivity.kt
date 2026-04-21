@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.caraocruz.databinding.ActivityMainBinding
 import com.example.caraocruz.databinding.ActivityPresentationBinding
 import com.example.caraocruz.ui.juego.JuegoFragment
+import com.example.caraocruz.ui.menu.HelpFragment
 import com.example.caraocruz.ui.menu.HistoryFragment
 import com.example.caraocruz.utils.MusicManager
 
@@ -77,6 +78,11 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.nav_host_fragment, HistoryFragment())
                         .commit()
 
+                }
+                R.id.nav_help -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, HelpFragment())
+                        .commit()
                 }
                 R.id.nav_music -> {
                     // Toggle música activada/desactivada

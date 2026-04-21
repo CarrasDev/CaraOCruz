@@ -11,10 +11,16 @@
         android:icon="@android:drawable/ic_menu_myplaces"/>
 
     <item
+        android:id="@+id/nav_help"
+        android:title="@string/menu_ayuda"
+        android:icon="@android:drawable/ic_menu_help"/>
+
+    <item
         android:id="@+id/nav_music"
         android:title="@string/menu_musica"
         android:icon="@android:drawable/ic_lock_silent_mode"
         android:checkable="true"/>
+
 
     <!-- TODO Para la siguiente versión
     <item

@@ -1,20 +1,12 @@
 package com.example.caraocruz
 
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.caraocruz.databinding.ActivityMainBinding
-
 import com.example.caraocruz.databinding.ActivityPresentationBinding
-
 import com.example.caraocruz.ui.juego.JuegoFragment
-
 import com.example.caraocruz.ui.menu.HistoryFragment
-
 import com.example.caraocruz.utils.MusicManager
-
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMain: ActivityMainBinding
@@ -22,20 +14,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var musicManager: MusicManager
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
 
-
-
         // Inicializar MusicManager
         musicManager = MusicManager.getInstance(this)
-
-
-
-        // Cargar primero el layout de presentación
 
         // Cargar layout de presentación
         bindingPresentation = ActivityPresentationBinding.inflate(layoutInflater)
@@ -46,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun finishPresentation() {
-
         // Cambiar al layout principal
         bindingMain = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingMain.root)
@@ -56,19 +39,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMainLayout() {
-
         val drawerLayout = bindingMain.drawerLayout
         val navigationView = bindingMain.navigationView
         val toolbar = bindingMain.toolbar
 
         setSupportActionBar(toolbar)
 
-
-
         // Iniciar música de fondo
         musicManager.startBackgroundMusic()
-
-
 
         val toggle = androidx.appcompat.app.ActionBarDrawerToggle(
             this, drawerLayout, toolbar, R.string.open, R.string.close
@@ -88,21 +66,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         navigationView.setNavigationItemSelectedListener {
-
             when (it.itemId) {
                 R.id.nav_home -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, JuegoFragment())
                         .commit()
                 }
-
                 R.id.nav_history -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, HistoryFragment())
                         .commit()
 
                 }
-
                 R.id.nav_music -> {
                     // Toggle música activada/desactivada
                     val isCurrentlyEnabled = musicManager.isMusicEnabled()
@@ -133,5 +108,4 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         musicManager.release()
     }
-
 }

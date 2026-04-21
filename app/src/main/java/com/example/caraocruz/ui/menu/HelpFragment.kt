@@ -17,7 +17,7 @@ class HelpFragment : Fragment() {
 
         // Configuración
         binding.webViewHelp.webViewClient = WebViewClient()
-        binding.webViewHelp.settings.javaScriptEnabled = true
+        binding.webViewHelp.settings.javaScriptEnabled = true       // TODO: Quitar si no es necesario
 
         // TODO: Cargo www.google.com para prueba, substituir por un archivo local
         binding.webViewHelp.loadUrl("http://www.google.com")

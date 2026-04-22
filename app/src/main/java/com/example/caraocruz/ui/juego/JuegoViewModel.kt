@@ -11,6 +11,8 @@ import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
 import com.example.caraocruz.utils.MusicManager
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -25,6 +27,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 class JuegoViewModel(private val repository: JuegoRepository, context: Context) : ViewModel() {
     
     private val musicManager = MusicManager.getInstance(context.applicationContext)
+    private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context.applicationContext)
     private val disposables = CompositeDisposable()
 
     // Observables
@@ -97,23 +100,39 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
 
         // Beneficio 1 a 1
         if (gano) {
-            Log.d("JuegoViewModel", "¡GANADOR! Reproduciendo sonido de victoria")
             _monedas.update { it + apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_ganaste)
             musicManager.playWinSound()
         } else {
-            Log.d("JuegoViewModel", "PERDEDOR. Reproduciendo sonido de derrota")
             _monedas.update { it - apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_perdiste)
             musicManager.playLoseSound()
         }
 
+        // Intentar obtener ubicación antes de guardar la partida
+        try {
+            fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null)
+                .addOnSuccessListener { location ->
+                    guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, location?.latitude, location?.longitude)
+                }
+                .addOnFailureListener {
+                    guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, null, null)
+                }
+        } catch (e: SecurityException) {
+            // Si no hay permisos, guardamos sin ubicación
+            guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, null, null)
+        }
+    }
+
+    private fun guardarPartidaConUbicacion(apuesta: Int, resultadoTexto: String, gano: Boolean, lat: Double?, lon: Double?) {
         //  Guardado completo: Partida + Saldo del Usuario usando el repositorio
         val partida = Partida(
             apuesta = apuesta,
             resultado = resultadoTexto,
             gano = gano,
-            fecha = Date()
+            fecha = Date(),
+            latitud = lat,
+            longitud = lon
         )
         val usuarioActualizado = Usuario(id = 1, monedas = _monedas.value)
 

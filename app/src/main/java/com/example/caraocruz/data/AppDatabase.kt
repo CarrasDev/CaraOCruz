@@ -8,7 +8,7 @@ import androidx.room.TypeConverters
 @TypeConverters(Converters::class) //soluciona el error del missing type
 
 // Definimos qué tablas tiene la DB y qué versión es (importante para cambios futuros)
-@Database(entities = [Usuario::class, Partida::class], version = 1)
+@Database(entities = [Usuario::class, Partida::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun juegoDao(): JuegoDao
@@ -25,7 +25,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "cara_cruz_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

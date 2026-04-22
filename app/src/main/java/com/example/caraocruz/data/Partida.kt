@@ -10,5 +10,7 @@ data class Partida(
     val apuesta: Int,
     val resultado: String,
     val gano: Boolean,
-    val fecha: Date
+    val fecha: Date,
+    val latitud: Double? = null,
+    val longitud: Double? = null
 )

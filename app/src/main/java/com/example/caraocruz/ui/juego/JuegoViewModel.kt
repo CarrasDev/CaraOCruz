@@ -1,7 +1,6 @@
 package com.example.caraocruz.ui.juego
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.LiveData
@@ -13,7 +12,6 @@ import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
 import com.example.caraocruz.utils.MusicManager
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

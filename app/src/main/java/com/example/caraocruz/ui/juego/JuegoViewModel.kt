@@ -14,6 +14,7 @@ import com.example.caraocruz.data.Usuario
 import com.example.caraocruz.utils.MusicManager
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -86,7 +87,9 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         }
 
         // Reproducir sonido de moneda al hacer la apuesta
-        musicManager.playCoinSound()
+        viewModelScope.launch(Dispatchers.IO) {
+            musicManager.playCoinSound()
+        }
 
         val resultadoEsCara = Random.nextBoolean()
         val gano = eleccionMoneda == resultadoEsCara
@@ -105,11 +108,15 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         if (gano) {
             _monedas.update { it + apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_ganaste)
-            musicManager.playWinSound()
+            viewModelScope.launch(Dispatchers.IO) {
+                musicManager.playWinSound()
+            }
         } else {
             _monedas.update { it - apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_perdiste)
-            musicManager.playLoseSound()
+            viewModelScope.launch(Dispatchers.IO) {
+                musicManager.playLoseSound()
+            }
         }
 
         // Ejecutar en segundo plano para no bloquear la UI

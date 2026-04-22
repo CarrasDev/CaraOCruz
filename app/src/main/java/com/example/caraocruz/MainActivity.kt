@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         // Cuando la presentación termine, se inicializa el layout principal:
         finishPresentation()
+
     }
 
     private fun finishPresentation() {

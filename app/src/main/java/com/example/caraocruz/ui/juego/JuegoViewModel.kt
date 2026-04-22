@@ -22,9 +22,9 @@ import kotlin.random.Random
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-class JuegoViewModel(private val repository: JuegoRepository, private val context: Context) : ViewModel() {
+class JuegoViewModel(private val repository: JuegoRepository, context: Context) : ViewModel() {
     
-    private val musicManager = MusicManager.getInstance(context)
+    private val musicManager = MusicManager.getInstance(context.applicationContext)
     private val disposables = CompositeDisposable()
 
     // Observables
@@ -163,7 +163,7 @@ class JuegoViewModelFactory(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(JuegoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return JuegoViewModel(repository, context) as T
+            return JuegoViewModel(repository, context.applicationContext) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

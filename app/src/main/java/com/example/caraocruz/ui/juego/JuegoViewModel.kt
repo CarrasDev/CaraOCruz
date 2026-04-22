@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.caraocruz.R
 import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.data.Partida
@@ -19,6 +20,8 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.util.Date
 import kotlin.random.Random
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -109,18 +112,23 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             musicManager.playLoseSound()
         }
 
-        // Intentar obtener ubicación antes de guardar la partida
-        try {
-            fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null)
-                .addOnSuccessListener { location ->
-                    guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, location?.latitude, location?.longitude)
-                }
-                .addOnFailureListener {
-                    guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, null, null)
-                }
-        } catch (e: SecurityException) {
-            // Si no hay permisos, guardamos sin ubicación
-            guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, null, null)
+        // Ejecutar en segundo plano para no bloquear la UI
+        viewModelScope.launch {
+            var lat: Double? = null
+            var lon: Double? = null
+
+            try {
+                // Obtenemos la última ubicación conocida (más rápido que pedir una nueva)
+                val location = fusedLocationClient.lastLocation.await()
+                lat = location?.latitude
+                lon = location?.longitude
+            } catch (e: SecurityException) {
+                // Sin permisos, se guarda como null
+            } catch (e: Exception) {
+                // Otros errores, se guarda como null
+            }
+
+            guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, lat, lon)
         }
     }
 

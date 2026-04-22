@@ -29,6 +29,7 @@ class HistoryAdapter : ListAdapter<Partida, HistoryAdapter.PartidaViewHolder>(Pa
         private val tvResultado: TextView = itemView.findViewById(R.id.tvResultado)
         private val tvGanancia: TextView = itemView.findViewById(R.id.tvGanancia)
         private val tvFecha: TextView = itemView.findViewById(R.id.tvFecha)
+        private val tvCoordenadas: TextView = itemView.findViewById(R.id.tvCoordenadas)
 
         // TODO Corregir harcodeo para la siguiente versión
         fun bind(partida: Partida) {
@@ -50,6 +51,13 @@ class HistoryAdapter : ListAdapter<Partida, HistoryAdapter.PartidaViewHolder>(Pa
 
             val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
             tvFecha.text = dateFormat.format(partida.fecha)
+
+            if (partida.latitud != null && partida.longitud != null) {
+                tvCoordenadas.visibility = View.VISIBLE
+                tvCoordenadas.text = "Ubicación: ${partida.latitud}, ${partida.longitud}"
+            } else {
+                tvCoordenadas.visibility = View.GONE
+            }
         }
     }
 }

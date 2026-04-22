@@ -6,17 +6,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.caraocruz.R
 import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
 import com.example.caraocruz.utils.MusicManager
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.util.Date
 import kotlin.random.Random
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -25,6 +30,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 class JuegoViewModel(private val repository: JuegoRepository, context: Context) : ViewModel() {
     
     private val musicManager = MusicManager.getInstance(context.applicationContext)
+    private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context.applicationContext)
     private val disposables = CompositeDisposable()
 
     // Observables
@@ -97,23 +103,44 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
 
         // Beneficio 1 a 1
         if (gano) {
-            Log.d("JuegoViewModel", "¡GANADOR! Reproduciendo sonido de victoria")
             _monedas.update { it + apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_ganaste)
             musicManager.playWinSound()
         } else {
-            Log.d("JuegoViewModel", "PERDEDOR. Reproduciendo sonido de derrota")
             _monedas.update { it - apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_perdiste)
             musicManager.playLoseSound()
         }
 
+        // Ejecutar en segundo plano para no bloquear la UI
+        viewModelScope.launch {
+            var lat: Double? = null
+            var lon: Double? = null
+
+            try {
+                // Obtenemos la última ubicación conocida (más rápido que pedir una nueva)
+                val location = fusedLocationClient.lastLocation.await()
+                lat = location?.latitude
+                lon = location?.longitude
+            } catch (e: SecurityException) {
+                // Sin permisos, se guarda como null
+            } catch (e: Exception) {
+                // Otros errores, se guarda como null
+            }
+
+            guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, lat, lon)
+        }
+    }
+
+    private fun guardarPartidaConUbicacion(apuesta: Int, resultadoTexto: String, gano: Boolean, lat: Double?, lon: Double?) {
         //  Guardado completo: Partida + Saldo del Usuario usando el repositorio
         val partida = Partida(
             apuesta = apuesta,
             resultado = resultadoTexto,
             gano = gano,
-            fecha = Date()
+            fecha = Date(),
+            latitud = lat,
+            longitud = lon
         )
         val usuarioActualizado = Usuario(id = 1, monedas = _monedas.value)
 

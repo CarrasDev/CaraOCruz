@@ -2,6 +2,7 @@ package com.example.caraocruz.ui.juego
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +20,12 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
     private val repository by lazy { JuegoRepository(database.juegoDao()) }
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        // No es estrictamente necesario manejarlo aquí si el ViewModel lo gestiona con try-catch
+    }
+
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
@@ -29,6 +36,14 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentJuegoBinding.bind(view)
+
+        // Pedir permisos de ubicación al inicio
+        requestPermissionLauncher.launch(
+            arrayOf(
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+        )
 
         // Suscripción a los cambios en saldo de moneda:
         viewLifecycleOwner.lifecycleScope.launch {

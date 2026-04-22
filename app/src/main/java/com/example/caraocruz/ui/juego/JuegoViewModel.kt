@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.caraocruz.R
-import com.example.caraocruz.data.AppDatabase
+import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
 import com.example.caraocruz.utils.MusicManager
@@ -19,12 +19,13 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 import java.util.Date
 import kotlin.random.Random
-import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 
-class JuegoViewModel(private val database: AppDatabase, private val context: Context) : ViewModel() {
+class JuegoViewModel(private val repository: JuegoRepository, private val context: Context) : ViewModel() {
     
     private val musicManager = MusicManager.getInstance(context)
+    private val disposables = CompositeDisposable()
 
     // Observables
     private val _monedas = MutableStateFlow(100)
@@ -46,26 +47,26 @@ class JuegoViewModel(private val database: AppDatabase, private val context: Con
         cargarSaldoInicial()
     }
 
-    // TODO En siguiente versión refactorizar para evitar las advertencias del IDE
-    // Modificado para que la persistencia funcione
+    // Modificado para que la persistencia funcione usando el repositorio
     private fun cargarSaldoInicial() {
-        database.juegoDao().getUsuario()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ usuario ->
-                if (usuario != null) {
-                    // Cargamos el saldo real de la base de datos
-                    _monedas.value = usuario.monedas
+        disposables.add(
+            repository.getUsuario()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ usuario ->
+                    if (usuario != null) {
+                        // Cargamos el saldo real de la base de datos
+                        _monedas.value = usuario.monedas
 
-                    // Comprobamos si el usuario cerró la app estando arruinado
-                    comprobarFinDeJuego(usuario.monedas)
-                } else {
-                    // Si el usuario no existe (primera vez que abre la app), le damos 100 monedas
-                    reiniciarJuego()
-                }
-            }, {
-                // Error silencioso
-            })
+                        // Comprobamos si el usuario cerró la app estando arruinado
+                        comprobarFinDeJuego(usuario.monedas)
+                    } else {
+                        // Si el usuario no existe (primera vez que abre la app), le damos 100 monedas
+                        reiniciarJuego()
+                    }
+                }, {
+                    // Error silencioso
+                })
+        )
     }
 
     fun jugar(apuesta: Int, eleccionMoneda: Boolean) {
@@ -107,7 +108,7 @@ class JuegoViewModel(private val database: AppDatabase, private val context: Con
             musicManager.playLoseSound()
         }
 
-        //  Guardado completo: Partida + Saldo del Usuario
+        //  Guardado completo: Partida + Saldo del Usuario usando el repositorio
         val partida = Partida(
             apuesta = apuesta,
             resultado = resultadoTexto,
@@ -116,16 +117,16 @@ class JuegoViewModel(private val database: AppDatabase, private val context: Con
         )
         val usuarioActualizado = Usuario(id = 1, monedas = _monedas.value)
 
-        // TODO En siguiente versión refactorizar para evitar las advertencias del IDE
-        database.juegoDao().insertarPartida(partida)
-            .andThen(database.juegoDao().guardarUsuario(usuarioActualizado))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                comprobarFinDeJuego(_monedas.value)
-            }, {
-                _resultadoMensaje.tryEmit(R.string.msg_error_db)
-            })
+        disposables.add(
+            repository.insertarPartida(partida)
+                .andThen(repository.guardarUsuario(usuarioActualizado))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    comprobarFinDeJuego(_monedas.value)
+                }, {
+                    _resultadoMensaje.tryEmit(R.string.msg_error_db)
+                })
+        )
     }
 
     private fun comprobarFinDeJuego(monedasActuales: Int) {
@@ -137,27 +138,32 @@ class JuegoViewModel(private val database: AppDatabase, private val context: Con
     fun reiniciarJuego() {
         val usuarioReiniciado = Usuario(id = 1, monedas = 100)
 
-        // TODO En siguiente versión refactorizar para evitar las advertencias del IDE
-        database.juegoDao().guardarUsuario(usuarioReiniciado)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _monedas.value = 100
-                _juegoTerminado.value = false
-                _resultadoMensaje.tryEmit(R.string.prompt_inicio)
-                _ultimoValor.value = 0
-            }, {})
+        disposables.add(
+            repository.guardarUsuario(usuarioReiniciado)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    _monedas.value = 100
+                    _juegoTerminado.value = false
+                    _resultadoMensaje.tryEmit(R.string.prompt_inicio)
+                    _ultimoValor.value = 0
+                }, {})
+        )
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        disposables.clear()
     }
 }
 
 class JuegoViewModelFactory(
-    private val database: AppDatabase,
+    private val repository: JuegoRepository,
     private val context: Context
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(JuegoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return JuegoViewModel(database, context) as T
+            return JuegoViewModel(repository, context) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

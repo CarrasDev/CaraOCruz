@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
+import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.databinding.FragmentJuegoBinding
 import kotlinx.coroutines.launch
 
@@ -16,11 +17,12 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     private val binding get() = _binding!!
 
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
+    private val repository by lazy { JuegoRepository(database.juegoDao()) }
 
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            JuegoViewModelFactory(database, requireContext())
+            JuegoViewModelFactory(repository, requireContext())
         )[JuegoViewModel::class.java]
     }
 

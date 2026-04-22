@@ -26,4 +26,9 @@ class JuegoRepository(private val juegoDao: JuegoDao) {
         return juegoDao.getMejoresPuntuaciones()
             .subscribeOn(Schedulers.io())
     }
+
+    fun getAllPartidas(): Single<List<Partida>> {
+        return juegoDao.getAllPartidas()
+            .subscribeOn(Schedulers.io())
+    }
 }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
+import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.databinding.FragmentGameOverBinding
 
 class GameOverFragment : Fragment(R.layout.fragment_game_over) {
@@ -14,12 +15,13 @@ class GameOverFragment : Fragment(R.layout.fragment_game_over) {
     private val binding get() = _binding!!
 
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
+    private val repository by lazy { JuegoRepository(database.juegoDao()) }
 
     // Pedimos el ViewModel a la Activity principal
     private val viewModel: JuegoViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            JuegoViewModelFactory(database, requireContext())
+            JuegoViewModelFactory(repository, requireContext())
         )[JuegoViewModel::class.java]
     }
 

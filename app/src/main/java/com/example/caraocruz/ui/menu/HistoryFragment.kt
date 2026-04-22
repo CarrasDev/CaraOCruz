@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
+import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.databinding.FragmentHistoryBinding
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -17,7 +18,8 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     private val binding get() = _binding!!
 
     private val database by lazy { AppDatabase.getDatabase(requireContext()) }
-    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(database) }
+    private val repository by lazy { JuegoRepository(database.juegoDao()) }
+    private val viewModel: HistoryViewModel by viewModels { HistoryViewModelFactory(repository) }
     private val disposables = CompositeDisposable()
     private lateinit var historyAdapter: HistoryAdapter
 

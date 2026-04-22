@@ -37,11 +37,13 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentJuegoBinding.bind(view)
 
-        // Pedir permisos de ubicación al inicio
+        // Pedir permisos de ubicación y calendario al inicio
         requestPermissionLauncher.launch(
             arrayOf(
                 android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
+                android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                android.Manifest.permission.READ_CALENDAR,
+                android.Manifest.permission.WRITE_CALENDAR
             )
         )
 

@@ -1,6 +1,8 @@
 package com.example.caraocruz.ui.juego
 
 import android.content.Context
+import android.content.ContentValues
+import android.provider.CalendarContract
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.LiveData
@@ -28,8 +30,9 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 
 class JuegoViewModel(private val repository: JuegoRepository, context: Context) : ViewModel() {
     
-    private val musicManager = MusicManager.getInstance(context.applicationContext)
-    private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(context.applicationContext)
+    private val appContext = context.applicationContext
+    private val musicManager = MusicManager.getInstance(appContext)
+    private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(appContext)
     private val disposables = CompositeDisposable()
 
     // Observables
@@ -52,7 +55,7 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         cargarSaldoInicial()
     }
 
-    // Modificado para que la persistencia funcione usando el repositorio
+    // Modificado para que la persistencia funcione usando JuegoRepository
     private fun cargarSaldoInicial() {
         disposables.add(
             repository.getUsuario()
@@ -109,6 +112,8 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             viewModelScope.launch(Dispatchers.IO) {
                 musicManager.playWinSound()
             }
+            // Guardar en el calendario si ha ganado
+            guardarEnCalendario(apuesta)
         } else {
             _monedas.update { it - apuesta }
             _resultadoMensaje.tryEmit(R.string.msg_perdiste)
@@ -159,6 +164,26 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
                     _resultadoMensaje.tryEmit(R.string.msg_error_db)
                 })
         )
+    }
+
+    private fun guardarEnCalendario(apuesta: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val values = ContentValues().apply {
+                    put(CalendarContract.Events.DTSTART, System.currentTimeMillis())
+                    put(CalendarContract.Events.DTEND, System.currentTimeMillis() + 60 * 60 * 1000) // 1 hora
+                    put(CalendarContract.Events.TITLE, "¡Ganaste en Cara o Cruz!")
+                    put(CalendarContract.Events.DESCRIPTION, "Has ganado $apuesta monedas.")
+                    put(CalendarContract.Events.CALENDAR_ID, 1) // Usamos el ID 1 por defecto
+                    put(CalendarContract.Events.EVENT_TIMEZONE, java.util.TimeZone.getDefault().id)
+                }
+                appContext.contentResolver.insert(CalendarContract.Events.CONTENT_URI, values)
+            } catch (e: SecurityException) {
+                // Sin permisos de calendario
+            } catch (e: Exception) {
+                // Otros errores
+            }
+        }
     }
 
     private fun comprobarFinDeJuego(monedasActuales: Int) {

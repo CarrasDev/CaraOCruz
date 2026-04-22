@@ -13,6 +13,7 @@ import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.Usuario
 import com.example.caraocruz.utils.MusicManager
+import com.example.caraocruz.utils.NotificationHelper
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -32,6 +33,7 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
     
     private val appContext = context.applicationContext
     private val musicManager = MusicManager.getInstance(appContext)
+    private val notificationHelper = NotificationHelper(appContext)
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(appContext)
     private val disposables = CompositeDisposable()
 
@@ -111,6 +113,10 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             _resultadoMensaje.tryEmit(R.string.msg_ganaste)
             viewModelScope.launch(Dispatchers.IO) {
                 musicManager.playWinSound()
+            }
+            // Mostrar notificación de victoria en segundo plano
+            viewModelScope.launch(Dispatchers.IO) {
+                notificationHelper.showVictoryNotification(apuesta)
             }
             // Guardar en el calendario si ha ganado
             guardarEnCalendario(apuesta)

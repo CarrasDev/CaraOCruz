@@ -37,15 +37,17 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentJuegoBinding.bind(view)
 
-        // Pedir permisos de ubicación y calendario al inicio
-        requestPermissionLauncher.launch(
-            arrayOf(
-                android.Manifest.permission.ACCESS_FINE_LOCATION,
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.READ_CALENDAR,
-                android.Manifest.permission.WRITE_CALENDAR
-            )
+        // Pedir permisos de ubicación, calendario y notificaciones al inicio
+        val permissions = mutableListOf(
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.READ_CALENDAR,
+            android.Manifest.permission.WRITE_CALENDAR
         )
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            permissions.add(android.Manifest.permission.POST_NOTIFICATIONS)
+        }
+        requestPermissionLauncher.launch(permissions.toTypedArray())
 
         // Suscripción a los cambios en saldo de moneda:
         viewLifecycleOwner.lifecycleScope.launch {

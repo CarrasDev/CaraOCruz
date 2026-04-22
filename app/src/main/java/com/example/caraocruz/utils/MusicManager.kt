@@ -1,5 +1,6 @@
 package com.example.caraocruz.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Handler
@@ -14,6 +15,7 @@ class MusicManager(private val context: Context) {
     private var isMusicEnabled = true
     
     companion object {
+        @SuppressLint("StaticFieldLeak")
         @Volatile
         private var INSTANCE: MusicManager? = null
         

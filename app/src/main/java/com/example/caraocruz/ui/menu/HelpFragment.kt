@@ -19,9 +19,12 @@ class HelpFragment : Fragment(R.layout.fragment_help) {
         // Configuración
         binding.webViewHelp.webViewClient = WebViewClient()
         binding.webViewHelp.settings.javaScriptEnabled = false
+        binding.webViewHelp.settings.domStorageEnabled = false
+        binding.webViewHelp.settings.allowFileAccess = true     // Para los assets
 
-        // TODO: Cargo www.google.com para prueba, substituir por un archivo local
-        binding.webViewHelp.loadUrl("https://www.google.com")
+        // Cargamos la web ubicada en assets
+        // TODO Pendiente de ver como se puede hacer multilenguaje
+        binding.webViewHelp.loadUrl("file:///android_asset/help.html")
     }
 
     override fun onDestroyView() {

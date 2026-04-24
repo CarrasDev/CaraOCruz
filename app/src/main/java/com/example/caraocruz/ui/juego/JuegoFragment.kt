@@ -90,7 +90,35 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     private fun procesarJugada(esCara: Boolean) {
         val apuestaText = binding.etApuesta.text.toString()
         val apuesta = apuestaText.toIntOrNull() ?: 0
-        viewModel.jugar(apuesta, esCara)
+
+        // Validación previa para no realizar la animación si la apuesta es inválida
+        if (apuesta <= 0 || apuesta > viewModel.monedas.value) {
+            viewModel.jugar(apuesta, esCara)
+            return
+        }
+
+        // 1. Bloqueamos los botones para no aceptar más toques
+        binding.btnCara.isEnabled = false
+        binding.btnCruz.isEnabled = false
+
+        // 2. Notificamos al ViewModel para reproducir el sonido y resetear la imagen (a través de StateFlow)
+        viewModel.prepararLanzamiento()
+
+        // 3. Reseteamos la rotación y animamos
+        binding.ivMoneda.rotationY = 0f
+        binding.ivMoneda.animate()
+            .rotationY(3600f) // Gira 10 veces exactamente sobre el eje vertical
+            .setDuration(3000)
+            .setInterpolator(android.view.animation.AccelerateDecelerateInterpolator())
+            .withEndAction {
+                // 4. Al terminar, ejecutamos la lógica en el ViewModel que actualizará la imagen final
+                viewModel.jugar(apuesta, esCara)
+
+                // 5. Desbloqueamos los botones
+                binding.btnCara.isEnabled = true
+                binding.btnCruz.isEnabled = true
+            }
+            .start()
     }
 
     private fun mostrarDialogoFinDeJuego() {

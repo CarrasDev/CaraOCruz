@@ -2,7 +2,9 @@ package com.example.caraocruz.ui.juego
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +12,7 @@ import com.example.caraocruz.R
 import com.example.caraocruz.data.AppDatabase
 import com.example.caraocruz.data.JuegoRepository
 import com.example.caraocruz.databinding.FragmentJuegoBinding
+import com.example.caraocruz.utils.ImageUtils
 import kotlinx.coroutines.launch
 
 class JuegoFragment : Fragment(R.layout.fragment_juego) {
@@ -63,6 +66,10 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
 
                 if (resultadoId == R.string.msg_ganaste || resultadoId == R.string.msg_perdiste) {
                     binding.tvMensaje.text = getString(resultadoId, mensaje)
+
+                    if (resultadoId == R.string.msg_ganaste) {
+                        mostrarDialogoCaptura()
+                    }
                 } else {
                     binding.tvMensaje.text = getString(resultadoId)
                 }
@@ -119,6 +126,27 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
                 binding.btnCruz.isEnabled = true
             }
             .start()
+    }
+
+    private fun mostrarDialogoCaptura() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("¡Victoria!")
+            .setMessage("¿Deseas guardar una captura de pantalla de tu victoria en la galería?")
+            .setPositiveButton("Sí") { _, _ ->
+                val bitmap = ImageUtils.getScreenshotFromView(binding.root)
+                val uri = ImageUtils.saveBitmapToGallery(
+                    requireContext(),
+                    bitmap,
+                    "Victoria_${System.currentTimeMillis()}"
+                )
+                if (uri != null) {
+                    Toast.makeText(requireContext(), "Captura guardada en la galería", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Error al guardar la captura", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun mostrarDialogoFinDeJuego() {

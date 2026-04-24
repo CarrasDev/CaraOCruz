@@ -79,6 +79,16 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         )
     }
 
+    fun prepararLanzamiento() {
+        // Reseteamos la imagen a la genérica para que el StateFlow detecte el cambio después
+        _monedaImagenResId.value = R.drawable.logocaraocruz
+
+        // Reproducir sonido de moneda al hacer el lanzamiento
+        viewModelScope.launch(Dispatchers.IO) {
+            musicManager.playCoinSound()
+        }
+    }
+
     fun jugar(apuesta: Int, eleccionMoneda: Boolean) {
         if (apuesta <= 0) {
             _resultadoMensaje.tryEmit(R.string.msg_apuesta_cero)
@@ -87,11 +97,6 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         if (apuesta > _monedas.value) {
             _resultadoMensaje.tryEmit(R.string.msg_sin_monedas)
             return
-        }
-
-        // Reproducir sonido de moneda al hacer la apuesta
-        viewModelScope.launch(Dispatchers.IO) {
-            musicManager.playCoinSound()
         }
 
         val resultadoEsCara = Random.nextBoolean()
@@ -209,6 +214,7 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
                     _juegoTerminado.value = false
                     _resultadoMensaje.tryEmit(R.string.prompt_inicio)
                     _ultimoValor.value = 0
+                    _monedaImagenResId.value = R.drawable.logocaraocruz
                 }, {})
         )
     }

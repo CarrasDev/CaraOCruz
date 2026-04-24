@@ -66,12 +66,17 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
 
                 if (resultadoId == R.string.msg_ganaste || resultadoId == R.string.msg_perdiste) {
                     binding.tvMensaje.text = getString(resultadoId, mensaje)
-
-                    if (resultadoId == R.string.msg_ganaste) {
-                        mostrarDialogoCaptura()
-                    }
                 } else {
                     binding.tvMensaje.text = getString(resultadoId)
+                }
+            }
+        }
+
+        // Suscripción al diálogo de captura (Evento único)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.mostrarCapturaDialogo.collect { mostrar ->
+                if (mostrar) {
+                    mostrarDialogoCaptura()
                 }
             }
         }

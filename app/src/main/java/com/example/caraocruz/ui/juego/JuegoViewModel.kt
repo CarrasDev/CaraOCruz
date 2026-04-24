@@ -41,7 +41,7 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
     private val _monedas = MutableStateFlow(100)
     val monedas: StateFlow<Int> = _monedas
 
-    private val _resultadoMensaje = MutableSharedFlow<Int>(replay = 1)
+    private val _resultadoMensaje = MutableSharedFlow<Int>(replay = 0)
     val resultadoMensaje: SharedFlow<Int> = _resultadoMensaje.asSharedFlow()
     private val _ultimoValor = MutableStateFlow(0)
     val ultimoValor: StateFlow<Int> = _ultimoValor
@@ -50,6 +50,10 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
 
     private val _monedaImagenResId = MutableStateFlow(R.drawable.logocaraocruz)
     val monedaImagenResId: StateFlow<Int> = _monedaImagenResId
+
+    // Estado para el diálogo de captura (asegura que solo se muestre una vez)
+    private val _mostrarCapturaDialogo = MutableSharedFlow<Boolean>(replay = 0)
+    val mostrarCapturaDialogo: SharedFlow<Boolean> = _mostrarCapturaDialogo.asSharedFlow()
 
 
     init {
@@ -115,7 +119,9 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         // Beneficio 1 a 1
         if (gano) {
             _monedas.update { it + apuesta }
-            _resultadoMensaje.tryEmit(R.string.msg_ganaste)
+            viewModelScope.launch {
+                _resultadoMensaje.emit(R.string.msg_ganaste)
+            }
             viewModelScope.launch(Dispatchers.IO) {
                 musicManager.playWinSound()
             }
@@ -123,11 +129,17 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             viewModelScope.launch(Dispatchers.IO) {
                 notificationHelper.showVictoryNotification(apuesta)
             }
+            // Disparar el diálogo de captura
+            viewModelScope.launch {
+                _mostrarCapturaDialogo.emit(true)
+            }
             // Guardar en el calendario si ha ganado
             guardarEnCalendario(apuesta)
         } else {
             _monedas.update { it - apuesta }
-            _resultadoMensaje.tryEmit(R.string.msg_perdiste)
+            viewModelScope.launch {
+                _resultadoMensaje.emit(R.string.msg_perdiste)
+            }
             viewModelScope.launch(Dispatchers.IO) {
                 musicManager.playLoseSound()
             }

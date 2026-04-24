@@ -107,7 +107,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
         // 3. Reseteamos la rotación y animamos
         binding.ivMoneda.rotationY = 0f
         binding.ivMoneda.animate()
-            .rotationY(3600f) // Gira 10 veces exactamente sobre el eje vertical
+            .rotationY(10800f) // Gira 30 veces exactamente sobre el eje vertical (más rápido)
             .setDuration(3000)
             .setInterpolator(android.view.animation.AccelerateDecelerateInterpolator())
             .withEndAction {

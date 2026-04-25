@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Heads or Tails</string>
+    <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="menu_jugar">Play</string>
+    <string name="menu_ranking">History</string>
+    <string name="menu_musica">Music</string>
+    <string name="menu_perfil">Profile</string>
+    <string name="menu_configuracion">Settings</string>
+    <string name="open">Open menu</string>
+    <string name="close">Close menu</string>
+    <string name="background">App Background</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_message">Welcome to Heads or Tails</string>
+    <string name="hint_user_name">Enter your name</string>
+    <string name="btn_continue">Continue</string>
+    <string name="menu_ayuda">Help</string>
+    <string name="menu_selector_musica">Music</string>
+
+    <string name="btn_cara">HEADS</string>
+    <string name="btn_cruz">TAILS</string>
+    <string name="msg_haz_apuesta">Place your bet!</string>
+    <string name="msg_apuesta_cero">Bet must be greater than zero</string>
+    <string name="msg_sin_monedas">You don\'t have enough coins</string>
+    <string name="msg_ganaste">You won %1$d coins</string>
+    <string name="msg_perdiste">You lost %1$d coins</string>
+    <string name="msg_error_db">Error saving to Database</string>
+    <string name="label_saldo">Balance: %1$d coins</string>
+    <string name="prompt_inicio">Enter your bet and choose</string>
+    <string name="cantidad_a_apostar">Amount to bet</string>
+
+    <string name="title_bancarrota">BANKRUPT!</string>
+    <string name="msg_game_over">You are out of coins</string>
+    <string name="btn_reiniciar">Restart with 100 Coins</string>
+    <string name="btn_salir">Exit game</string>
+
+    <string name="title_historial">Match History</string>
+    <string name="msg_vacio">No matches recorded</string>
+    <string name="label_resultado">Result: %1$s</string>
+    <string name="label_apuesta">Bet: %1$d coins</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$s</string>
+    <string name="label_ubicacion">Location: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">Victory!</string>
+    <string name="msg_dialog_captura">Would you like to save a screenshot of your victory to the gallery?</string>
+    <string name="btn_si">Yes</string>
+    <string name="btn_no">No</string>
+    <string name="msg_captura_guardada">Screenshot saved to gallery</string>
+    <string name="msg_captura_error">Error saving screenshot</string>
+    <string name="calendar_event_title">You won at Heads or Tails!</string>
+    <string name="calendar_event_desc">You have won %1$d coins.</string>
+    <string name="notif_victory_title">Congratulations!</string>
+    <string name="notif_victory_text">You won the bet of %1$d coins.</string>
+    <string name="resultado_cara">Heads</string>
+    <string name="resultado_cruz">Tails</string>
+
+    <string name="title_selector_musica">Music Selector</string>
+    <string name="btn_select_file">Select audio file</string>
+    <string name="btn_reset_music">Reset default music</string>
+    <string name="current_music">Current music: %1$s</string>
+    <string name="default_music">Default</string>
+    <string name="msg_music_updated">Melody updated</string>
+    <string name="msg_music_reset">Default music restored</string>
+    <string name="msg_no_file_selected">No file selected</string>
+</resources>

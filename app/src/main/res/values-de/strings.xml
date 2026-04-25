@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kopf oder Zahl</string>
+    <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="dummy_button">Platzhalter-Schaltfläche</string>
+    <string name="dummy_content">PLATZHALTER\nINHALT</string>
+    <string name="menu_jugar">Spielen</string>
+    <string name="menu_ranking">Verlauf</string>
+    <string name="menu_musica">Musik</string>
+    <string name="menu_perfil">Profil</string>
+    <string name="menu_configuracion">Einstellungen</string>
+    <string name="open">Menü öffnen</string>
+    <string name="close">Menü schließen</string>
+    <string name="background">App-Hintergrund</string>
+    <string name="hello_blank_fragment">Hallo leerer Fragment</string>
+    <string name="welcome_message">Willkommen bei Kopf oder Zahl</string>
+    <string name="hint_user_name">Geben Sie Ihren Namen ein</string>
+    <string name="btn_continue">Weiter</string>
+    <string name="menu_ayuda">Hilfe</string>
+    <string name="menu_selector_musica">Musik</string>
+
+    <string name="btn_cara">KOPF</string>
+    <string name="btn_cruz">ZAHL</string>
+    <string name="msg_haz_apuesta">Machen Sie Ihren Einsatz!</string>
+    <string name="msg_apuesta_cero">Der Einsatz muss größer als Null sein</string>
+    <string name="msg_sin_monedas">Nicht genug Münzen vorhanden</string>
+    <string name="msg_ganaste">Sie haben %1$d Münzen gewonnen</string>
+    <string name="msg_perdiste">Sie haben %1$d Münzen verloren</string>
+    <string name="msg_error_db">Fehler beim Speichern in der Datenbank</string>
+    <string name="label_saldo">Guthaben: %1$d Münzen</string>
+    <string name="prompt_inicio">Geben Sie Ihren Einsatz ein und wählen Sie</string>
+    <string name="cantidad_a_apostar">Einsatzbetrag</string>
+
+    <string name="title_bancarrota">BANKROTT!</string>
+    <string name="msg_game_over">Sie haben keine Münzen mehr</string>
+    <string name="btn_reiniciar">Mit 100 Münzen neu starten</string>
+    <string name="btn_salir">Spiel verlassen</string>
+
+    <string name="title_historial">Spielverlauf</string>
+    <string name="msg_vacio">Keine Spiele aufgezeichnet</string>
+    <string name="label_resultado">Ergebnis: %1$s</string>
+    <string name="label_apuesta">Einsatz: %1$d Münzen</string>
+    <string name="resultado_cara">Kopf</string>
+    <string name="resultado_cruz">Zahl</string>
+
+    <string name="notif_victory_title">Herzlichen Glückwunsch!</string>
+    <string name="notif_victory_text">Sie haben die Wette über %1$d Münzen gewonnen.</string>
+</resources>

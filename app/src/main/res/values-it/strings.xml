@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Testa o Croce</string>
+    <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="menu_jugar">Gioca</string>
+    <string name="menu_ranking">Cronologia</string>
+    <string name="menu_musica">Musica</string>
+    <string name="menu_perfil">Profilo</string>
+    <string name="menu_configuracion">Impostazioni</string>
+    <string name="welcome_message">Benvenuto a Testa o Croce</string>
+    <string name="hint_user_name">Inserisci il tuo nome</string>
+    <string name="btn_continue">Continua</string>
+    <string name="menu_ayuda">Aiuto</string>
+
+    <string name="btn_cara">TESTA</string>
+    <string name="btn_cruz">CROCE</string>
+    <string name="msg_haz_apuesta">Fai la tua scommessa!</string>
+    <string name="msg_apuesta_cero">La scommessa deve essere maggiore di zero</string>
+    <string name="msg_sin_monedas">Non hai abbastanza monete</string>
+    <string name="msg_ganaste">Hai vinto %1$d monete</string>
+    <string name="msg_perdiste">Hai perso %1$d monete</string>
+    <string name="label_saldo">Saldo: %1$d monete</string>
+    <string name="prompt_inicio">Inserisci la scommessa e scegli</string>
+
+    <string name="title_bancarrota">BANCAROTTA!</string>
+    <string name="msg_game_over">Hai esaurito le monete</string>
+    <string name="btn_reiniciar">Ricomincia con 100 monete</string>
+    <string name="btn_salir">Esci dal gioco</string>
+
+    <string name="notif_victory_title">Congratulazioni!</string>
+    <string name="notif_victory_text">Hai vinto la scommessa di %1$d monete.</string>
+    <string name="resultado_cara">Testa</string>
+    <string name="resultado_cruz">Croce</string>
+</resources>

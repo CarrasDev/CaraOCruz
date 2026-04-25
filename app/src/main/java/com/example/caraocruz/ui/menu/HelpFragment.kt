@@ -6,6 +6,7 @@ import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import com.example.caraocruz.R
 import com.example.caraocruz.databinding.FragmentHelpBinding
+import java.util.Locale
 
 class HelpFragment : Fragment(R.layout.fragment_help) {
 
@@ -16,15 +17,30 @@ class HelpFragment : Fragment(R.layout.fragment_help) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentHelpBinding.bind(view)
 
-        // Configuración
+        // Configuración del WebView
         binding.webViewHelp.webViewClient = WebViewClient()
         binding.webViewHelp.settings.javaScriptEnabled = false
         binding.webViewHelp.settings.domStorageEnabled = false
-        binding.webViewHelp.settings.allowFileAccess = true     // Para los assets
+        binding.webViewHelp.settings.allowFileAccess = true
 
-        // Cargamos la web ubicada en assets
-        // TODO Pendiente de ver como se puede hacer multilenguaje
-        binding.webViewHelp.loadUrl("file:///android_asset/help.html")
+        // LOGICA MULTILENGUAJE
+
+        // 1. Detectamos el idioma del sistema
+        val idioma = Locale.getDefault().language
+
+        // 2. Seleccionamos el fichero correspondiente según los HTMLs en assets
+        val nombreFichero = when (idioma) {
+            "en" -> "ayuda_en.html"
+            "fr" -> "ayuda_fr.html"
+            "de" -> "ayuda_de.html"
+            "pt" -> "ayuda_pt.html"
+            "it" -> "ayuda_it.html"
+            "ca" -> "ayuda_ca.html"
+            else -> "ayuda_es.html" // Idioma por defecto (Español)
+        }
+
+        // 3. Cargamos la URL dinámica
+        binding.webViewHelp.loadUrl("file:///android_asset/$nombreFichero")
     }
 
     override fun onDestroyView() {

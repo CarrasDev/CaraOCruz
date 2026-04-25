@@ -44,6 +44,19 @@
     <string name="label_apuesta">Apuesta: %1$d monedas</string>
     <string name="label_cantidad">%1$s</string>
     <string name="label_fecha">%1$s</string>
+    <string name="label_ubicacion">Ubicación: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">¡Victoria!</string>
+    <string name="msg_dialog_captura">¿Deseas guardar una captura de pantalla de tu victoria en la galería?</string>
+    <string name="btn_si">Sí</string>
+    <string name="btn_no">No</string>
+    <string name="msg_captura_guardada">Captura guardada en la galería</string>
+    <string name="msg_captura_error">Error al guardar la captura</string>
+    <string name="calendar_event_title">¡Ganaste en Cara o Cruz!</string>
+    <string name="calendar_event_desc">Has ganado %1$d monedas.</string>
+    <string name="notif_victory_title">¡Felicidades!</string>
+    <string name="notif_victory_text">Has ganado la apuesta de %1$d monedas.</string>
+    <string name="resultado_cara">Cara</string>
+    <string name="resultado_cruz">Cruz</string>
 
     <!-- Selector de Música -->
     <string name="title_selector_musica">Selector de Música</string>

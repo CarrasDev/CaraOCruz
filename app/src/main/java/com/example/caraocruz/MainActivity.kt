@@ -58,19 +58,6 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // Manejar el botón atrás de la barra superior
-        toolbar.setNavigationOnClickListener {
-            if (drawerLayout.isDrawerOpen(androidx.core.view.GravityCompat.START)) {
-                drawerLayout.closeDrawer(androidx.core.view.GravityCompat.START)
-            } else {
-                if (supportFragmentManager.backStackEntryCount > 0) {
-                    supportFragmentManager.popBackStack()
-                } else {
-                    drawerLayout.openDrawer(androidx.core.view.GravityCompat.START)
-                }
-            }
-        }
-
         // Inicializar estado del menú de música
         navigationView.menu.findItem(R.id.nav_music)?.isChecked = musicManager.isMusicEnabled()
 

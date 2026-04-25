@@ -18,7 +18,7 @@
     <item
         android:id="@+id/nav_music_selector"
         android:title="@string/menu_selector_musica"
-        android:icon="@android:drawable/ic_lock_silent_mode"/>
+        android:icon="@drawable/ic_music_note"/>
 
 
     <!-- TODO Para la siguiente versión

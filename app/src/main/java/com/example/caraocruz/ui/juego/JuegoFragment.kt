@@ -135,9 +135,9 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
 
     private fun mostrarDialogoCaptura() {
         AlertDialog.Builder(requireContext())
-            .setTitle("¡Victoria!")
-            .setMessage("¿Deseas guardar una captura de pantalla de tu victoria en la galería?")
-            .setPositiveButton("Sí") { _, _ ->
+            .setTitle(R.string.title_dialog_victoria)
+            .setMessage(R.string.msg_dialog_captura)
+            .setPositiveButton(R.string.btn_si) { _, _ ->
                 val bitmap = ImageUtils.getScreenshotFromView(binding.root)
                 val uri = ImageUtils.saveBitmapToGallery(
                     requireContext(),
@@ -145,12 +145,12 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
                     "Victoria_${System.currentTimeMillis()}"
                 )
                 if (uri != null) {
-                    Toast.makeText(requireContext(), "Captura guardada en la galería", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.msg_captura_guardada, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(requireContext(), "Error al guardar la captura", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), R.string.msg_captura_error, Toast.LENGTH_SHORT).show()
                 }
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton(R.string.btn_no, null)
             .show()
     }
 

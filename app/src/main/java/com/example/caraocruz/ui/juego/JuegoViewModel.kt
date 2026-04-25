@@ -105,7 +105,7 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
 
         val resultadoEsCara = Random.nextBoolean()
         val gano = eleccionMoneda == resultadoEsCara
-        val resultadoTexto = if (gano) "Cara" else "Cruz"
+        val resultadoTexto = if (resultadoEsCara) "Cara" else "Cruz"
 
         // Actualizar imagen de la moneda
         _monedaImagenResId.value = if (resultadoEsCara) {
@@ -195,8 +195,8 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
                 val values = ContentValues().apply {
                     put(CalendarContract.Events.DTSTART, System.currentTimeMillis())
                     put(CalendarContract.Events.DTEND, System.currentTimeMillis() + 60 * 60 * 1000) // 1 hora
-                    put(CalendarContract.Events.TITLE, "¡Ganaste en Cara o Cruz!")
-                    put(CalendarContract.Events.DESCRIPTION, "Has ganado $apuesta monedas.")
+                    put(CalendarContract.Events.TITLE, appContext.getString(R.string.calendar_event_title))
+                    put(CalendarContract.Events.DESCRIPTION, appContext.getString(R.string.calendar_event_desc, apuesta))
                     put(CalendarContract.Events.CALENDAR_ID, 1) // Usamos el ID 1 por defecto
                     put(CalendarContract.Events.EVENT_TIMEZONE, java.util.TimeZone.getDefault().id)
                 }

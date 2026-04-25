@@ -33,12 +33,11 @@ class NotificationHelper(private val context: Context) {
         }
     }
 
-    // TODO: Corregir Harcodeo
     fun showVictoryNotification(apuesta: Int) {
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.logocaraocruz)
-            .setContentTitle("¡Felicidades!")
-            .setContentText("Has ganado la apuesta de $apuesta monedas.")
+            .setContentTitle(context.getString(R.string.notif_victory_title))
+            .setContentText(context.getString(R.string.notif_victory_text, apuesta))
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
 

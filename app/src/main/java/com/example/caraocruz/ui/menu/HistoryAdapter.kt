@@ -33,8 +33,9 @@ class HistoryAdapter : ListAdapter<Partida, HistoryAdapter.PartidaViewHolder>(Pa
 
         // TODO Corregir harcodeo para la siguiente versión
         fun bind(partida: Partida) {
-            tvApuesta.text = "Apuesta: ${partida.apuesta} monedas"
-            tvResultado.text = "Resultado: ${partida.resultado}"
+            tvApuesta.text = itemView.context.getString(R.string.label_apuesta, partida.apuesta)
+            val resultadoRes = if (partida.resultado == "Cara") R.string.resultado_cara else R.string.resultado_cruz
+            tvResultado.text = itemView.context.getString(R.string.label_resultado, itemView.context.getString(resultadoRes))
             
             val ganancia = if (partida.gano) {
                 "+${partida.apuesta * 2}"
@@ -54,7 +55,7 @@ class HistoryAdapter : ListAdapter<Partida, HistoryAdapter.PartidaViewHolder>(Pa
 
             if (partida.latitud != null && partida.longitud != null) {
                 tvCoordenadas.visibility = View.VISIBLE
-                tvCoordenadas.text = "Ubicación: ${partida.latitud}, ${partida.longitud}"
+                tvCoordenadas.text = itemView.context.getString(R.string.label_ubicacion, partida.latitud, partida.longitud)
             } else {
                 tvCoordenadas.visibility = View.GONE
             }

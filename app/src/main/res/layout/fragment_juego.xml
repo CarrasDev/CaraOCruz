@@ -98,5 +98,18 @@
         app:layout_constraintTop_toBottomOf="@+id/btnCara"
         app:layout_constraintVertical_bias="0.05" />
 
+    <!-- Botón de Mute Elegante -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_lock_silent_mode"
+        app:fabSize="mini"
+        app:backgroundTint="@android:color/white"
+        app:tint="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/menu_musica" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

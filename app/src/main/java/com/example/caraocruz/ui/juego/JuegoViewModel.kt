@@ -93,6 +93,16 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         }
     }
 
+    fun toggleMusica(): Boolean {
+        val newState = !musicManager.isMusicEnabled()
+        musicManager.setMusicEnabled(newState)
+        return newState
+    }
+
+    fun isMusicaActivada(): Boolean {
+        return musicManager.isMusicEnabled()
+    }
+
     fun jugar(apuesta: Int, eleccionMoneda: Boolean) {
         if (apuesta <= 0) {
             _resultadoMensaje.tryEmit(R.string.msg_apuesta_cero)

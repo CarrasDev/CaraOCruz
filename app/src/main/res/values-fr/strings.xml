@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="app_name">Pile ou Face</string>
+<string name="title_activity_presentation">PresentationActivity</string>
+<string name="dummy_button">Bouton Factice</string>
+<string name="dummy_content">CONTENU\nFACTICE</string>
+<string name="menu_jugar">Jouer</string>
+<string name="menu_ranking">Historique</string>
+<string name="menu_musica">Musique</string>
+<string name="menu_perfil">Profil</string>
+<string name="menu_configuracion">Configuration</string>
+<string name="open">Ouvrir le menu</string>
+<string name="close">Fermer le menu</string>
+<string name="background">Fond de l\'application</string>
+<string name="hello_blank_fragment">Salut fragment vide</string>
+<string name="welcome_message">Bienvenue à Pile ou Face</string>
+<string name="hint_user_name">Entrez votre nom</string>
+<string name="btn_continue">Continuer</string>
+<string name="menu_ayuda">Aide</string>
+<string name="menu_selector_musica">Musique</string>
+
+<string name="btn_cara">FACE</string>
+<string name="btn_cruz">PILE</string>
+<string name="msg_haz_apuesta">Faites votre pari !</string>
+<string name="msg_apuesta_cero">Le pari doit être supérieur à zéro</string>
+<string name="msg_sin_monedas">Vous n\'avez pas assez de pièces</string>
+<string name="msg_ganaste">Vous avez gagné %1$d pièces</string>
+<string name="msg_perdiste">Vous avez perdu %1$d pièces</string>
+<string name="msg_error_db">Erreur lors de l\'enregistrement dans la base de données</string>
+<string name="label_saldo">Solde : %1$d pièces</string>
+<string name="prompt_inicio">Entrez votre pari et choisissez</string>
+<string name="cantidad_a_apostar">Montant à parier</string>
+
+<string name="title_bancarrota">FAILLITE !</string>
+<string name="msg_game_over">Vous n\'avez plus de pièces</string>
+<string name="btn_reiniciar">Recommencer avec 100 pièces</string>
+<string name="btn_salir">Quitter le jeu</string>
+
+<string name="title_historial">Historique des Matchs</string>
+<string name="msg_vacio">Aucun match enregistré</string>
+<string name="label_resultado">Résultat : %1$s</string>
+<string name="label_apuesta">Pari : %1$d pièces</string>
+<string name="resultado_cara">Face</string>
+<string name="resultado_cruz">Pile</string>
+
+<string name="notif_victory_title">Félicitations !</string>
+<string name="notif_victory_text">Vous avez gagné le pari de %1$d pièces.</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cara o Creu</string>
+    <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="menu_jugar">Jugar</string>
+    <string name="menu_ranking">Historial</string>
+    <string name="menu_musica">Música</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_configuracion">Configuració</string>
+    <string name="welcome_message">Benvingut a Cara o Creu</string>
+    <string name="hint_user_name">Introdueix el teu nom</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="menu_ayuda">Ajuda</string>
+
+    <string name="btn_cara">CARA</string>
+    <string name="btn_cruz">CREU</string>
+    <string name="msg_haz_apuesta">Fes la teva aposta!</string>
+    <string name="msg_apuesta_cero">L\'aposta ha de ser major de zero</string>
+    <string name="msg_sin_monedas">No tens prous monedes</string>
+    <string name="msg_ganaste">Has guanyat %1$d monedes</string>
+    <string name="msg_perdiste">Has perdut %1$d monedes</string>
+    <string name="label_saldo">Saldo: %1$d monedes</string>
+    <string name="prompt_inicio">Introdueix l\'aposta i tria</string>
+
+    <string name="title_bancarrota">FALLIDA!</string>
+    <string name="msg_game_over">T\'has quedat sense monedes</string>
+    <string name="btn_reiniciar">Reiniciar amb 100 monedes</string>
+    <string name="btn_salir">Sortir del joc</string>
+
+    <string name="notif_victory_title">Felicitats!</string>
+    <string name="notif_victory_text">Has guanyat l\'aposta de %1$d monedes.</string>
+    <string name="resultado_cara">Cara</string>
+    <string name="resultado_cruz">Creu</string>
+</resources>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cara ou Coroa</string>
+    <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="menu_jugar">Jogar</string>
+    <string name="menu_ranking">Histórico</string>
+    <string name="menu_musica">Música</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_configuracion">Configuração</string>
+    <string name="welcome_message">Bem-vindo ao Cara ou Coroa</string>
+    <string name="hint_user_name">Introduza o seu nome</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="menu_ayuda">Ajuda</string>
+
+    <string name="btn_cara">CARA</string>
+    <string name="btn_cruz">COROA</string>
+    <string name="msg_haz_apuesta">Faça a sua aposta!</string>
+    <string name="msg_apuesta_cero">A aposta deve ser maior que zero</string>
+    <string name="msg_sin_monedas">Você não tem moedas suficientes</string>
+    <string name="msg_ganaste">Você ganhou %1$d moedas</string>
+    <string name="msg_perdiste">Você perdeu %1$d moedas</string>
+    <string name="label_saldo">Saldo: %1$d moedas</string>
+    <string name="prompt_inicio">Introduza a sua aposta e escolha</string>
+
+    <string name="title_bancarrota">FALÊNCIA!</string>
+    <string name="msg_game_over">Você ficou sem moedas</string>
+    <string name="btn_reiniciar">Reiniciar com 100 moedas</string>
+    <string name="btn_salir">Sair do jogo</string>
+
+    <string name="notif_victory_title">Parabéns!</string>
+    <string name="notif_victory_text">Você ganhou a aposta de %1$d moedas.</string>
+    <string name="resultado_cara">Cara</string>
+    <string name="resultado_cruz">Coroa</string>
+</resources>

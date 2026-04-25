@@ -3,6 +3,7 @@ package com.example.caraocruz.ui.menu
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -60,8 +61,37 @@ class MusicSelectorFragment : Fragment(R.layout.fragment_music_selector) {
 
     private fun updateCurrentMusicText() {
         if (_binding == null) return
-        val currentMusic = musicManager.getCurrentMusicName() ?: getString(R.string.default_music)
-        binding.tvCurrentMusic.text = getString(R.string.current_music, currentMusic)
+        
+        val uriString = musicManager.getCurrentMusicName()
+        val displayName = if (uriString != null) {
+            getFileName(Uri.parse(uriString))
+        } else {
+            getString(R.string.default_music)
+        }
+        
+        binding.tvCurrentMusic.text = getString(R.string.current_music, displayName)
+    }
+
+    private fun getFileName(uri: Uri): String {
+        var name = uri.path ?: "Unknown"
+        
+        // Intentar obtener el nombre real a través del ContentResolver (mejor para URIs de MediaStore)
+        try {
+            requireContext().contentResolver.query(uri, null, null, null, null)?.use { cursor ->
+                val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (nameIndex != -1 && cursor.moveToFirst()) {
+                    name = cursor.getString(nameIndex)
+                }
+            }
+        } catch (e: Exception) {
+            // Fallback al nombre del path si falla el cursor
+            val lastSlash = name.lastIndexOf('/')
+            if (lastSlash != -1) {
+                name = name.substring(lastSlash + 1)
+            }
+        }
+        
+        return name
     }
 
     override fun onDestroyView() {

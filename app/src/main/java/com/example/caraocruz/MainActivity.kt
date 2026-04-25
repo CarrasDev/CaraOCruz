@@ -7,6 +7,7 @@ import com.example.caraocruz.databinding.ActivityPresentationBinding
 import com.example.caraocruz.ui.juego.JuegoFragment
 import com.example.caraocruz.ui.menu.HelpFragment
 import com.example.caraocruz.ui.menu.HistoryFragment
+import com.example.caraocruz.ui.menu.MusicSelectorFragment
 import com.example.caraocruz.utils.MusicManager
 
 class MainActivity : AppCompatActivity() {
@@ -70,6 +71,9 @@ class MainActivity : AppCompatActivity() {
         navigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_home -> {
+                    while (supportFragmentManager.backStackEntryCount > 0) {
+                        supportFragmentManager.popBackStackImmediate()
+                    }
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, JuegoFragment())
                         .commit()
@@ -77,12 +81,20 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_history -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, HistoryFragment())
+                        .addToBackStack(null)
                         .commit()
 
                 }
                 R.id.nav_help -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, HelpFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                R.id.nav_music_selector -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, MusicSelectorFragment())
+                        .addToBackStack(null)
                         .commit()
                 }
                 R.id.nav_music -> {
@@ -114,5 +126,13 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         musicManager.release()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        if (supportFragmentManager.backStackEntryCount > 0) {
+            supportFragmentManager.popBackStack()
+            return true
+        }
+        return super.onSupportNavigateUp()
     }
 }

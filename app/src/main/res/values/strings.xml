@@ -16,6 +16,7 @@
     <string name="hint_user_name">Introduce tu nombre</string>
     <string name="btn_continue">Continuar</string>
     <string name="menu_ayuda">Ayuda</string>
+    <string name="menu_selector_musica">Cambiar Melodía</string>
 
     <!-- Pantalla Juego -->
     <string name="btn_cara">CARA</string>
@@ -43,4 +44,14 @@
     <string name="label_apuesta">Apuesta: %1$d monedas</string>
     <string name="label_cantidad">%1$s</string>
     <string name="label_fecha">%1$s</string>
+
+    <!-- Selector de Música -->
+    <string name="title_selector_musica">Selector de Música</string>
+    <string name="btn_select_file">Seleccionar archivo de audio</string>
+    <string name="btn_reset_music">Restablecer música por defecto</string>
+    <string name="current_music">Música actual: %1$s</string>
+    <string name="default_music">Por defecto</string>
+    <string name="msg_music_updated">Melodía actualizada</string>
+    <string name="msg_music_reset">Restaurada música por defecto</string>
+    <string name="msg_no_file_selected">No se ha seleccionado ningún archivo</string>
 </resources>

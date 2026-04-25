@@ -16,15 +16,9 @@
         android:icon="@android:drawable/ic_menu_help"/>
 
     <item
-        android:id="@+id/nav_music"
-        android:title="@string/menu_musica"
-        android:icon="@android:drawable/ic_lock_silent_mode"
-        android:checkable="true"/>
-
-    <item
         android:id="@+id/nav_music_selector"
         android:title="@string/menu_selector_musica"
-        android:icon="@android:drawable/ic_menu_agenda"/>
+        android:icon="@drawable/ic_music_note"/>
 
 
     <!-- TODO Para la siguiente versión

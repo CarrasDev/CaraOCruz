@@ -97,6 +97,23 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
 
         binding.btnCara.setOnClickListener { procesarJugada(true) }
         binding.btnCruz.setOnClickListener { procesarJugada(false) }
+
+        // Configuración del botón de Mute
+        actualizarIconoMute()
+        binding.fabMute.setOnClickListener {
+            val enabled = viewModel.toggleMusica()
+            actualizarIconoMute(enabled)
+        }
+    }
+
+    private fun actualizarIconoMute(enabled: Boolean? = null) {
+        val isMusicEnabled = enabled ?: viewModel.isMusicaActivada()
+        val resId = if (isMusicEnabled) {
+            android.R.drawable.ic_lock_silent_mode
+        } else {
+            android.R.drawable.ic_lock_silent_mode_off
+        }
+        binding.fabMute.setImageResource(resId)
     }
 
     private fun procesarJugada(esCara: Boolean) {

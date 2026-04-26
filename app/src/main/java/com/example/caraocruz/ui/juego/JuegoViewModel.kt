@@ -143,9 +143,11 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
                     notificationHelper.showVictoryNotification(apuesta)
                 }
             }
-            // Disparar el diálogo de captura
-            viewModelScope.launch {
-                _mostrarCapturaDialogo.emit(true)
+            // Disparar el diálogo de captura si está activado
+            if (sharedPrefs.getBoolean("screenshot_enabled", true)) {
+                viewModelScope.launch {
+                    _mostrarCapturaDialogo.emit(true)
+                }
             }
             // Guardar en el calendario si ha ganado
             guardarEnCalendario(apuesta)

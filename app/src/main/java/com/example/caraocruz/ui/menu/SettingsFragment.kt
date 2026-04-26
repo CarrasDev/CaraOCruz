@@ -25,6 +25,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         
         // Configuración de Notificaciones
         setupNotifSetting()
+
+        // Configuración de Captura de Pantalla
+        setupScreenshotSetting()
     }
 
     private fun setupGeoSetting() {
@@ -46,6 +49,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         // Guardar cambios al pulsar el switch
         binding.switchNotif.setOnCheckedChangeListener { _, isChecked ->
             sharedPrefs.edit().putBoolean("notif_enabled", isChecked).apply()
+        }
+    }
+
+    private fun setupScreenshotSetting() {
+        // Cargar estado guardado (por defecto true)
+        val isScreenshotEnabled = sharedPrefs.getBoolean("screenshot_enabled", true)
+        binding.switchScreenshot.isChecked = isScreenshotEnabled
+
+        // Guardar cambios al pulsar el switch
+        binding.switchScreenshot.setOnCheckedChangeListener { _, isChecked ->
+            sharedPrefs.edit().putBoolean("screenshot_enabled", isChecked).apply()
         }
     }
 

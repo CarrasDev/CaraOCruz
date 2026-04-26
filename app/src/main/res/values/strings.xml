@@ -73,4 +73,5 @@
     <string name="label_config_placeholder">Ajustes de la aplicación próximamente...</string>
     <string name="label_geo_service">Servicio de Geolocalización</string>
     <string name="label_notif_service">Notificaciones de Victoria</string>
+    <string name="label_screenshot_service">Solicitar Captura al Ganar</string>
 </resources>

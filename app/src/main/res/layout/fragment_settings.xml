@@ -66,4 +66,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvNotifLabel" />
 
+    <!-- Sección Captura de Pantalla -->
+    <TextView
+        android:id="@+id/tvScreenshotLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_screenshot_service"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNotifLabel"
+        app:layout_constraintEnd_toStartOf="@+id/switchScreenshot"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchScreenshot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@id/tvScreenshotLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvScreenshotLabel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

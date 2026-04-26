@@ -149,8 +149,10 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
                     _mostrarCapturaDialogo.emit(true)
                 }
             }
-            // Guardar en el calendario si ha ganado
-            guardarEnCalendario(apuesta)
+            // Guardar en el calendario si ha ganado y está activado
+            if (sharedPrefs.getBoolean("calendar_enabled", true)) {
+                guardarEnCalendario(apuesta)
+            }
         } else {
             _monedas.update { it - apuesta }
             viewModelScope.launch {

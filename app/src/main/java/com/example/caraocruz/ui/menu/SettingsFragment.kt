@@ -28,6 +28,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         // Configuración de Captura de Pantalla
         setupScreenshotSetting()
+
+        // Configuración de Calendario
+        setupCalendarSetting()
     }
 
     private fun setupGeoSetting() {
@@ -60,6 +63,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         // Guardar cambios al pulsar el switch
         binding.switchScreenshot.setOnCheckedChangeListener { _, isChecked ->
             sharedPrefs.edit().putBoolean("screenshot_enabled", isChecked).apply()
+        }
+    }
+
+    private fun setupCalendarSetting() {
+        // Cargar estado guardado (por defecto true)
+        val isCalendarEnabled = sharedPrefs.getBoolean("calendar_enabled", true)
+        binding.switchCalendar.isChecked = isCalendarEnabled
+
+        // Guardar cambios al pulsar el switch
+        binding.switchCalendar.setOnCheckedChangeListener { _, isChecked ->
+            sharedPrefs.edit().putBoolean("calendar_enabled", isChecked).apply()
         }
     }
 

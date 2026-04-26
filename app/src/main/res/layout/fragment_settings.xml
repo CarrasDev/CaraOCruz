@@ -90,4 +90,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvScreenshotLabel" />
 
+    <!-- Sección Calendario -->
+    <TextView
+        android:id="@+id/tvCalendarLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_calendar_service"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvScreenshotLabel"
+        app:layout_constraintEnd_toStartOf="@+id/switchCalendar"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@id/tvCalendarLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvCalendarLabel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

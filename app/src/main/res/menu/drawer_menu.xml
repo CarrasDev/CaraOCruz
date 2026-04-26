@@ -11,6 +11,23 @@
         android:icon="@android:drawable/ic_menu_myplaces"/>
 
     <item
+        android:id="@+id/nav_help"
+        android:title="@string/menu_ayuda"
+        android:icon="@android:drawable/ic_menu_help"/>
+
+    <item
+        android:id="@+id/nav_music_selector"
+        android:title="@string/menu_selector_musica"
+        android:icon="@drawable/ic_music_note"/>
+
+    <item
+        android:id="@+id/nav_settings"
+        android:title="@string/menu_configuracion"
+        android:icon="@android:drawable/ic_menu_preferences"/>
+
+
+    <!-- TODO Para la siguiente versión
+    <item
         android:id="@+id/nav_profile"
         android:title="@string/menu_perfil"
         android:icon="@android:drawable/ic_menu_manage"/>
@@ -19,5 +36,7 @@
         android:id="@+id/nav_settings"
         android:title="@string/menu_configuracion"
         android:icon="@android:drawable/ic_menu_preferences"/>
+
+    -->
 
 </menu>

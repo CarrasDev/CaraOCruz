@@ -17,6 +17,7 @@ constraintlayout = "2.2.0"
 junit = "4.13.2"
 androidx-junit = "1.2.1"
 espresso-core = "3.6.1"
+play-services-location = "21.3.0"
 
 [libraries]
 # Base
@@ -41,6 +42,7 @@ rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-junit" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "play-services-location" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

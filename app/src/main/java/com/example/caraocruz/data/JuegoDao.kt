@@ -18,4 +18,7 @@ interface JuegoDao {
 
     @Query("SELECT * FROM tabla_historico WHERE gano = 1 ORDER BY apuesta DESC")
     fun getMejoresPuntuaciones(): Single<List<Partida>>
+
+    @Query("SELECT * FROM tabla_historico ORDER BY fecha DESC")
+    fun getAllPartidas(): Single<List<Partida>>
 }

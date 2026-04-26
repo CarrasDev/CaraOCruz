@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kopf oder Zahl</string>
+    <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="dummy_button">Platzhalter-Schaltfläche</string>
+    <string name="dummy_content">PLATZHALTER\nINHALT</string>
+    <string name="menu_jugar">Spielen</string>
+    <string name="menu_ranking">Verlauf</string>
+    <string name="menu_musica">Musik</string>
+    <string name="menu_perfil">Profil</string>
+    <string name="menu_configuracion">Einstellungen</string>
+    <string name="open">Menü öffnen</string>
+    <string name="close">Menü schließen</string>
+    <string name="background">App-Hintergrund</string>
+    <string name="hello_blank_fragment">Hallo leerer Fragment</string>
+    <string name="welcome_message">Willkommen bei Kopf oder Zahl</string>
+    <string name="hint_user_name">Geben Sie Ihren Namen ein</string>
+    <string name="btn_continue">Weiter</string>
+    <string name="menu_ayuda">Hilfe</string>
+    <string name="menu_selector_musica">Musik</string>
+
+    <string name="btn_cara">KOPF</string>
+    <string name="btn_cruz">ZAHL</string>
+    <string name="msg_haz_apuesta">Machen Sie Ihren Einsatz!</string>
+    <string name="msg_apuesta_cero">Der Einsatz muss größer als Null sein</string>
+    <string name="msg_sin_monedas">Nicht genug Münzen vorhanden</string>
+    <string name="msg_ganaste">Sie haben %1$d Münzen gewonnen</string>
+    <string name="msg_perdiste">Sie haben %1$d Münzen verloren</string>
+    <string name="msg_error_db">Fehler beim Speichern in der Datenbank</string>
+    <string name="label_saldo">Guthaben: %1$d Münzen</string>
+    <string name="prompt_inicio">Geben Sie Ihren Einsatz ein und wählen Sie</string>
+    <string name="cantidad_a_apostar">Einsatzbetrag</string>
+
+    <string name="title_bancarrota">BANKROTT!</string>
+    <string name="msg_game_over">Sie haben keine Münzen mehr</string>
+    <string name="btn_reiniciar">Mit 100 Münzen neu starten</string>
+    <string name="btn_salir">Spiel verlassen</string>
+
+    <string name="title_historial">Spielverlauf</string>
+    <string name="msg_vacio">Keine Spiele aufgezeichnet</string>
+    <string name="label_resultado">Ergebnis: %1$s</string>
+    <string name="label_apuesta">Einsatz: %1$d Münzen</string>
+    <string name="resultado_cara">Kopf</string>
+    <string name="resultado_cruz">Zahl</string>
+
+    <string name="calendar_event_desc">Du hast %1$d Münzen gewonnen.</string>
+    <string name="notif_victory_title">Herzlichen Glückwunsch!</string>
+    <string name="notif_victory_text">Sie haben die Wette über %1$d Münzen gewonnen.</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$</string>
+    <string name="label_ubicacion">Standort: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">Sieg!</string>
+    <string name="msg_dialog_captura">Möchtest du einen Screenshot deines Sieges in der Galerie speichern?</string>
+    <string name="btn_si">Ja</string>
+    <string name="btn_no">Nein</string>
+    <string name="msg_captura_guardada">Screenshot in der Galerie gespeichert</string>
+    <string name="msg_captura_error">Fehler beim Speichern des Screenshots</string>
+    <string name="calendar_event_title">Du hast bei Kopf oder Zahl gewonnen!</string>
+    <string name="title_selector_musica">Musikauswahl</string>
+    <string name="btn_select_file">Audiodatei auswählen</string>
+    <string name="btn_reset_music">Musik auf Standard zurücksetzen</string>
+    <string name="current_music">Aktuelle Musik: %1$s</string>
+    <string name="default_music">Standard</string>
+    <string name="msg_music_updated">Melodie aktualisiert</string>
+    <string name="msg_music_reset">Musik auf Standard zurückgesetzt</string>
+    <string name="msg_no_file_selected">Keine Datei ausgewählt</string>
+    <string name="title_configuracion">Einstellungen</string>
+    <string name="label_config_placeholder">App‑Einstellungen bald verfügbar...</string>
+    <string name="label_geo_service">Geolokalisierungsdienst</string>
+    <string name="label_notif_service">Siegesbenachrichtigungen</string>
+    <string name="label_screenshot_service">Screenshot bei Sieg anfordern</string>
+    <string name="label_calendar_service">Im Kalender eintragen</string>
+</resources>

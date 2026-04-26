@@ -4,7 +4,8 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Jugar</string>
-    <string name="menu_ranking">Ranking</string>
+    <string name="menu_ranking">Historial</string>
+    <string name="menu_musica">Música</string>
     <string name="menu_perfil">Perfil</string>
     <string name="menu_configuracion">Configuración</string>
     <string name="open">Abrir menú</string>
@@ -14,5 +15,64 @@
     <string name="welcome_message">Bienvenido a Cara o Cruz</string>
     <string name="hint_user_name">Introduce tu nombre</string>
     <string name="btn_continue">Continuar</string>
+    <string name="menu_ayuda">Ayuda</string>
+    <string name="menu_selector_musica">Música</string>
 
+    <!-- Pantalla Juego -->
+    <string name="btn_cara">CARA</string>
+    <string name="btn_cruz">CRUZ</string>
+    <string name="msg_haz_apuesta">¡Haz tu apuesta!</string>
+    <string name="msg_apuesta_cero">La apuesta debe ser mayor que cero</string>
+    <string name="msg_sin_monedas">No tienes suficientes monedas</string>
+    <string name="msg_ganaste">Has ganado %1$d monedas</string>
+    <string name="msg_perdiste">Has perdido %1$d monedas</string>
+    <string name="msg_error_db">Error al guardar en BBDD</string>
+    <string name="label_saldo">Saldo: %1$d monedas</string>
+    <string name="prompt_inicio">Introduce tu apuesta y elige</string>
+    <string name="cantidad_a_apostar">Cantidad a apostar</string>
+
+    <!-- Pantalla Game Over -->
+    <string name="title_bancarrota">¡BANCARROTA!</string>
+    <string name="msg_game_over">Te has quedado sin monedas</string>
+    <string name="btn_reiniciar">Reiniciar con 100 Monedas</string>
+    <string name="btn_salir">Salir del juego</string>
+
+    <!-- Pantalla Historial + item_partida -->
+    <string name="title_historial">Historial de Partidas</string>
+    <string name="msg_vacio">No hay partidas registradas</string>
+    <string name="label_resultado">Resultado: %1$s</string>
+    <string name="label_apuesta">Apuesta: %1$d monedas</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$s</string>
+    <string name="label_ubicacion">Ubicación: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">¡Victoria!</string>
+    <string name="msg_dialog_captura">¿Deseas guardar una captura de pantalla de tu victoria en la galería?</string>
+    <string name="btn_si">Sí</string>
+    <string name="btn_no">No</string>
+    <string name="msg_captura_guardada">Captura guardada en la galería</string>
+    <string name="msg_captura_error">Error al guardar la captura</string>
+    <string name="calendar_event_title">¡Ganaste en Cara o Cruz!</string>
+    <string name="calendar_event_desc">Has ganado %1$d monedas.</string>
+    <string name="notif_victory_title">¡Felicidades!</string>
+    <string name="notif_victory_text">Has ganado la apuesta de %1$d monedas.</string>
+    <string name="resultado_cara">Cara</string>
+    <string name="resultado_cruz">Cruz</string>
+
+    <!-- Selector de Música -->
+    <string name="title_selector_musica">Selector de Música</string>
+    <string name="btn_select_file">Seleccionar archivo de audio</string>
+    <string name="btn_reset_music">Restablecer música por defecto</string>
+    <string name="current_music">Música actual: %1$s</string>
+    <string name="default_music">Por defecto</string>
+    <string name="msg_music_updated">Melodía actualizada</string>
+    <string name="msg_music_reset">Restaurada música por defecto</string>
+    <string name="msg_no_file_selected">No se ha seleccionado ningún archivo</string>
+
+    <!-- Pantalla Configuración -->
+    <string name="title_configuracion">Configuración</string>
+    <string name="label_config_placeholder">Ajustes de la aplicación próximamente...</string>
+    <string name="label_geo_service">Servicio de Geolocalización</string>
+    <string name="label_notif_service">Notificaciones de Victoria</string>
+    <string name="label_screenshot_service">Solicitar Captura al Ganar</string>
+    <string name="label_calendar_service">Registrar en Calendario</string>
 </resources>

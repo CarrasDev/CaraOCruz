@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="24dp"
+    android:fitsSystemWindows="true"
     tools:context=".ui.juego.JuegoFragment">
 
     <!-- Indicador de Saldo -->
@@ -12,7 +13,7 @@
         android:id="@+id/tvSaldo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Saldo: 200 monedas"
+        android:text="@string/msg_haz_apuesta"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:text="¡Haz tu apuesta!"
+        android:text="@string/msg_haz_apuesta"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/tvSaldo"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +41,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:hint="Cantidad a apostar"
+        android:hint="@string/cantidad_a_apostar"
         app:layout_constraintTop_toBottomOf="@id/tvMensaje"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -50,29 +51,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:text="1" />
+            android:text="1"
+            tools:ignore="HardcodedText" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Botón CARA -->
     <Button
         android:id="@+id/btnCara"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
-        android:text="CARA"
         android:backgroundTint="#FFC107"
-        app:layout_constraintTop_toBottomOf="@id/tilApuesta"
+        android:text="@string/btn_cara"
+        app:layout_constraintEnd_toStartOf="@+id/btnCruz"
+        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnCruz" />
+        app:layout_constraintTop_toBottomOf="@id/tilApuesta"
+        tools:ignore="TextContrastCheck" />
 
     <!-- Botón CRUZ -->
     <Button
         android:id="@+id/btnCruz"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:layout_marginStart="8dp"
-        android:text="CRUZ"
+        android:text="@string/btn_cruz"
         android:backgroundTint="#757575"
         app:layout_constraintTop_toTopOf="@id/btnCara"
         app:layout_constraintStart_toEndOf="@id/btnCara"
@@ -83,12 +87,29 @@
         android:id="@+id/ivMoneda"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="32dp"
-        android:src="@android:drawable/ic_menu_help"
+        android:importantForAccessibility="no"
+        android:src="@drawable/logocaraocruz"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCara"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <!-- Botón de Mute Elegante -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_lock_silent_mode"
+        app:fabSize="mini"
+        app:backgroundTint="@android:color/white"
+        app:tint="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCara" />
-
+        android:contentDescription="@string/menu_musica" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

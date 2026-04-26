@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cara o Creu</string>
+    <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="dummy_content">DUMMY</string>
+    <string name="menu_jugar">Jugar</string>
+    <string name="menu_ranking">Historial</string>
+    <string name="menu_musica">Música</string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_configuracion">Configuració</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_message">Benvingut a Cara o Creu</string>
+    <string name="hint_user_name">Introdueix el teu nom</string>
+    <string name="btn_continue">Continuar</string>
+    <string name="menu_ayuda">Ajuda</string>
+
+    <string name="menu_selector_musica">Música</string>
+    <string name="btn_cara">CARA</string>
+    <string name="btn_cruz">CREU</string>
+    <string name="msg_haz_apuesta">Fes la teva aposta!</string>
+    <string name="msg_apuesta_cero">L\'aposta ha de ser major de zero</string>
+    <string name="msg_sin_monedas">No tens prous monedes</string>
+    <string name="msg_ganaste">Has guanyat %1$d monedes</string>
+    <string name="msg_perdiste">Has perdut %1$d monedes</string>
+    <string name="msg_error_db">Error en desar a la BBDD</string>
+    <string name="label_saldo">Saldo: %1$d monedes</string>
+    <string name="prompt_inicio">Introdueix l\'aposta i tria</string>
+
+    <string name="cantidad_a_apostar">Quantitat a apostar</string>
+    <string name="title_bancarrota">FALLIDA!</string>
+    <string name="msg_game_over">T\'has quedat sense monedes</string>
+    <string name="btn_reiniciar">Reiniciar amb 100 monedes</string>
+    <string name="btn_salir">Sortir del joc</string>
+
+    <string name="calendar_event_desc">Has guanyat %1$d monedes.</string>
+    <string name="notif_victory_title">Felicitats!</string>
+    <string name="notif_victory_text">Has guanyat l\'aposta de %1$d monedes.</string>
+    <string name="resultado_cara">Cara</string>
+    <string name="resultado_cruz">Creu</string>
+    <string name="dummy_button">Butó fals</string>
+    <string name="open">Obrir menú</string>
+    <string name="close">Tancar menú</string>
+    <string name="background">Fons de l\'aplicació</string>
+    <string name="title_historial">Historial de Partides</string>
+    <string name="msg_vacio">No hi ha partides registrades</string>
+    <string name="label_resultado">Resultat: %1$s</string>
+    <string name="label_apuesta">Aposta: %1$d monedes</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$</string>
+    <string name="label_ubicacion">Ubicació: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">¡Victòria!</string>
+    <string name="msg_dialog_captura">" Vols desar una captura de pantalla de la teva victòria a la galeria?"</string>
+    <string name="btn_si">Si</string>
+    <string name="btn_no">No</string>
+    <string name="msg_captura_guardada">Captura desada a la galeria</string>
+    <string name="msg_captura_error">Error en desar la captura</string>
+    <string name="calendar_event_title">Has guanyat a Cara o Creu!</string>
+    <string name="title_selector_musica">Selector de Música</string>
+    <string name="btn_select_file">" Seleccionar fitxer d’àudio"</string>
+    <string name="btn_reset_music">Restablir la música per defecte</string>
+    <string name="current_music">Música actual: %1$s</string>
+    <string name="default_music">Per defecte</string>
+    <string name="msg_music_updated">Melodia actualitzada</string>
+    <string name="msg_music_reset">" Restaurada la música per defecte"</string>
+    <string name="msg_no_file_selected">" No s’ha seleccionat cap fitxer  "</string>
+    <string name="title_configuracion">Configuració</string>
+    <string name="label_config_placeholder">" Ajustos de l’aplicació pròximament..."</string>
+    <string name="label_geo_service">Servei de Geolocalització</string>
+    <string name="label_notif_service">" Notificacions de Victòria"</string>
+    <string name="label_screenshot_service">Sol·licitar captura en guanyar</string>
+    <string name="label_calendar_service">Registrar al Calendari</string>
+</resources>

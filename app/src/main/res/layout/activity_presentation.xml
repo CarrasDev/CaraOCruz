@@ -13,10 +13,12 @@
         android:id="@+id/imageView"
         android:layout_width="275dp"
         android:layout_height="262dp"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.396"
-        app:srcCompat="@drawable/logocaraocruz" />
+        app:srcCompat="@drawable/logocaraocruz"
+        tools:ignore="ImageContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

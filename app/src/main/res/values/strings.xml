@@ -71,4 +71,5 @@
     <!-- Pantalla Configuración -->
     <string name="title_configuracion">Configuración</string>
     <string name="label_config_placeholder">Ajustes de la aplicación próximamente...</string>
+    <string name="label_geo_service">Servicio de Geolocalización</string>
 </resources>

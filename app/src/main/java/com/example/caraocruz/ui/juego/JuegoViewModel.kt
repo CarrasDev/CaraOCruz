@@ -36,6 +36,8 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
     private val notificationHelper = NotificationHelper(appContext)
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(appContext)
     private val disposables = CompositeDisposable()
+    
+    private val sharedPrefs = appContext.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
     // Observables
     private val _monedas = MutableStateFlow(100)
@@ -160,15 +162,18 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             var lat: Double? = null
             var lon: Double? = null
 
-            try {
-                // Obtenemos la última ubicación conocida (más rápido que pedir una nueva)
-                val location = fusedLocationClient.lastLocation.await()
-                lat = location?.latitude
-                lon = location?.longitude
-            } catch (e: SecurityException) {
-                // Sin permisos, se guarda como null
-            } catch (e: Exception) {
-                // Otros errores, se guarda como null
+            // Solo intentamos obtener la ubicación si el servicio está activado en settings
+            if (sharedPrefs.getBoolean("geo_enabled", true)) {
+                try {
+                    // Obtenemos la última ubicación conocida (más rápido que pedir una nueva)
+                    val location = fusedLocationClient.lastLocation.await()
+                    lat = location?.latitude
+                    lon = location?.longitude
+                } catch (e: SecurityException) {
+                    // Sin permisos, se guarda como null
+                } catch (e: Exception) {
+                    // Otros errores, se guarda como null
+                }
             }
 
             guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, lat, lon)

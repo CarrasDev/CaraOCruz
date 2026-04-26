@@ -1,5 +1,6 @@
 package com.example.caraocruz.ui.menu
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -11,9 +12,27 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
+    private val sharedPrefs by lazy { 
+        requireContext().getSharedPreferences("app_settings", Context.MODE_PRIVATE) 
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSettingsBinding.bind(view)
+
+        // Configuración de Geolocalización
+        setupGeoSetting()
+    }
+
+    private fun setupGeoSetting() {
+        // Cargar estado guardado (por defecto true)
+        val isGeoEnabled = sharedPrefs.getBoolean("geo_enabled", true)
+        binding.switchGeo.isChecked = isGeoEnabled
+
+        // Guardar cambios al pulsar el switch
+        binding.switchGeo.setOnCheckedChangeListener { _, isChecked ->
+            sharedPrefs.edit().putBoolean("geo_enabled", isChecked).apply()
+        }
     }
 
     override fun onDestroyView() {

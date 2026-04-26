@@ -43,6 +43,31 @@
     <string name="resultado_cara">Kopf</string>
     <string name="resultado_cruz">Zahl</string>
 
+    <string name="calendar_event_desc">Du hast %1$d Münzen gewonnen.</string>
     <string name="notif_victory_title">Herzlichen Glückwunsch!</string>
     <string name="notif_victory_text">Sie haben die Wette über %1$d Münzen gewonnen.</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$</string>
+    <string name="label_ubicacion">Standort: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">Sieg!</string>
+    <string name="msg_dialog_captura">Möchtest du einen Screenshot deines Sieges in der Galerie speichern?</string>
+    <string name="btn_si">Ja</string>
+    <string name="btn_no">Nein</string>
+    <string name="msg_captura_guardada">Screenshot in der Galerie gespeichert</string>
+    <string name="msg_captura_error">Fehler beim Speichern des Screenshots</string>
+    <string name="calendar_event_title">Du hast bei Kopf oder Zahl gewonnen!</string>
+    <string name="title_selector_musica">Musikauswahl</string>
+    <string name="btn_select_file">Audiodatei auswählen</string>
+    <string name="btn_reset_music">Musik auf Standard zurücksetzen</string>
+    <string name="current_music">Aktuelle Musik: %1$s</string>
+    <string name="default_music">Standard</string>
+    <string name="msg_music_updated">Melodie aktualisiert</string>
+    <string name="msg_music_reset">Musik auf Standard zurückgesetzt</string>
+    <string name="msg_no_file_selected">Keine Datei ausgewählt</string>
+    <string name="title_configuracion">Einstellungen</string>
+    <string name="label_config_placeholder">App‑Einstellungen bald verfügbar...</string>
+    <string name="label_geo_service">Geolokalisierungsdienst</string>
+    <string name="label_notif_service">Siegesbenachrichtigungen</string>
+    <string name="label_screenshot_service">Screenshot bei Sieg anfordern</string>
+    <string name="label_calendar_service">Im Kalender eintragen</string>
 </resources>

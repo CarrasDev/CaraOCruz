@@ -2,16 +2,19 @@
 <resources>
     <string name="app_name">Cara ou Coroa</string>
     <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="dummy_content">DUMMY</string>
     <string name="menu_jugar">Jogar</string>
     <string name="menu_ranking">Histórico</string>
     <string name="menu_musica">Música</string>
     <string name="menu_perfil">Perfil</string>
     <string name="menu_configuracion">Configuração</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_message">Bem-vindo ao Cara ou Coroa</string>
     <string name="hint_user_name">Introduza o seu nome</string>
     <string name="btn_continue">Continuar</string>
     <string name="menu_ayuda">Ajuda</string>
 
+    <string name="menu_selector_musica">Música</string>
     <string name="btn_cara">CARA</string>
     <string name="btn_cruz">COROA</string>
     <string name="msg_haz_apuesta">Faça a sua aposta!</string>
@@ -19,16 +22,51 @@
     <string name="msg_sin_monedas">Você não tem moedas suficientes</string>
     <string name="msg_ganaste">Você ganhou %1$d moedas</string>
     <string name="msg_perdiste">Você perdeu %1$d moedas</string>
+    <string name="msg_error_db">Erro ao guardar na base de datos</string>
     <string name="label_saldo">Saldo: %1$d moedas</string>
     <string name="prompt_inicio">Introduza a sua aposta e escolha</string>
 
+    <string name="cantidad_a_apostar">Quantia a apostar</string>
     <string name="title_bancarrota">FALÊNCIA!</string>
     <string name="msg_game_over">Você ficou sem moedas</string>
     <string name="btn_reiniciar">Reiniciar com 100 moedas</string>
     <string name="btn_salir">Sair do jogo</string>
 
+    <string name="calendar_event_desc">Ganhaste %1$d moedas.</string>
     <string name="notif_victory_title">Parabéns!</string>
     <string name="notif_victory_text">Você ganhou a aposta de %1$d moedas.</string>
     <string name="resultado_cara">Cara</string>
     <string name="resultado_cruz">Coroa</string>
+    <string name="open">Abrir menu</string>
+    <string name="close">Fechar menu</string>
+    <string name="background">Fundo da aplicação</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="title_historial">Histórico de Partidas</string>
+    <string name="msg_vacio">Nenhuma partida registrada</string>
+    <string name="label_resultado">Resultado: %1$s</string>
+    <string name="label_apuesta">Aposta: %1$d moedas</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$</string>
+    <string name="label_ubicacion">Localização: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">Vitória!</string>
+    <string name="msg_dialog_captura">Desejas guardar uma captura de ecrã da tua vitória na galeria?</string>
+    <string name="btn_si">Sim</string>
+    <string name="btn_no">Não</string>
+    <string name="msg_captura_guardada">Captura guardada na galeria</string>
+    <string name="msg_captura_error">Erro ao guardar a captura</string>
+    <string name="calendar_event_title">Ganhaste em Cara ou Coroa!</string>
+    <string name="title_selector_musica">Seletor de Música</string>
+    <string name="btn_select_file">Selecionar arquivo de áudio</string>
+    <string name="btn_reset_music">Restaurar música padrão</string>
+    <string name="current_music">Música atual: %1$s</string>
+    <string name="default_music">Por defeito</string>
+    <string name="msg_music_updated">Melodia atualizada</string>
+    <string name="msg_music_reset">Música restaurada para o padrão</string>
+    <string name="msg_no_file_selected">Nenhum arquivo selecionado</string>
+    <string name="title_configuracion">Configuração</string>
+    <string name="label_config_placeholder">Configurações do aplicativo em breve...</string>
+    <string name="label_geo_service">Serviço de Geolocalização</string>
+    <string name="label_notif_service">Notificações de Vitória</string>
+    <string name="label_screenshot_service">Solicitar captura ao vencer</string>
+    <string name="label_calendar_service">Registrar no Calendário</string>
 </resources>

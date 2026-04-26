@@ -36,13 +36,38 @@
 <string name="btn_reiniciar">Recommencer avec 100 pièces</string>
 <string name="btn_salir">Quitter le jeu</string>
 
-<string name="title_historial">Historique des Matchs</string>
+<string name="title_historial">Historique des Parties</string>
 <string name="msg_vacio">Aucun match enregistré</string>
 <string name="label_resultado">Résultat : %1$s</string>
 <string name="label_apuesta">Pari : %1$d pièces</string>
 <string name="resultado_cara">Face</string>
 <string name="resultado_cruz">Pile</string>
 
-<string name="notif_victory_title">Félicitations !</string>
+    <string name="calendar_event_desc">Tu as gagné %1$d pièces.</string>
+    <string name="notif_victory_title">Félicitations !</string>
 <string name="notif_victory_text">Vous avez gagné le pari de %1$d pièces.</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$</string>
+    <string name="label_ubicacion">Localisation: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">Victorie !</string>
+    <string name="msg_dialog_captura">Souhaites‑tu enregistrer une capture d’écran de ta victoire dans la galerie ?</string>
+    <string name="btn_si">Oui</string>
+    <string name="btn_no">Non</string>
+    <string name="msg_captura_guardada">Capture enregistrée dans la galerie</string>
+    <string name="msg_captura_error">Erreur lors de l’enregistrement de la capture</string>
+    <string name="calendar_event_title">Tu as gagné à Pile ou Face !</string>
+    <string name="title_selector_musica">Sélecteur de Musique</string>
+    <string name="btn_select_file">Sélectionner un fichier audio</string>
+    <string name="btn_reset_music">Réinitialiser la musique par défaut</string>
+    <string name="current_music">Musique actuelle : %1$s</string>
+    <string name="default_music">Par défaut</string>
+    <string name="msg_music_updated">Mélodie mise à jour</string>
+    <string name="msg_music_reset">Musique restaurée par défaut</string>
+    <string name="msg_no_file_selected">Aucun fichier sélectionné</string>
+    <string name="title_configuracion">Paramètres</string>
+    <string name="label_config_placeholder">Paramètres de l’application bientôt disponibles...</string>
+    <string name="label_geo_service">Service de Géolocalisation</string>
+    <string name="label_notif_service">"Notifications de Victoire  "</string>
+    <string name="label_screenshot_service">Demander une capture lors de la victoire</string>
+    <string name="label_calendar_service">"Enregistrer dans le Calendrier  "</string>
 </resources>

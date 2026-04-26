@@ -2,16 +2,19 @@
 <resources>
     <string name="app_name">Testa o Croce</string>
     <string name="title_activity_presentation">PresentationActivity</string>
+    <string name="dummy_content">DUMMY</string>
     <string name="menu_jugar">Gioca</string>
     <string name="menu_ranking">Cronologia</string>
     <string name="menu_musica">Musica</string>
     <string name="menu_perfil">Profilo</string>
     <string name="menu_configuracion">Impostazioni</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="welcome_message">Benvenuto a Testa o Croce</string>
     <string name="hint_user_name">Inserisci il tuo nome</string>
     <string name="btn_continue">Continua</string>
     <string name="menu_ayuda">Aiuto</string>
 
+    <string name="menu_selector_musica">Musica</string>
     <string name="btn_cara">TESTA</string>
     <string name="btn_cruz">CROCE</string>
     <string name="msg_haz_apuesta">Fai la tua scommessa!</string>
@@ -19,16 +22,51 @@
     <string name="msg_sin_monedas">Non hai abbastanza monete</string>
     <string name="msg_ganaste">Hai vinto %1$d monete</string>
     <string name="msg_perdiste">Hai perso %1$d monete</string>
+    <string name="msg_error_db">Errore durante il salvataggio nel database</string>
     <string name="label_saldo">Saldo: %1$d monete</string>
     <string name="prompt_inicio">Inserisci la scommessa e scegli</string>
 
+    <string name="cantidad_a_apostar">Importo da scommettere</string>
     <string name="title_bancarrota">BANCAROTTA!</string>
     <string name="msg_game_over">Hai esaurito le monete</string>
     <string name="btn_reiniciar">Ricomincia con 100 monete</string>
     <string name="btn_salir">Esci dal gioco</string>
 
+    <string name="calendar_event_desc">Hai vinto %1$d monete.</string>
     <string name="notif_victory_title">Congratulazioni!</string>
     <string name="notif_victory_text">Hai vinto la scommessa di %1$d monete.</string>
     <string name="resultado_cara">Testa</string>
     <string name="resultado_cruz">Croce</string>
+    <string name="open">Apriere il menu</string>
+    <string name="close">Chiudere il menu</string>
+    <string name="background">Sfondo dell\'applicazione</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="title_historial">Storico delle Partite</string>
+    <string name="msg_vacio">Nessuna partita registrata</string>
+    <string name="label_resultado">Risultato: %1$s</string>
+    <string name="label_apuesta">Puntata: %1$d monete</string>
+    <string name="label_cantidad">%1$s</string>
+    <string name="label_fecha">%1$</string>
+    <string name="label_ubicacion">Posizione: %1$.4f, %2$.4f</string>
+    <string name="title_dialog_victoria">Vittoria!</string>
+    <string name="msg_dialog_captura">Vuoi salvare uno screenshot della tua vittoria nella galleria?</string>
+    <string name="btn_si">Sì</string>
+    <string name="btn_no">No</string>
+    <string name="msg_captura_guardada">Screenshot salvato nella galleria</string>
+    <string name="msg_captura_error">Errore durante il salvataggio dello screenshot</string>
+    <string name="calendar_event_title">Hai vinto a Testa o Croce!</string>
+    <string name="title_selector_musica">Selettore Musicale</string>
+    <string name="btn_select_file">Seleziona file audio</string>
+    <string name="btn_reset_music">" Ripristina la musica predefinita"</string>
+    <string name="current_music">Musica attuale: %1$s</string>
+    <string name="default_music">Predefinito</string>
+    <string name="msg_music_updated">Melodia aggiornata</string>
+    <string name="msg_music_reset">"Musica ripristinata ai valori predefiniti  "</string>
+    <string name="msg_no_file_selected">Nessun file selezionato</string>
+    <string name="title_configuracion">Configurazione</string>
+    <string name="label_config_placeholder">Impostazioni dell’app in arrivo...</string>
+    <string name="label_geo_service">Servizio di Geolocalizzazione</string>
+    <string name="label_notif_service">Notifiche di Vittoria</string>
+    <string name="label_screenshot_service">Richiedi screenshot alla vittoria</string>
+    <string name="label_calendar_service">"Registrare nel Calendario  "</string>
 </resources>

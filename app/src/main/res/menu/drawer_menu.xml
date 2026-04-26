@@ -20,6 +20,11 @@
         android:title="@string/menu_selector_musica"
         android:icon="@drawable/ic_music_note"/>
 
+    <item
+        android:id="@+id/nav_settings"
+        android:title="@string/menu_configuracion"
+        android:icon="@android:drawable/ic_menu_preferences"/>
+
 
     <!-- TODO Para la siguiente versión
     <item

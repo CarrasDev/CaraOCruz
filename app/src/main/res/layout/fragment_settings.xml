@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvSettingsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_configuracion"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Sección Geolocalización -->
+    <TextView
+        android:id="@+id/tvGeoLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_geo_service"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSettingsTitle"
+        app:layout_constraintEnd_toStartOf="@+id/switchGeo"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchGeo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@id/tvGeoLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvGeoLabel" />
+
+    <!-- Sección Notificaciones -->
+    <TextView
+        android:id="@+id/tvNotifLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_notif_service"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvGeoLabel"
+        app:layout_constraintEnd_toStartOf="@+id/switchNotif"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchNotif"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@id/tvNotifLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvNotifLabel" />
+
+    <!-- Sección Captura de Pantalla -->
+    <TextView
+        android:id="@+id/tvScreenshotLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_screenshot_service"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvNotifLabel"
+        app:layout_constraintEnd_toStartOf="@+id/switchScreenshot"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchScreenshot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@id/tvScreenshotLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvScreenshotLabel" />
+
+    <!-- Sección Calendario -->
+    <TextView
+        android:id="@+id/tvCalendarLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/label_calendar_service"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvScreenshotLabel"
+        app:layout_constraintEnd_toStartOf="@+id/switchCalendar"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintWidth_percent="0.7" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="@id/tvCalendarLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvCalendarLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

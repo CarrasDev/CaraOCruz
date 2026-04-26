@@ -67,4 +67,12 @@
     <string name="msg_music_updated">Melodía actualizada</string>
     <string name="msg_music_reset">Restaurada música por defecto</string>
     <string name="msg_no_file_selected">No se ha seleccionado ningún archivo</string>
+
+    <!-- Pantalla Configuración -->
+    <string name="title_configuracion">Configuración</string>
+    <string name="label_config_placeholder">Ajustes de la aplicación próximamente...</string>
+    <string name="label_geo_service">Servicio de Geolocalización</string>
+    <string name="label_notif_service">Notificaciones de Victoria</string>
+    <string name="label_screenshot_service">Solicitar Captura al Ganar</string>
+    <string name="label_calendar_service">Registrar en Calendario</string>
 </resources>

@@ -36,6 +36,8 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
     private val notificationHelper = NotificationHelper(appContext)
     private val fusedLocationClient = LocationServices.getFusedLocationProviderClient(appContext)
     private val disposables = CompositeDisposable()
+    
+    private val sharedPrefs = appContext.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
     // Observables
     private val _monedas = MutableStateFlow(100)
@@ -135,16 +137,22 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             viewModelScope.launch(Dispatchers.IO) {
                 musicManager.playWinSound()
             }
-            // Mostrar notificación de victoria en segundo plano
-            viewModelScope.launch(Dispatchers.IO) {
-                notificationHelper.showVictoryNotification(apuesta)
+            // Mostrar notificación de victoria en segundo plano si está activado
+            if (sharedPrefs.getBoolean("notif_enabled", true)) {
+                viewModelScope.launch(Dispatchers.IO) {
+                    notificationHelper.showVictoryNotification(apuesta)
+                }
             }
-            // Disparar el diálogo de captura
-            viewModelScope.launch {
-                _mostrarCapturaDialogo.emit(true)
+            // Disparar el diálogo de captura si está activado
+            if (sharedPrefs.getBoolean("screenshot_enabled", true)) {
+                viewModelScope.launch {
+                    _mostrarCapturaDialogo.emit(true)
+                }
             }
-            // Guardar en el calendario si ha ganado
-            guardarEnCalendario(apuesta)
+            // Guardar en el calendario si ha ganado y está activado
+            if (sharedPrefs.getBoolean("calendar_enabled", true)) {
+                guardarEnCalendario(apuesta)
+            }
         } else {
             _monedas.update { it - apuesta }
             viewModelScope.launch {
@@ -160,15 +168,18 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             var lat: Double? = null
             var lon: Double? = null
 
-            try {
-                // Obtenemos la última ubicación conocida (más rápido que pedir una nueva)
-                val location = fusedLocationClient.lastLocation.await()
-                lat = location?.latitude
-                lon = location?.longitude
-            } catch (e: SecurityException) {
-                // Sin permisos, se guarda como null
-            } catch (e: Exception) {
-                // Otros errores, se guarda como null
+            // Solo intentamos obtener la ubicación si el servicio está activado en settings
+            if (sharedPrefs.getBoolean("geo_enabled", true)) {
+                try {
+                    // Obtenemos la última ubicación conocida (más rápido que pedir una nueva)
+                    val location = fusedLocationClient.lastLocation.await()
+                    lat = location?.latitude
+                    lon = location?.longitude
+                } catch (e: SecurityException) {
+                    // Sin permisos, se guarda como null
+                } catch (e: Exception) {
+                    // Otros errores, se guarda como null
+                }
             }
 
             guardarPartidaConUbicacion(apuesta, resultadoTexto, gano, lat, lon)

@@ -8,6 +8,7 @@ import com.example.caraocruz.ui.juego.JuegoFragment
 import com.example.caraocruz.ui.menu.HelpFragment
 import com.example.caraocruz.ui.menu.HistoryFragment
 import com.example.caraocruz.ui.menu.MusicSelectorFragment
+import com.example.caraocruz.ui.menu.SettingsFragment
 import com.example.caraocruz.utils.MusicManager
 
 class MainActivity : AppCompatActivity() {
@@ -91,6 +92,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_music_selector -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, MusicSelectorFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                R.id.nav_settings -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, SettingsFragment())
                         .addToBackStack(null)
                         .commit()
                 }

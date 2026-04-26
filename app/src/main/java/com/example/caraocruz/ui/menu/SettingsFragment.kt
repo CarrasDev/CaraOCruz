@@ -22,6 +22,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
         // Configuración de Geolocalización
         setupGeoSetting()
+        
+        // Configuración de Notificaciones
+        setupNotifSetting()
     }
 
     private fun setupGeoSetting() {
@@ -32,6 +35,17 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
         // Guardar cambios al pulsar el switch
         binding.switchGeo.setOnCheckedChangeListener { _, isChecked ->
             sharedPrefs.edit().putBoolean("geo_enabled", isChecked).apply()
+        }
+    }
+
+    private fun setupNotifSetting() {
+        // Cargar estado guardado (por defecto true)
+        val isNotifEnabled = sharedPrefs.getBoolean("notif_enabled", true)
+        binding.switchNotif.isChecked = isNotifEnabled
+
+        // Guardar cambios al pulsar el switch
+        binding.switchNotif.setOnCheckedChangeListener { _, isChecked ->
+            sharedPrefs.edit().putBoolean("notif_enabled", isChecked).apply()
         }
     }
 

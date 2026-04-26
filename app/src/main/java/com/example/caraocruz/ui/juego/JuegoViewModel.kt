@@ -137,9 +137,11 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
             viewModelScope.launch(Dispatchers.IO) {
                 musicManager.playWinSound()
             }
-            // Mostrar notificación de victoria en segundo plano
-            viewModelScope.launch(Dispatchers.IO) {
-                notificationHelper.showVictoryNotification(apuesta)
+            // Mostrar notificación de victoria en segundo plano si está activado
+            if (sharedPrefs.getBoolean("notif_enabled", true)) {
+                viewModelScope.launch(Dispatchers.IO) {
+                    notificationHelper.showVictoryNotification(apuesta)
+                }
             }
             // Disparar el diálogo de captura
             viewModelScope.launch {

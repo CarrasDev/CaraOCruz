@@ -36,14 +36,14 @@
     <string name="btn_reiniciar">Restart with 100 Coins</string>
     <string name="btn_salir">Exit game</string>
 
-    <string name="title_historial">Match History</string>
+    <string name="title_historial">Game History</string>
     <string name="msg_vacio">No matches recorded</string>
     <string name="label_resultado">Result: %1$s</string>
     <string name="label_apuesta">Bet: %1$d coins</string>
     <string name="label_cantidad">%1$s</string>
     <string name="label_fecha">%1$s</string>
     <string name="label_ubicacion">Location: %1$.4f, %2$.4f</string>
-    <string name="title_dialog_victoria">Victory!</string>
+    <string name="title_dialog_victoria">¡Victory!</string>
     <string name="msg_dialog_captura">Would you like to save a screenshot of your victory to the gallery?</string>
     <string name="btn_si">Yes</string>
     <string name="btn_no">No</string>
@@ -64,4 +64,10 @@
     <string name="msg_music_updated">Melody updated</string>
     <string name="msg_music_reset">Default music restored</string>
     <string name="msg_no_file_selected">No file selected</string>
+    <string name="title_configuracion">Settings</string>
+    <string name="label_config_placeholder">App settings coming soon...</string>
+    <string name="label_geo_service">Geolocation Service</string>
+    <string name="label_notif_service">Victory Notifications</string>
+    <string name="label_screenshot_service">Request screenshot on win</string>
+    <string name="label_calendar_service">"Register in Calendar  "</string>
 </resources>

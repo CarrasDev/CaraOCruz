@@ -1,6 +1,7 @@
 package com.example.caraocruz
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.caraocruz.databinding.ActivityMainBinding
 import com.example.caraocruz.databinding.ActivityPresentationBinding
@@ -10,6 +11,8 @@ import com.example.caraocruz.ui.menu.HistoryFragment
 import com.example.caraocruz.ui.menu.MusicSelectorFragment
 import com.example.caraocruz.ui.menu.SettingsFragment
 import com.example.caraocruz.utils.MusicManager
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMain: ActivityMainBinding
@@ -30,6 +33,14 @@ class MainActivity : AppCompatActivity() {
 
         // Cuando la presentación termine, se inicializa el layout principal:
         finishPresentation()
+
+        // TODO: Prueba firebase
+        val db = Firebase.firestore
+
+        db.collection("test")
+            .add(mapOf("ok" to true))
+            .addOnSuccessListener { Log.d("Firestore", "Todo OK") }
+            .addOnFailureListener { Log.e("Firestore", "Error", it) }
 
     }
 

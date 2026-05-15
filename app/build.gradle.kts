@@ -60,6 +60,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0")
     implementation(libs.play.services.location)
+    implementation(libs.androidx.credentials.lib)
+    implementation(libs.androidx.credentials.play.services.auth.lib)
+    implementation(libs.googleid.lib)
 
     // Firebase
     //Import the Firebase BoM

@@ -27,8 +27,8 @@
 
     <item
         android:id="@+id/nav_login"
-        android:title="Iniciar Sesión"
-        android:icon="@android:drawable/ic_menu_mylocation"/>
+        android:title="@string/menu_cerrar_sesion"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"/>
 
 
     <!-- TODO Para la siguiente versión
@@ -44,8 +44,8 @@
 
     <item
         android:id="@+id/nav_login"
-        android:title="Iniciar Sesión"
-        android:icon="@android:drawable/ic_menu_mylocation"/>
+        android:title="@string/menu_cerrar_sesion"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"/>
 
     -->
 

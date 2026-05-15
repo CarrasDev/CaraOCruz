@@ -1,7 +1,10 @@
 plugins {
+    //id("com.android.application")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.androidx.room) // Todo: quitar cuando migremos a firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -25,15 +28,19 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     // Solución al error de deprecación de kotlinOptions
     kotlin {
         compilerOptions {
-            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 
     buildFeatures {
@@ -51,10 +58,25 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0")
     implementation(libs.play.services.location)
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation(libs.androidx.credentials.lib)
+    implementation(libs.androidx.credentials.play.services.auth.lib)
+    implementation(libs.googleid.lib)
+
+    // Firebase
+    //Import the Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:34.11.0"))
+
+    // Firebase products
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    // TODO: Add the dependencies for Firebase products you want to use
+    // When using the BoM, don't specify versions in Firebase dependencies
+    // https://firebase.google.com/docs/android/setup#available-libraries
+
+
 
     // Room
     implementation(libs.room.runtime)

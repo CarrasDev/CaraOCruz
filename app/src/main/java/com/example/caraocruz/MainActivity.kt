@@ -1,19 +1,22 @@
 package com.example.caraocruz
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.caraocruz.databinding.ActivityMainBinding
-import com.example.caraocruz.databinding.ActivityPresentationBinding
 import com.example.caraocruz.ui.juego.JuegoFragment
 import com.example.caraocruz.ui.menu.HelpFragment
 import com.example.caraocruz.ui.menu.HistoryFragment
 import com.example.caraocruz.ui.menu.MusicSelectorFragment
 import com.example.caraocruz.ui.menu.SettingsFragment
 import com.example.caraocruz.utils.MusicManager
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
+import com.google.firebase.firestore.firestore
+import android.content.Intent
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMain: ActivityMainBinding
-    private lateinit var bindingPresentation: ActivityPresentationBinding
 
     private lateinit var musicManager: MusicManager
 
@@ -24,22 +27,20 @@ class MainActivity : AppCompatActivity() {
         // Inicializar MusicManager
         musicManager = MusicManager.getInstance(this)
 
-        // Cargar layout de presentación
-        bindingPresentation = ActivityPresentationBinding.inflate(layoutInflater)
-        setContentView(bindingPresentation.root)
-
-        // Cuando la presentación termine, se inicializa el layout principal:
-        finishPresentation()
-
-    }
-
-    private fun finishPresentation() {
-        // Cambiar al layout principal
+        // Ir directamente al layout principal (la presentación ya se hizo en PresentationActivity)
         bindingMain = ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingMain.root)
 
-        // Inicializar DrawerLayout, Toolbar, NavigationView, etc.
         initMainLayout()
+
+        // TODO: Prueba firebase
+        val db = Firebase.firestore
+
+        db.collection("test")
+            .add(mapOf("ok" to true))
+            .addOnSuccessListener { Log.d("Firestore", "Todo OK") }
+            .addOnFailureListener { Log.e("Firestore", "Error", it) }
+
     }
 
     private fun initMainLayout() {
@@ -100,6 +101,13 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.nav_host_fragment, SettingsFragment())
                         .addToBackStack(null)
                         .commit()
+                }
+                R.id.nav_login -> {
+                    // Cerrar sesión y volver a LoginActivity
+                    Firebase.auth.signOut()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
                 /* TODO Para la siguiente versión
                 R.id.nav_profile -> { /* Acción perfil */ }

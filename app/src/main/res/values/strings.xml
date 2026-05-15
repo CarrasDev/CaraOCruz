@@ -17,6 +17,12 @@
     <string name="btn_continue">Continuar</string>
     <string name="menu_ayuda">Ayuda</string>
     <string name="menu_selector_musica">Música</string>
+    <string name="menu_cerrar_sesion">Cerrar Sesión</string>
+    <string name="login_status_not_logged">Inicia sesión para jugar</string>
+    <string name="login_status_logged">Conectado como: %1$s</string>
+    <string name="error_unsupported_account">Error: Tipo de cuenta no soportado</string>
+    <string name="error_login_failed">Error al iniciar sesión: %1$s</string>
+    <string name="error_firebase_auth">Error en Firebase Auth: %1$s</string>
 
     <!-- Pantalla Juego -->
     <string name="btn_cara">CARA</string>
@@ -75,4 +81,7 @@
     <string name="label_notif_service">Notificaciones de Victoria</string>
     <string name="label_screenshot_service">Solicitar Captura al Ganar</string>
     <string name="label_calendar_service">Registrar en Calendario</string>
+
+    <!-- Google Auth -->
+    <string name="default_web_client_id">68587874763-9lqldcva50d9rum5sfvg7rok6dmtu7c3.apps.googleusercontent.com</string>
 </resources>

@@ -7,7 +7,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitClient {
     // REEMPLAZAR con la URL real de tus Firebase Functions
-    private const val BASE_URL = "https://us-central1-cara-o-cruz-91aab.cloudfunctions.net/"
+    private const val BASE_URL = "http://127.0.0.1:5001/cara-o-cruz-91aab/us-central1/procesarApuesta"
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())

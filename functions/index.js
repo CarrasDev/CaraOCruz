@@ -1,32 +1,63 @@
-/**
- * Import function triggers from their respective submodules:
- *
- * const {onCall} = require("firebase-functions/v2/https");
- * const {onDocumentWritten} = require("firebase-functions/v2/firestore");
- *
- * See a full list of supported triggers at https://firebase.google.com/docs/functions
- */
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp();
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
-const logger = require("firebase-functions/logger");
+exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
+    // 1. Validar método y Auth
+    if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
+    
+    // Aquí deberías validar el ID Token que enviamos en la cabecera "Authorization"
+    // Por simplicidad en este ejemplo, extraemos el userId del body
+    const { userId, apuesta, eleccionCara } = req.body;
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+    const db = admin.firestore();
+    const userRef = db.collection('usuarios').doc(userId);
+    const globalRef = db.collection('config').doc('global');
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+    try {
+        const resultado = await db.runTransaction(async (t) => {
+            const userSnap = await t.get(userRef);
+            const globalSnap = await t.get(globalRef);
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+            const saldoActual = userSnap.data().saldo || 0;
+            const boteActual = globalSnap.data().boteComun || 0;
+
+            if (saldoActual < apuesta) throw new Error('Saldo insuficiente');
+
+            // Lógica de Azar en el Servidor
+            const resultadoAzar = Math.random() < 0.5 ? 'Cara' : 'Cruz';
+            const gano = (eleccionCara && resultadoAzar === 'Cara') || (!eleccionCara && resultadoAzar === 'Cruz');
+
+            const boteConApuesta = boteActual + apuesta;
+            const saldoTrasApuesta = saldoActual - apuesta;
+
+            let nuevoSaldo, nuevoBote, premio = 0;
+
+            if (gano) {
+                premio = boteConApuesta;
+                nuevoSaldo = saldoTrasApuesta + premio;
+                nuevoBote = 0;
+            } else {
+                nuevoSaldo = saldoTrasApuesta;
+                nuevoBote = boteConApuesta;
+            }
+
+            // Actualizar Firestore
+            t.update(userRef, { saldo: nuevoSaldo });
+            t.update(globalRef, { boteComun: nuevoBote });
+
+            return {
+                success: true,
+                resultado: resultadoAzar,
+                gano: gano,
+                nuevoSaldo: nuevoSaldo,
+                nuevoBote: nuevoBote,
+                premio: premio
+            };
+        });
+
+        res.status(200).json(resultado);
+    } catch (error) {
+        res.status(400).json({ success: false, error: error.message });
+    }
+});

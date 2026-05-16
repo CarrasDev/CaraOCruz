@@ -18,6 +18,12 @@
     <string name="btn_continue">Continue</string>
     <string name="menu_ayuda">Help</string>
     <string name="menu_selector_musica">Music</string>
+    <string name="menu_cerrar_sesion">Sign Out</string>
+    <string name="login_status_not_logged">Log in to play</string>
+    <string name="login_status_logged">Logged in as: %1$s</string>
+    <string name="error_unsupported_account">Error: Unsupported account type</string>
+    <string name="error_login_failed">Login failed: %1$s</string>
+    <string name="error_firebase_auth">Firebase Auth error: %1$s</string>
 
     <string name="btn_cara">HEADS</string>
     <string name="btn_cruz">TAILS</string>

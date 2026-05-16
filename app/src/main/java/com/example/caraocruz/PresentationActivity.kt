@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.webkit.WebView
 import com.example.caraocruz.databinding.ActivityPresentationBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.example.caraocruz.utils.AuthManager
 
 class PresentationActivity : AppCompatActivity() {
 
@@ -24,8 +24,8 @@ class PresentationActivity : AppCompatActivity() {
 
         // Temporizador para pasar a la siguiente pantalla
         Handler(Looper.getMainLooper()).postDelayed({
-            val currentUser = FirebaseAuth.getInstance().currentUser
-            val destination = if (currentUser != null) {
+            val authManager = AuthManager.getInstance(this)
+            val destination = if (authManager.isUserLoggedIn()) {
                 MainActivity::class.java
             } else {
                 LoginActivity::class.java

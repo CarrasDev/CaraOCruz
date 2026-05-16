@@ -10,10 +10,13 @@ import com.example.caraocruz.ui.menu.HistoryFragment
 import com.example.caraocruz.ui.menu.MusicSelectorFragment
 import com.example.caraocruz.ui.menu.SettingsFragment
 import com.example.caraocruz.utils.MusicManager
+import com.example.caraocruz.utils.AuthManager
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import android.content.Intent
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMain: ActivityMainBinding
@@ -103,11 +106,13 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.nav_login -> {
-                    // Cerrar sesión y volver a LoginActivity
-                    Firebase.auth.signOut()
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    // Cerrar sesión mediante AuthManager y volver a LoginActivity
+                    lifecycleScope.launch {
+                        AuthManager.getInstance(this@MainActivity).signOut(this@MainActivity)
+                        val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
                 /* TODO Para la siguiente versión
                 R.id.nav_profile -> { /* Acción perfil */ }

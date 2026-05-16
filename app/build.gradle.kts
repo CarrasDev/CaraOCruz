@@ -76,7 +76,10 @@ dependencies {
     // When using the BoM, don't specify versions in Firebase dependencies
     // https://firebase.google.com/docs/android/setup#available-libraries
 
-
+    // Retrofit & Moshi
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.11.0")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
 
     // Room
     implementation(libs.room.runtime)

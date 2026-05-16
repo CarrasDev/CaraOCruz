@@ -49,9 +49,22 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
     private val _juegoTerminado = MutableStateFlow(false)
     val juegoTerminado: StateFlow<Boolean> = _juegoTerminado
 
+    private val _boteComun = MutableStateFlow(0L)
+    val boteComun: StateFlow<Long> = _boteComun
+
+    private val _premioReciente = MutableSharedFlow<Long>(replay = 0)
+    val premioReciente: SharedFlow<Long> = _premioReciente.asSharedFlow()
+
     init {
         _resultadoMensaje.tryEmit(R.string.prompt_inicio)
         cargarSaldo()
+        escucharBote()
+    }
+
+    private fun escucharBote() {
+        firestoreManager.getBoteComunListener { nuevoBote ->
+            _boteComun.value = nuevoBote
+        }
     }
 
     private fun cargarSaldo() {
@@ -135,13 +148,14 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
                 longitud = lon
             )
 
-            // Procesar en Firestore
-            val result = firestoreManager.procesarJugada(userId, apuesta, gano, partida)
+            // Procesar en Firestore con lógica de Bote Común
+            val result = firestoreManager.procesarJugadaOnline(userId, apuesta, gano, partida)
             
-            result.onSuccess { nuevoSaldo ->
+            result.onSuccess { (nuevoSaldo, premio) ->
                 _monedas.value = nuevoSaldo
                 if (gano) {
                     _resultadoMensaje.emit(R.string.msg_ganaste)
+                    _premioReciente.emit(premio)
                     musicManager.playWinSound()
                 } else {
                     _resultadoMensaje.emit(R.string.msg_perdiste)

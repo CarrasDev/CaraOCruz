@@ -5,6 +5,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Jugar</string>
     <string name="menu_online">Juego Online</string>
+    <string name="label_bote_acumulado">BOTE ACUMULADO</string>
+    <string name="msg_ganaste_bote">¡BRUTAL! Te has llevado el bote de %1$d monedas</string>
     <string name="menu_ranking">Historial</string>
     <string name="menu_musica">Música</string>
     <string name="menu_perfil">Perfil</string>

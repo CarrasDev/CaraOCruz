@@ -10,6 +10,7 @@ class FirestoreManager private constructor() {
 
     private val db = FirebaseFirestore.getInstance()
     private val usuariosCollection = db.collection("usuarios")
+    private val globalConfigRef = db.collection("config").document("global")
 
     companion object {
         @Volatile
@@ -18,6 +19,25 @@ class FirestoreManager private constructor() {
         fun getInstance(): FirestoreManager {
             return INSTANCE ?: synchronized(this) {
                 INSTANCE ?: FirestoreManager().also { INSTANCE = it }
+            }
+        }
+    }
+
+    /**
+     * Escucha cambios en el bote común en tiempo real.
+     */
+    fun getBoteComunListener(onUpdate: (Long) -> Unit) {
+        globalConfigRef.addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                Log.w("FirestoreManager", "Error al escuchar bote común", e)
+                return@addSnapshotListener
+            }
+            if (snapshot != null && snapshot.exists()) {
+                val bote = snapshot.getLong("boteComun") ?: 0L
+                onUpdate(bote)
+            } else {
+                // Si no existe, lo inicializamos
+                globalConfigRef.set(mapOf("boteComun" to 0L))
             }
         }
     }
@@ -44,47 +64,63 @@ class FirestoreManager private constructor() {
 
     /**
      * Procesa una jugada de forma atómica usando una Transacción.
-     * Esto asegura que el saldo se actualice correctamente incluso con mala conexión.
+     * Gestiona el Bote Común:
+     * - Si pierde: Su apuesta se suma al Bote Común.
+     * - Si gana: Se lleva el saldo actual del Bote Común y el bote se resetea.
      */
-    suspend fun procesarJugada(userId: String, apuesta: Int, gano: Boolean, partida: Partida): Result<Long> {
+    suspend fun procesarJugadaOnline(userId: String, apuesta: Int, gano: Boolean, partida: Partida): Result<Pair<Long, Long>> {
         return try {
             val userRef = usuariosCollection.document(userId)
             val partidasRef = userRef.collection("partidas")
 
             db.runTransaction { transaction ->
-                val snapshot = transaction.get(userRef)
-                val saldoActual = snapshot.getLong("saldo") ?: 0L
+                // 1. Obtener datos actuales
+                val userSnapshot = transaction.get(userRef)
+                val globalSnapshot = transaction.get(globalConfigRef)
                 
-                val nuevoSaldo = if (gano) {
-                    saldoActual + apuesta
+                val saldoActual = userSnapshot.getLong("saldo") ?: 0L
+                val boteActual = globalSnapshot.getLong("boteComun") ?: 0L
+                
+                if (saldoActual < apuesta) throw Exception("Saldo insuficiente")
+
+                val nuevoSaldo: Long
+                val nuevoBote: Long
+                val premioObtenido: Long
+
+                if (gano) {
+                    // El jugador gana todo lo que hay en el bote
+                    premioObtenido = boteActual
+                    nuevoSaldo = saldoActual + premioObtenido
+                    nuevoBote = 0L // El bote se vacía
                 } else {
-                    saldoActual - apuesta
+                    // El jugador pierde su apuesta y se suma al bote
+                    premioObtenido = 0L
+                    nuevoSaldo = saldoActual - apuesta
+                    nuevoBote = boteActual + apuesta
                 }
 
-                if (nuevoSaldo < 0) throw Exception("Saldo insuficiente")
-
-                // 1. Actualizar saldo del usuario
+                // 2. Aplicar cambios atómicamente
                 transaction.update(userRef, "saldo", nuevoSaldo)
+                transaction.update(globalConfigRef, "boteComun", nuevoBote)
                 
-                // 2. Registrar la partida en la subcolección
-                // Convertimos el objeto Partida a un mapa para Firestore
-                val partidaMap = mapOf(
+                // 3. Registrar partida
+                val partidaMap = mutableMapOf(
                     "resultado" to partida.resultado,
                     "apuesta" to partida.apuesta,
-                    "gano" to partida.gano,
+                    "gano" to gano,
                     "fecha" to partida.fecha,
+                    "premioObtenido" to premioObtenido,
                     "latitud" to partida.latitud,
                     "longitud" to partida.longitud
                 )
                 partidasRef.add(partidaMap)
 
-                nuevoSaldo
-            }.await()
-
-            val finalSaldo = getOrInitializeUser(userId) // Opcional: podrías devolver el resultado de la transacción
-            Result.success(finalSaldo)
+                Pair(nuevoSaldo, premioObtenido)
+            }.await().let { 
+                Result.success(it)
+            }
         } catch (e: Exception) {
-            Log.e("FirestoreManager", "Error en transacción de jugada", e)
+            Log.e("FirestoreManager", "Error en transacción de jugada online", e)
             Result.failure(e)
         }
     }

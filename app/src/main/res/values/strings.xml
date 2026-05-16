@@ -81,7 +81,4 @@
     <string name="label_notif_service">Notificaciones de Victoria</string>
     <string name="label_screenshot_service">Solicitar Captura al Ganar</string>
     <string name="label_calendar_service">Registrar en Calendario</string>
-
-    <!-- Google Auth -->
-    <string name="default_web_client_id">68587874763-9lqldcva50d9rum5sfvg7rok6dmtu7c3.apps.googleusercontent.com</string>
 </resources>

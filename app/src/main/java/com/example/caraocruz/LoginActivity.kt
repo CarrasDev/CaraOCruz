@@ -43,10 +43,6 @@ class LoginActivity : AppCompatActivity() {
             signInWithGoogle()
         }
 
-        binding.btnSignOut.setOnClickListener {
-            signOut()
-        }
-
         updateUI()
     }
 
@@ -109,21 +105,14 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun signOut() {
-        auth.signOut()
-        updateUI()
-    }
-
     private fun updateUI() {
         val user = auth.currentUser
         if (user != null) {
             binding.tvUserStatus.text = getString(R.string.login_status_logged, user.displayName ?: user.email)
             binding.btnGoogleSignIn.visibility = View.GONE
-            binding.btnSignOut.visibility = View.VISIBLE
         } else {
             binding.tvUserStatus.text = getString(R.string.login_status_not_logged)
             binding.btnGoogleSignIn.visibility = View.VISIBLE
-            binding.btnSignOut.visibility = View.GONE
         }
     }
 }

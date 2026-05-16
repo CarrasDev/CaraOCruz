@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.caraocruz.databinding.ActivityMainBinding
 import com.example.caraocruz.ui.juego.JuegoFragment
+import com.example.caraocruz.ui.juego_online.JuegoOnlineFragment
 import com.example.caraocruz.ui.menu.HelpFragment
 import com.example.caraocruz.ui.menu.HistoryFragment
 import com.example.caraocruz.ui.menu.MusicSelectorFragment
@@ -37,12 +38,12 @@ class MainActivity : AppCompatActivity() {
         initMainLayout()
 
         // TODO: Prueba firebase
-        val db = Firebase.firestore
+        //val db = Firebase.firestore
 
-        db.collection("test")
-            .add(mapOf("ok" to true))
-            .addOnSuccessListener { Log.d("Firestore", "Todo OK") }
-            .addOnFailureListener { Log.e("Firestore", "Error", it) }
+        //db.collection("test")
+        //    .add(mapOf("ok" to true))
+        //    .addOnSuccessListener { Log.d("Firestore", "Todo OK") }
+        //    .addOnFailureListener { Log.e("Firestore", "Error", it) }
 
     }
 
@@ -78,6 +79,12 @@ class MainActivity : AppCompatActivity() {
                     }
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, JuegoFragment())
+                        .commit()
+                }
+                R.id.nav_online -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, JuegoOnlineFragment())
+                        .addToBackStack(null)
                         .commit()
                 }
                 R.id.nav_history -> {

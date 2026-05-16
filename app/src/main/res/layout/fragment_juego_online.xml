@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:fitsSystemWindows="true"
+    tools:context=".ui.juego_online.JuegoOnlineFragment">
+
+    <!-- Indicador de Saldo Online -->
+    <TextView
+        android:id="@+id/tvSaldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/msg_haz_apuesta"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/tvOnlineLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MODO ONLINE"
+        android:textSize="12sp"
+        android:textColor="#4CAF50"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/tvSaldo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Área de mensaje de resultado -->
+    <TextView
+        android:id="@+id/tvMensaje"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/msg_haz_apuesta"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/tvOnlineLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Campo de entrada para la apuesta -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilApuesta"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:hint="@string/cantidad_a_apostar"
+        app:layout_constraintTop_toBottomOf="@id/tvMensaje"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etApuesta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:text="1"
+            tools:ignore="HardcodedText" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botón CARA -->
+    <Button
+        android:id="@+id/btnCara"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#FFC107"
+        android:text="@string/btn_cara"
+        app:layout_constraintEnd_toStartOf="@+id/btnCruz"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilApuesta"
+        tools:ignore="TextContrastCheck" />
+
+    <!-- Botón CRUZ -->
+    <Button
+        android:id="@+id/btnCruz"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/btn_cruz"
+        android:backgroundTint="#757575"
+        app:layout_constraintTop_toTopOf="@id/btnCara"
+        app:layout_constraintStart_toEndOf="@id/btnCara"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Guía visual para la moneda -->
+    <ImageView
+        android:id="@+id/ivMoneda"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="80dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/logocaraocruz"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCara" />
+
+    <!-- Botón de Mute -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@android:drawable/ic_lock_silent_mode"
+        app:fabSize="mini"
+        app:backgroundTint="@android:color/white"
+        app:tint="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/menu_musica" />
+
+    <!-- Loading Overlay -->
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80FFFFFF"
+        android:visibility="gone"
+        tools:visibility="visible">
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

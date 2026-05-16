@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.caraocruz.R
 import com.example.caraocruz.data.Partida
+import com.example.caraocruz.data.api.ApuestaRequest
+import com.example.caraocruz.data.api.RetrofitClient
 import com.example.caraocruz.utils.AuthManager
 import com.example.caraocruz.utils.FirestoreManager
 import com.example.caraocruz.utils.MusicManager
@@ -17,11 +19,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.util.Date
-import kotlin.random.Random
 
 class JuegoOnlineViewModel(context: Context) : ViewModel() {
 
@@ -120,53 +120,40 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
         viewModelScope.launch {
             _isLoading.value = true
             
-            val resultadoEsCara = Random.nextBoolean()
-            val gano = eleccionMoneda == resultadoEsCara
-            val resultadoTexto = if (resultadoEsCara) "Cara" else "Cruz"
-
-            // Actualizar imagen inmediatamente para la UI
-            _monedaImagenResId.value = if (resultadoEsCara) R.drawable.cara else R.drawable.cruz
-            _ultimoValor.value = apuesta
-
-            // Obtener ubicación
-            var lat: Double? = null
-            var lon: Double? = null
             try {
-                val location = fusedLocationClient.lastLocation.await()
-                lat = location?.latitude
-                lon = location?.longitude
-            } catch (e: Exception) {
-                Log.e("JuegoOnlineViewModel", "Error al obtener ubicación", e)
-            }
+                // 1. Obtener Token de Autenticación
+                val token = authManager.getIdToken() ?: throw Exception("No se pudo obtener el token")
+                val bearerToken = "Bearer $token"
 
-            val partida = Partida(
-                apuesta = apuesta,
-                resultado = resultadoTexto,
-                gano = gano,
-                fecha = Date(),
-                latitud = lat,
-                longitud = lon
-            )
+                // 2. Realizar llamada a la API (Cloud Function)
+                val request = ApuestaRequest(userId, apuesta, eleccionMoneda)
+                val response = RetrofitClient.instance.enviarApuesta(bearerToken, request)
 
-            // Procesar en Firestore con lógica de Bote Común
-            val result = firestoreManager.procesarJugadaOnline(userId, apuesta, gano, partida)
-            
-            result.onSuccess { (nuevoSaldo, premio) ->
-                _monedas.value = nuevoSaldo
-                if (gano) {
-                    _resultadoMensaje.emit(R.string.msg_ganaste)
-                    _premioReciente.emit(premio)
-                    musicManager.playWinSound()
+                if (response.success) {
+                    // Actualizar UI con el resultado del servidor
+                    _monedaImagenResId.value = if (response.resultado == "Cara") R.drawable.cara else R.drawable.cruz
+                    _ultimoValor.value = apuesta
+                    _monedas.value = response.nuevoSaldo
+                    
+                    if (response.gano) {
+                        _resultadoMensaje.emit(R.string.msg_ganaste)
+                        _premioReciente.emit(response.premio)
+                        musicManager.playWinSound()
+                    } else {
+                        _resultadoMensaje.emit(R.string.msg_perdiste)
+                        musicManager.playLoseSound()
+                    }
+                    comprobarFinDeJuego(response.nuevoSaldo)
                 } else {
-                    _resultadoMensaje.emit(R.string.msg_perdiste)
-                    musicManager.playLoseSound()
+                    Log.e("JuegoOnlineViewModel", "Error en API: ${response.error}")
+                    _resultadoMensaje.emit(R.string.msg_error_db)
                 }
-                comprobarFinDeJuego(nuevoSaldo)
-            }.onFailure {
+            } catch (e: Exception) {
+                Log.e("JuegoOnlineViewModel", "Fallo en la llamada Retrofit", e)
                 _resultadoMensaje.emit(R.string.msg_error_db)
+            } finally {
+                _isLoading.value = false
             }
-            
-            _isLoading.value = false
         }
     }
 

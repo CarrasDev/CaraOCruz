@@ -85,4 +85,8 @@ class AuthManager private constructor(context: Context) {
     fun isUserLoggedIn(): Boolean = auth.currentUser != null
     
     fun getCurrentUser(): FirebaseUser? = auth.currentUser
+
+    suspend fun getIdToken(): String? {
+        return auth.currentUser?.getIdToken(true)?.await()?.token
+    }
 }

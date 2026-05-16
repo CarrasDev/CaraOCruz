@@ -7,7 +7,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitClient {
     // URL para producción (Firebase Cloud Functions)
-    private const val BASE_URL_PROD = "https://us-central1-cara-o-cruz-91aab.cloudfunctions.net/"
+    private const val BASE_URL_PROD = "https://procesarapuesta-36bckviauq-uc.a.run.app/"
     
     // URL para desarrollo (Firebase Emulator)
     private const val BASE_URL_DEV = "http://10.0.2.2:5001/cara-o-cruz-91aab/us-central1/"

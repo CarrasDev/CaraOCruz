@@ -3,28 +3,45 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
-    // 1. Validar método y Auth
+    // 1. Validar método
     if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
-    
-    // Aquí deberías validar el ID Token que enviamos en la cabecera "Authorization"
-    // Por simplicidad en este ejemplo, extraemos el userId del body
-    const { userId, apuesta, eleccionCara } = req.body;
 
-    const db = admin.firestore();
-    const userRef = db.collection('usuarios').doc(userId);
-    const globalRef = db.collection('config').doc('global');
+    // 2. SEGURIDAD: Verificar el ID Token enviado desde Android
+    const authorization = req.get('Authorization');
+    if (!authorization || !authorization.startsWith('Bearer ')) {
+        return res.status(401).json({ success: false, error: 'No autorizado' });
+    }
+
+    const idToken = authorization.split('Bearer ')[1];
 
     try {
+        // Verificar que el token es válido y pertenece a un usuario real
+        const decodedToken = await admin.auth().verifyIdToken(idToken);
+        const authUserId = decodedToken.uid; // Este es el ID de usuario real verificado
+
+        const { apuesta, eleccionCara, userId } = req.body;
+
+        // Validación extra: el userId del body debe coincidir con el del token
+        if (userId !== authUserId) {
+            return res.status(403).json({ success: false, error: 'Intento de suplantación detectado' });
+        }
+
+        const db = admin.firestore();
+        const userRef = db.collection('usuarios').doc(authUserId);
+        const globalRef = db.collection('config').doc('global');
+
         const resultado = await db.runTransaction(async (t) => {
             const userSnap = await t.get(userRef);
             const globalSnap = await t.get(globalRef);
+
+            if (!userSnap.exists) throw new Error('Usuario no encontrado');
 
             const saldoActual = userSnap.data().saldo || 0;
             const boteActual = globalSnap.data().boteComun || 0;
 
             if (saldoActual < apuesta) throw new Error('Saldo insuficiente');
 
-            // Lógica de Azar en el Servidor
+            // Lógica de Azar 100% en el Servidor
             const resultadoAzar = Math.random() < 0.5 ? 'Cara' : 'Cruz';
             const gano = (eleccionCara && resultadoAzar === 'Cara') || (!eleccionCara && resultadoAzar === 'Cruz');
 
@@ -42,7 +59,7 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
                 nuevoBote = boteConApuesta;
             }
 
-            // Actualizar Firestore
+            // Actualizar Firestore de forma atómica
             t.update(userRef, { saldo: nuevoSaldo });
             t.update(globalRef, { boteComun: nuevoBote });
 
@@ -58,6 +75,7 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
 
         res.status(200).json(resultado);
     } catch (error) {
+        console.error('Error en procesarApuesta:', error);
         res.status(400).json({ success: false, error: error.message });
     }
 });

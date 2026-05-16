@@ -4,6 +4,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Jugar</string>
+    <string name="menu_online">Juego Online</string>
     <string name="menu_ranking">Historial</string>
     <string name="menu_musica">Música</string>
     <string name="menu_perfil">Perfil</string>

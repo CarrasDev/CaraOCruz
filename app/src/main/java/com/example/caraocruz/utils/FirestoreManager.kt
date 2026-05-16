@@ -102,4 +102,18 @@ class FirestoreManager private constructor() {
     } catch (e: Exception) {
         null
     }
+
+    /**
+     * Reinicia el saldo del usuario a 100 monedas en Firestore.
+     */
+    suspend fun reiniciarSaldo(userId: String): Result<Long> {
+        return try {
+            val userRef = usuariosCollection.document(userId)
+            userRef.update("saldo", 100L).await()
+            Result.success(100L)
+        } catch (e: Exception) {
+            Log.e("FirestoreManager", "Error al reiniciar saldo", e)
+            Result.failure(e)
+        }
+    }
 }

@@ -6,6 +6,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Play</string>
     <string name="menu_online">Online Game</string>
+    <string name="label_bote_acumulado">ACCUMULATED JACKPOT</string>
+    <string name="msg_ganaste_bote">AWESOME! You won the jackpot of %1$d coins</string>
     <string name="menu_ranking">History</string>
     <string name="menu_musica">Music</string>
     <string name="menu_perfil">Profile</string>

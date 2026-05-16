@@ -2,6 +2,7 @@ package com.example.caraocruz.ui.juego_online
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -67,6 +68,22 @@ class JuegoOnlineFragment : Fragment(R.layout.fragment_juego_online) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.monedaImagenResId.collect { resId ->
                 binding.ivMoneda.setImageResource(resId)
+            }
+        }
+
+        // Bote Común
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.boteComun.collect { bote ->
+                binding.tvBote.text = bote.toString()
+            }
+        }
+
+        // Premio especial al ganar el bote
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.premioReciente.collect { premio ->
+                if (premio > 0) {
+                    Toast.makeText(requireContext(), getString(R.string.msg_ganaste_bote, premio), Toast.LENGTH_LONG).show()
+                }
             }
         }
 

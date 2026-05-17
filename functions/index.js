@@ -15,8 +15,11 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
     try {
         const decodedToken = await admin.auth().verifyIdToken(idToken);
         const authUserId = decodedToken.uid;
-
         const { apuesta, eleccionCara, userId } = req.body;
+
+        if (userId === undefined || apuesta === undefined || eleccionCara === undefined) {
+            return res.status(400).json({ success: false, error: 'Faltan parámetros en la petición' });
+        }
 
         if (userId !== authUserId) {
             return res.status(403).json({ success: false, error: 'Intento de suplantación' });
@@ -25,16 +28,20 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
         const db = admin.firestore();
         const userRef = db.collection('usuarios').doc(authUserId);
         const globalRef = db.collection('config').doc('global');
-        const partidasRef = userRef.collection('partidas'); // Referencia a la subcolección
+        const rankingRef = db.collection('ranking');
 
         const resultado = await db.runTransaction(async (t) => {
             const userSnap = await t.get(userRef);
             const globalSnap = await t.get(globalRef);
+            const rankingSnap = await t.get(rankingRef.orderBy('premio', 'desc').limit(10));
 
             if (!userSnap.exists) throw new Error('Usuario no encontrado');
 
-            const saldoActual = userSnap.data().saldo || 0;
-            const boteActual = globalSnap.data().boteComun || 0;
+            const userData = userSnap.data();
+            const globalData = globalSnap.data() || { boteComun: 0 };
+
+            const saldoActual = userData.saldo || 0;
+            const boteActual = globalData.boteComun || 0;
 
             if (saldoActual < apuesta) throw new Error('Saldo insuficiente');
 
@@ -55,19 +62,46 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
                 nuevoBote = boteConApuesta;
             }
 
-            // Actualizar saldos globales
+            // 1. Actualizar saldos
             t.update(userRef, { saldo: nuevoSaldo });
-            t.update(globalRef, { boteComun: nuevoBote });
+            t.set(globalRef, { boteComun: nuevoBote }, { merge: true });
 
-            // REGISTRAR LA PARTIDA
-            const nuevaPartidaRef = partidasRef.doc(); // Crea un ID automático
+            // 2. Registrar partida
+            const nuevaPartidaRef = userRef.collection('partidas').doc();
             t.set(nuevaPartidaRef, {
                 apuesta: apuesta,
                 resultado: resultadoAzar,
                 gano: gano,
                 premioObtenido: premio,
-                fecha: admin.firestore.FieldValue.serverTimestamp() // Fecha del servidor
+                fecha: admin.firestore.FieldValue.serverTimestamp()
             });
+
+            // 3. Lógica de Ranking (Solo si gana)
+            if (gano && premio > 0) {
+                const rankingDocs = rankingSnap.docs;
+
+                let entraEnRanking = false;
+                if (rankingDocs.length < 10) {
+                    entraEnRanking = true;
+                } else {
+                    const ultimoPremio = rankingDocs[rankingDocs.length - 1].data().premio;
+                    if (premio > ultimoPremio) entraEnRanking = true;
+                }
+
+                if (entraEnRanking) {
+                    const newRecordRef = rankingRef.doc();
+                    t.set(newRecordRef, {
+                        nombreUsuario: decodedToken.name || decodedToken.email || "Jugador Anónimo",
+                        premio: premio,
+                        fecha: Date.now()
+                    });
+
+                    // Si ahora tenemos 11 (10 previos + 1 nuevo), borramos el sobrante
+                    if (rankingDocs.length >= 10) {
+                        t.delete(rankingDocs[rankingDocs.length - 1].ref);
+                    }
+                }
+            }
 
             return {
                 success: true,
@@ -81,7 +115,20 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
 
         res.status(200).json(resultado);
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error Transaction:', error.message);
         res.status(400).json({ success: false, error: error.message });
+    }
+});
+
+exports.getRanking = functions.https.onRequest(async (req, res) => {
+    try {
+        const snapshot = await admin.firestore().collection('ranking')
+            .orderBy('premio', 'desc')
+            .limit(10)
+            .get();
+        const ranking = snapshot.docs.map(doc => doc.data());
+        res.status(200).json(ranking);
+    } catch (error) {
+        res.status(500).send('Error');
     }
 });

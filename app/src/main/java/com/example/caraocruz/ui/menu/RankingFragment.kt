@@ -30,7 +30,7 @@ class RankingFragment : Fragment(R.layout.fragment_ranking) {
         
         lifecycleScope.launch {
             try {
-                val ranking = RetrofitClient.instance.obtenerRanking()
+                val ranking = RetrofitClient.rankingInstance.obtenerRanking()
                 binding.rvRanking.adapter = RankingAdapter(ranking)
             } catch (e: Exception) {
                 Log.e("RankingFragment", "Error al cargar ranking", e)

@@ -6,8 +6,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitClient {
-    // URL para producción (Firebase Cloud Functions)
-    private const val BASE_URL_PROD = "https://procesarapuesta-36bckviauq-uc.a.run.app/"
+    // URLs para producción
+    private const val BASE_URL_APUESTA_PROD = "https://procesarapuesta-36bckviauq-uc.a.run.app/"
+    private const val BASE_URL_RANKING_PROD = "https://getranking-36bckviauq-uc.a.run.app/"
     
     // URL para desarrollo (Firebase Emulator)
     private const val BASE_URL_DEV = "http://10.0.2.2:5001/cara-o-cruz-91aab/us-central1/"
@@ -19,12 +20,20 @@ object RetrofitClient {
         .add(KotlinJsonAdapterFactory())
         .build()
 
-    val instance: JuegoApiService by lazy {
-        val url = if (USE_EMULATOR) BASE_URL_DEV else BASE_URL_PROD
-        Retrofit.Builder()
-            .baseUrl(url)
+    private fun createRetrofit(baseUrl: String): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(baseUrl)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(JuegoApiService::class.java)
+    }
+
+    val instance: JuegoApiService by lazy {
+        val url = if (USE_EMULATOR) BASE_URL_DEV else BASE_URL_APUESTA_PROD
+        createRetrofit(url).create(JuegoApiService::class.java)
+    }
+
+    val rankingInstance: JuegoApiService by lazy {
+        val url = if (USE_EMULATOR) BASE_URL_DEV else BASE_URL_RANKING_PROD
+        createRetrofit(url).create(JuegoApiService::class.java)
     }
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.caraocruz.R
 import com.example.caraocruz.data.Partida
 import com.example.caraocruz.data.api.ApuestaRequest
+import com.example.caraocruz.data.api.ApuestaResponse
 import com.example.caraocruz.data.api.RetrofitClient
 import com.example.caraocruz.utils.AuthManager
 import com.example.caraocruz.utils.FirestoreManager
@@ -55,6 +56,12 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
     private val _premioReciente = MutableSharedFlow<Long>(replay = 0)
     val premioReciente: SharedFlow<Long> = _premioReciente.asSharedFlow()
 
+    private val _onJuegoFinalizado = MutableSharedFlow<ApuestaResponse>()
+    val onJuegoFinalizado: SharedFlow<ApuestaResponse> = _onJuegoFinalizado.asSharedFlow()
+
+    private val _onJuegoError = MutableSharedFlow<Unit>()
+    val onJuegoError: SharedFlow<Unit> = _onJuegoError.asSharedFlow()
+
     init {
         _resultadoMensaje.tryEmit(R.string.prompt_inicio)
         cargarSaldo()
@@ -63,7 +70,11 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
 
     private fun escucharBote() {
         firestoreManager.getBoteComunListener { nuevoBote ->
-            _boteComun.value = nuevoBote
+            // Actualizamos si es la carga inicial (valor actual 0) 
+            // o si no estamos en medio de una apuesta (evita spoilers)
+            if (_boteComun.value == 0L || !_isLoading.value) {
+                _boteComun.value = nuevoBote
+            }
         }
     }
 
@@ -119,7 +130,7 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
 
         viewModelScope.launch {
             _isLoading.value = true
-            
+
             try {
                 // 1. Obtener Token de Autenticación
                 val token = authManager.getIdToken() ?: throw Exception("No se pudo obtener el token")
@@ -130,30 +141,47 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
                 val response = RetrofitClient.instance.enviarApuesta(bearerToken, request)
 
                 if (response.success) {
-                    // Actualizar UI con el resultado del servidor
-                    _monedaImagenResId.value = if (response.resultado == "Cara") R.drawable.cara else R.drawable.cruz
-                    _ultimoValor.value = apuesta
-                    _monedas.value = response.nuevoSaldo
-                    
-                    if (response.gano) {
-                        _resultadoMensaje.emit(R.string.msg_ganaste)
-                        _premioReciente.emit(response.premio)
-                        musicManager.playWinSound()
-                    } else {
-                        _resultadoMensaje.emit(R.string.msg_perdiste)
-                        musicManager.playLoseSound()
-                    }
-                    comprobarFinDeJuego(response.nuevoSaldo)
+                    // Emitimos el resultado para que el Fragment decida cuándo mostrarlo
+                    _onJuegoFinalizado.emit(response)
                 } else {
                     Log.e("JuegoOnlineViewModel", "Error en API: ${response.error}")
                     _resultadoMensaje.emit(R.string.msg_error_db)
+                    _onJuegoError.emit(Unit)
+                    _isLoading.value = false
                 }
             } catch (e: Exception) {
                 Log.e("JuegoOnlineViewModel", "Fallo en la llamada Retrofit", e)
                 _resultadoMensaje.emit(R.string.msg_error_db)
-            } finally {
+                _onJuegoError.emit(Unit)
                 _isLoading.value = false
             }
+        }
+    }
+
+    fun finalizarProcesamientoResultado(response: ApuestaResponse, apuesta: Int) {
+        viewModelScope.launch {
+            // Actualizar UI con el resultado del servidor
+            _monedaImagenResId.value = if (response.resultado == "Cara") R.drawable.cara else R.drawable.cruz
+            _ultimoValor.value = apuesta
+            _monedas.value = response.nuevoSaldo
+            
+            // Sincronizamos el bote con el valor real devuelto por la API para esta jugada
+            _boteComun.value = response.nuevoBote
+
+            if (response.gano) {
+                _resultadoMensaje.emit(R.string.msg_ganaste)
+                // Solo emitimos premioReciente si es un premio especial (mayor que el doble de la apuesta)
+                // para evitar el spam del toast del "bote" en cada victoria normal.
+                if (response.premio > apuesta * 2) {
+                    _premioReciente.emit(response.premio)
+                }
+                musicManager.playWinSound()
+            } else {
+                _resultadoMensaje.emit(R.string.msg_perdiste)
+                musicManager.playLoseSound()
+            }
+            comprobarFinDeJuego(response.nuevoSaldo)
+            _isLoading.value = false
         }
     }
 

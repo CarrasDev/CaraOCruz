@@ -9,6 +9,7 @@ import com.example.caraocruz.ui.juego_online.JuegoOnlineFragment
 import com.example.caraocruz.ui.menu.HelpFragment
 import com.example.caraocruz.ui.menu.HistoryFragment
 import com.example.caraocruz.ui.menu.MusicSelectorFragment
+import com.example.caraocruz.ui.menu.RankingFragment
 import com.example.caraocruz.ui.menu.SettingsFragment
 import com.example.caraocruz.utils.MusicManager
 import com.example.caraocruz.utils.AuthManager
@@ -84,6 +85,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_online -> {
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.nav_host_fragment, JuegoOnlineFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+                R.id.nav_ranking -> {
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.nav_host_fragment, RankingFragment())
                         .addToBackStack(null)
                         .commit()
                 }

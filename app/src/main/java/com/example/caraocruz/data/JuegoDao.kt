@@ -21,4 +21,13 @@ interface JuegoDao {
 
     @Query("SELECT * FROM tabla_historico ORDER BY fecha DESC")
     fun getAllPartidas(): Single<List<Partida>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun guardarRanking(ranking: List<RankingEntity>)
+
+    @Query("DELETE FROM tabla_ranking")
+    suspend fun borrarRanking()
+
+    @Query("SELECT * FROM tabla_ranking ORDER BY premio DESC")
+    fun getRankingLocal(): kotlinx.coroutines.flow.Flow<List<RankingEntity>>
 }

@@ -27,6 +27,9 @@
     <string name="error_unsupported_account">Error: Unsupported account type</string>
     <string name="error_login_failed">Login failed: %1$s</string>
     <string name="error_firebase_auth">Firebase Auth error: %1$s</string>
+    <string name="title_no_google_account">No Google Account</string>
+    <string name="msg_no_google_account">No Google accounts were found on this device. Would you like to add one now to be able to play?</string>
+    <string name="btn_add_account">Add account</string>
 
     <string name="btn_cara">HEADS</string>
     <string name="btn_cruz">TAILS</string>

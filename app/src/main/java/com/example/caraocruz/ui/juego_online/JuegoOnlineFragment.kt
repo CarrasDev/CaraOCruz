@@ -1,7 +1,12 @@
 package com.example.caraocruz.ui.juego_online
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.view.HapticFeedbackConstants
 import android.view.View
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
@@ -9,12 +14,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.caraocruz.R
 import com.example.caraocruz.databinding.FragmentJuegoOnlineBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class JuegoOnlineFragment : Fragment(R.layout.fragment_juego_online) {
 
     private var _binding: FragmentJuegoOnlineBinding? = null
     private val binding get() = _binding!!
+
+    private var coinAnimator: ObjectAnimator? = null
+    private var animationStartTime: Long = 0
+    private val minAnimationDuration = 2000L
 
     private val viewModel: JuegoOnlineViewModel by lazy {
         ViewModelProvider(
@@ -90,9 +101,28 @@ class JuegoOnlineFragment : Fragment(R.layout.fragment_juego_online) {
         // Loading state
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isLoading.collect { isLoading ->
-                binding.loadingOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
-                binding.btnCara.isEnabled = !isLoading
-                binding.btnCruz.isEnabled = !isLoading
+                actualizarEstadoControles(isLoading)
+            }
+        }
+
+        // Resultado Juego Online (Sincronizado)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.onJuegoFinalizado.collectLatest { response ->
+                val apuestaText = binding.etApuesta.text.toString()
+                val apuesta = apuestaText.toIntOrNull() ?: 0
+                
+                val elapsed = System.currentTimeMillis() - animationStartTime
+                val remaining = (minAnimationDuration - elapsed).coerceAtLeast(0)
+                
+                delay(remaining)
+                detenerAnimacionYMostrarResultado(response, apuesta)
+            }
+        }
+
+        // Error en Juego Online
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.onJuegoError.collect {
+                detenerAnimacionPorError()
             }
         }
 
@@ -124,14 +154,19 @@ class JuegoOnlineFragment : Fragment(R.layout.fragment_juego_online) {
         }
     }
 
-    private fun actualizarIconoMute(enabled: Boolean? = null) {
-        val isMusicEnabled = enabled ?: viewModel.isMusicaActivada()
-        val resId = if (isMusicEnabled) {
-            android.R.drawable.ic_lock_silent_mode
+    private fun actualizarEstadoControles(isLoading: Boolean) {
+        val isAnimating = coinAnimator != null
+        if (isLoading) {
+            binding.loadingOverlay.visibility = if (isAnimating) View.GONE else View.VISIBLE
+            binding.btnCara.isEnabled = false
+            binding.btnCruz.isEnabled = false
         } else {
-            android.R.drawable.ic_lock_silent_mode_off
+            binding.loadingOverlay.visibility = View.GONE
+            if (!isAnimating) {
+                binding.btnCara.isEnabled = true
+                binding.btnCruz.isEnabled = true
+            }
         }
-        binding.fabMute.setImageResource(resId)
     }
 
     private fun procesarJugada(esCara: Boolean) {
@@ -147,21 +182,76 @@ class JuegoOnlineFragment : Fragment(R.layout.fragment_juego_online) {
         binding.btnCruz.isEnabled = false
         viewModel.prepararLanzamiento()
 
+        iniciarAnimacionInfinita()
+        animationStartTime = System.currentTimeMillis()
+
+        viewModel.jugar(apuesta, esCara)
+    }
+
+    private fun actualizarIconoMute(enabled: Boolean? = null) {
+        val isMusicEnabled = enabled ?: viewModel.isMusicaActivada()
+        val resId = if (isMusicEnabled) {
+            android.R.drawable.ic_lock_silent_mode
+        } else {
+            android.R.drawable.ic_lock_silent_mode_off
+        }
+        binding.fabMute.setImageResource(resId)
+    }
+
+    private fun iniciarAnimacionInfinita() {
+        coinAnimator?.cancel()
         binding.ivMoneda.rotationY = 0f
+        coinAnimator = ObjectAnimator.ofFloat(binding.ivMoneda, "rotationY", 0f, 360f).apply {
+            duration = 500
+            repeatCount = ObjectAnimator.INFINITE
+            interpolator = LinearInterpolator()
+            start()
+        }
+    }
+
+    private fun detenerAnimacionYMostrarResultado(response: com.example.caraocruz.data.api.ApuestaResponse, apuesta: Int) {
+        coinAnimator?.cancel()
+        coinAnimator = null // Importante para que actualizarEstadoControles sepa que no hay animación infinita
+        
+        val currentRotation = binding.ivMoneda.rotationY
+        val targetRotation = currentRotation + (360f - (currentRotation % 360f)) + 720f
+        
         binding.ivMoneda.animate()
-            .rotationY(3600f)
-            .setDuration(2000)
-            .setInterpolator(android.view.animation.AccelerateDecelerateInterpolator())
-            .withEndAction {
-                viewModel.jugar(apuesta, esCara)
-                binding.btnCara.isEnabled = true
-                binding.btnCruz.isEnabled = true
-            }
+            .rotationY(targetRotation)
+            .setDuration(800)
+            .setInterpolator(AccelerateDecelerateInterpolator())
+            .setListener(object : android.animation.AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    viewModel.finalizarProcesamientoResultado(response, apuesta)
+                    ejecutarHaptico(response.gano)
+                    actualizarEstadoControles(viewModel.isLoading.value)
+                }
+            })
             .start()
+    }
+
+    private fun ejecutarHaptico(gano: Boolean) {
+        val feedback = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            if (gano) HapticFeedbackConstants.CONFIRM else HapticFeedbackConstants.REJECT
+        } else {
+            HapticFeedbackConstants.LONG_PRESS
+        }
+        binding.ivMoneda.performHapticFeedback(feedback)
+    }
+
+    private fun detenerAnimacionPorError() {
+        coinAnimator?.cancel()
+        coinAnimator = null
+        binding.ivMoneda.animate()
+            .rotationY(0f)
+            .setDuration(300)
+            .start()
+        actualizarEstadoControles(false)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        coinAnimator?.cancel()
         _binding = null
     }
 }

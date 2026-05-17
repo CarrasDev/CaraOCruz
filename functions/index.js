@@ -3,10 +3,8 @@ const admin = require('firebase-admin');
 admin.initializeApp();
 
 exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
-    // 1. Validar método
     if (req.method !== 'POST') return res.status(405).send('Method Not Allowed');
 
-    // 2. SEGURIDAD: Verificar el ID Token enviado desde Android
     const authorization = req.get('Authorization');
     if (!authorization || !authorization.startsWith('Bearer ')) {
         return res.status(401).json({ success: false, error: 'No autorizado' });
@@ -15,20 +13,19 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
     const idToken = authorization.split('Bearer ')[1];
 
     try {
-        // Verificar que el token es válido y pertenece a un usuario real
         const decodedToken = await admin.auth().verifyIdToken(idToken);
-        const authUserId = decodedToken.uid; // Este es el ID de usuario real verificado
+        const authUserId = decodedToken.uid;
 
         const { apuesta, eleccionCara, userId } = req.body;
 
-        // Validación extra: el userId del body debe coincidir con el del token
         if (userId !== authUserId) {
-            return res.status(403).json({ success: false, error: 'Intento de suplantación detectado' });
+            return res.status(403).json({ success: false, error: 'Intento de suplantación' });
         }
 
         const db = admin.firestore();
         const userRef = db.collection('usuarios').doc(authUserId);
         const globalRef = db.collection('config').doc('global');
+        const partidasRef = userRef.collection('partidas'); // Referencia a la subcolección
 
         const resultado = await db.runTransaction(async (t) => {
             const userSnap = await t.get(userRef);
@@ -41,7 +38,6 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
 
             if (saldoActual < apuesta) throw new Error('Saldo insuficiente');
 
-            // Lógica de Azar 100% en el Servidor
             const resultadoAzar = Math.random() < 0.5 ? 'Cara' : 'Cruz';
             const gano = (eleccionCara && resultadoAzar === 'Cara') || (!eleccionCara && resultadoAzar === 'Cruz');
 
@@ -59,9 +55,19 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
                 nuevoBote = boteConApuesta;
             }
 
-            // Actualizar Firestore de forma atómica
+            // Actualizar saldos globales
             t.update(userRef, { saldo: nuevoSaldo });
             t.update(globalRef, { boteComun: nuevoBote });
+
+            // REGISTRAR LA PARTIDA
+            const nuevaPartidaRef = partidasRef.doc(); // Crea un ID automático
+            t.set(nuevaPartidaRef, {
+                apuesta: apuesta,
+                resultado: resultadoAzar,
+                gano: gano,
+                premioObtenido: premio,
+                fecha: admin.firestore.FieldValue.serverTimestamp() // Fecha del servidor
+            });
 
             return {
                 success: true,
@@ -75,7 +81,7 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
 
         res.status(200).json(resultado);
     } catch (error) {
-        console.error('Error en procesarApuesta:', error);
+        console.error('Error:', error);
         res.status(400).json({ success: false, error: error.message });
     }
 });

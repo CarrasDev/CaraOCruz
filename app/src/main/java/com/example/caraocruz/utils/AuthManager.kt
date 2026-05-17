@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.credentials.ClearCredentialStateRequest
 import androidx.credentials.CredentialManager
 import androidx.credentials.GetCredentialRequest
+import androidx.credentials.exceptions.GetCredentialException
+import androidx.credentials.exceptions.NoCredentialException
 import com.example.caraocruz.R
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential
@@ -41,7 +43,7 @@ class AuthManager private constructor(context: Context) {
             val googleIdOption = GetGoogleIdOption.Builder()
                 .setFilterByAuthorizedAccounts(false)
                 .setServerClientId(webClientId)
-                .setAutoSelectEnabled(true)
+                .setAutoSelectEnabled(false) // Desactivado para forzar el selector si es necesario
                 .build()
 
             val request = GetCredentialRequest.Builder()
@@ -56,7 +58,7 @@ class AuthManager private constructor(context: Context) {
                 credential.type == GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL -> {
                     GoogleIdTokenCredential.createFrom(credential.data).idToken
                 }
-                else -> throw Exception("Tipo de credencial no soportado")
+                else -> throw Exception("Tipo de credencial no soportado: ${credential.type}")
             }
 
             val firebaseCredential = GoogleAuthProvider.getCredential(idToken, null)
@@ -66,8 +68,14 @@ class AuthManager private constructor(context: Context) {
             _user.value = firebaseUser
             Result.success(firebaseUser)
 
+        } catch (e: NoCredentialException) {
+            Log.e("AuthManager", "No se encontraron credenciales", e)
+            Result.failure(e)
+        } catch (e: GetCredentialException) {
+            Log.e("AuthManager", "Error de CredentialManager: ${e.type}", e)
+            Result.failure(e)
         } catch (e: Exception) {
-            Log.e("AuthManager", "Error en signInWithGoogle", e)
+            Log.e("AuthManager", "Error inesperado en signInWithGoogle", e)
             Result.failure(e)
         }
     }

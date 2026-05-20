@@ -89,7 +89,6 @@ class JuegoViewModel(private val repository: JuegoRepository, context: Context) 
         // Reseteamos la imagen a la genérica para que el StateFlow detecte el cambio después
         _monedaImagenResId.value = R.drawable.logocaraocruz
 
-        // Reproducir sonido de moneda al hacer el lanzamiento
         viewModelScope.launch(Dispatchers.IO) {
             musicManager.playCoinSound()
         }

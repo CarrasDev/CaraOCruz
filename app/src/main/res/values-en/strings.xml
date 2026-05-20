@@ -6,6 +6,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Play</string>
     <string name="menu_online">Online Game</string>
+    <string name="menu_ranking_top">Top 10 Ranking</string>
     <string name="label_bote_acumulado">ACCUMULATED JACKPOT</string>
     <string name="msg_ganaste_bote">AWESOME! You won the jackpot of %1$d coins</string>
     <string name="menu_ranking">History</string>
@@ -31,6 +32,7 @@
     <string name="msg_no_google_account">No Google accounts were found on this device. Would you like to add one now to be able to play?</string>
     <string name="btn_add_account">Add account</string>
 
+    <string name="menu_sign_in">Log In</string>
     <string name="btn_cara">HEADS</string>
     <string name="btn_cruz">TAILS</string>
     <string name="msg_haz_apuesta">Place your bet!</string>
@@ -82,4 +84,5 @@
     <string name="label_notif_service">Victory Notifications</string>
     <string name="label_screenshot_service">Request screenshot on win</string>
     <string name="label_calendar_service">"Register in Calendar  "</string>
+    <string name="btn_local_access">Local Acces</string>
 </resources>

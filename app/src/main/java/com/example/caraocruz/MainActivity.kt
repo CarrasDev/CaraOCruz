@@ -38,14 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         initMainLayout()
 
-        // TODO: Prueba firebase
-        //val db = Firebase.firestore
-
-        //db.collection("test")
-        //    .add(mapOf("ok" to true))
-        //    .addOnSuccessListener { Log.d("Firestore", "Todo OK") }
-        //    .addOnFailureListener { Log.e("Firestore", "Error", it) }
-
     }
 
     private fun initMainLayout() {

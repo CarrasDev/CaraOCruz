@@ -132,11 +132,11 @@ class JuegoOnlineViewModel(context: Context) : ViewModel() {
             _isLoading.value = true
 
             try {
-                // 1. Obtener Token de Autenticación
+                // Obtener Token de Autenticación
                 val token = authManager.getIdToken() ?: throw Exception("No se pudo obtener el token")
                 val bearerToken = "Bearer $token"
 
-                // 2. Realizar llamada a la API (Cloud Function)
+                // Realizar llamada a la API (Cloud Function)
                 val request = ApuestaRequest(userId, apuesta, eleccionMoneda)
                 val response = RetrofitClient.instance.enviarApuesta(bearerToken, request)
 

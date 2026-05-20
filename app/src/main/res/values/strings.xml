@@ -5,6 +5,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Jugar</string>
     <string name="menu_online">Juego Online</string>
+    <string name="menu_ranking_top">Top 10 ranking</string>
     <string name="label_bote_acumulado">BOTE ACUMULADO</string>
     <string name="msg_ganaste_bote">¡BRUTAL! Te has llevado el bote de %1$d monedas</string>
     <string name="menu_ranking">Historial</string>
@@ -30,7 +31,7 @@
     <string name="msg_no_google_account">No se han encontrado cuentas de Google en este dispositivo. ¿Deseas añadir una ahora para poder jugar?</string>
     <string name="btn_add_account">Añadir cuenta</string>
     <string name="btn_local_access">Acceso Local</string>
-    <string name="menu_sign_in">Iniciar Sesión (Google)</string>
+    <string name="menu_sign_in">Iniciar Sesión</string>
 
     <!-- Pantalla Juego -->
     <string name="btn_cara">CARA</string>

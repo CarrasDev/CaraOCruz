@@ -75,7 +75,7 @@ class MusicSelectorFragment : Fragment(R.layout.fragment_music_selector) {
     private fun getFileName(uri: Uri): String {
         var name = uri.path ?: "Unknown"
         
-        // Intentar obtener el nombre real a través del ContentResolver (mejor para URI's de MediaStore)
+        // Intentar obtener el nombre real a través del ContentResolver
         try {
             requireContext().contentResolver.query(uri, null, null, null, null)?.use { cursor ->
                 val nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)

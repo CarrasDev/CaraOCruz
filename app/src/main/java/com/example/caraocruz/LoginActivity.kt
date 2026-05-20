@@ -25,14 +25,18 @@ class LoginActivity : AppCompatActivity() {
 
         authManager = AuthManager.getInstance(this)
 
-        // Si ya está logueado, vamos directamente a MainActivity
+        // Si ya está logueado, vamos directamente a MainActivity en modo Online
         if (authManager.isUserLoggedIn()) {
-            startMainActivity()
+            startMainActivity(isLocal = false)
             return
         }
 
         binding.btnGoogleSignIn.setOnClickListener {
             performSignIn()
+        }
+
+        binding.btnLocalAccess.setOnClickListener {
+            startMainActivity(isLocal = true)
         }
 
         updateUI()
@@ -42,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch {
             val result = authManager.signInWithGoogle(this@LoginActivity)
             result.onSuccess {
-                startMainActivity()
+                startMainActivity(isLocal = false)
             }.onFailure { e ->
                 val errorMessage = e.message ?: ""
                 Log.e("LoginActivity", "Login failed", e)
@@ -85,8 +89,9 @@ class LoginActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun startMainActivity() {
+    private fun startMainActivity(isLocal: Boolean) {
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("MODE_LOCAL", isLocal)
         startActivity(intent)
         finish()
     }

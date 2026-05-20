@@ -29,6 +29,8 @@
     <string name="title_no_google_account">Sin cuenta de Google</string>
     <string name="msg_no_google_account">No se han encontrado cuentas de Google en este dispositivo. ¿Deseas añadir una ahora para poder jugar?</string>
     <string name="btn_add_account">Añadir cuenta</string>
+    <string name="btn_local_access">Acceso Local</string>
+    <string name="menu_sign_in">Iniciar Sesión (Google)</string>
 
     <!-- Pantalla Juego -->
     <string name="btn_cara">CARA</string>

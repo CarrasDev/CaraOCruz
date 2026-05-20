@@ -22,8 +22,8 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMain: ActivityMainBinding
-
     private lateinit var musicManager: MusicManager
+    private var isLocalMode: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -53,6 +53,9 @@ class MainActivity : AppCompatActivity() {
         val navigationView = bindingMain.navigationView
         val toolbar = bindingMain.toolbar
 
+        // Determinar el modo de juego
+        isLocalMode = intent.getBooleanExtra("MODE_LOCAL", !AuthManager.getInstance(this).isUserLoggedIn())
+
         setSupportActionBar(toolbar)
 
         // Iniciar música de fondo
@@ -65,10 +68,14 @@ class MainActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        // Cargar el fragmento JuegoFragment como fragment por defecto
+        // Configurar visibilidad de los elementos del menú según el modo
+        configurarMenuDinamico(navigationView.menu)
+
+        // Cargar el fragmento por defecto según el modo
         if (supportFragmentManager.findFragmentById(R.id.nav_host_fragment) == null) {
+            val fragmentoInicial = if (isLocalMode) JuegoFragment() else JuegoOnlineFragment()
             supportFragmentManager.beginTransaction()
-                .replace(R.id.nav_host_fragment, JuegoFragment())
+                .replace(R.id.nav_host_fragment, fragmentoInicial)
                 .commit()
         }
 
@@ -119,8 +126,8 @@ class MainActivity : AppCompatActivity() {
                         .addToBackStack(null)
                         .commit()
                 }
-                R.id.nav_login -> {
-                    // Cerrar sesión mediante AuthManager y volver a LoginActivity
+                R.id.nav_sign_out -> {
+                    // Cerrar sesión mediante AuthManager y volver a LoginActivity (Modo Online)
                     lifecycleScope.launch {
                         AuthManager.getInstance(this@MainActivity).signOut(this@MainActivity)
                         val intent = Intent(this@MainActivity, LoginActivity::class.java)
@@ -128,14 +135,30 @@ class MainActivity : AppCompatActivity() {
                         finish()
                     }
                 }
-                /* TODO Para la siguiente versión
-                R.id.nav_profile -> { /* Acción perfil */ }
-                R.id.nav_settings -> { /* Acción configuración */ }
-                */
+                R.id.nav_sign_in -> {
+                    // Ir a LoginActivity para iniciar sesión (Modo Local)
+                    val intent = Intent(this@MainActivity, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
             drawerLayout.closeDrawers()
             true
         }
+    }
+
+    private fun configurarMenuDinamico(menu: android.view.Menu) {
+        // Modo Online: muestra JuegoOnline, Ranking y Sign Out (nav_sign_out)
+        menu.findItem(R.id.nav_online).isVisible = !isLocalMode
+        menu.findItem(R.id.nav_ranking).isVisible = !isLocalMode
+        menu.findItem(R.id.nav_sign_out).isVisible = !isLocalMode
+
+        // Modo Local: muestra Juego, History y Sign In (nav_sign_in)
+        menu.findItem(R.id.nav_home).isVisible = isLocalMode
+        menu.findItem(R.id.nav_history).isVisible = isLocalMode
+        menu.findItem(R.id.nav_sign_in).isVisible = isLocalMode
+        
+        // Comunes: Help, Music Selector, Settings (Siempre visibles por defecto)
     }
 
     override fun onResume() {

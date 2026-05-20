@@ -34,4 +34,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp" />
 
+    <Button
+        android:id="@+id/btnLocalAccess"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_local_access"
+        android:textColor="?attr/fullscreenTextColor" />
+
 </LinearLayout>

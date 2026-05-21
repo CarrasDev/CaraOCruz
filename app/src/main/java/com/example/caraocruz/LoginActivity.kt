@@ -71,10 +71,10 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra(Settings.EXTRA_ACCOUNT_TYPES, arrayOf("com.google"))
                     startActivity(intent)
                 } catch (e: Exception) {
-                    Toast.makeText(this, "Añade una cuenta de Google en los Ajustes del sistema.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.msg_add_google_account_manual), Toast.LENGTH_LONG).show()
                 }
             }
-            .setNeutralButton("Saber más") { _, _ ->
+            .setNeutralButton(R.string.btn_learn_more) { _, _ ->
                 mostrarAyudaTecnica()
             }
             .setNegativeButton(android.R.string.cancel, null)
@@ -83,9 +83,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun mostrarAyudaTecnica() {
         AlertDialog.Builder(this)
-            .setTitle("Ayuda de Autenticación")
-            .setMessage("Si ya tienes una cuenta en el dispositivo y este error persiste, es probable que la firma (SHA-1) de la aplicación no esté registrada en la consola de Firebase. \n\nEsto sucede a menudo al cambiar de ordenador de desarrollo.")
-            .setPositiveButton("Entendido", null)
+            .setTitle(R.string.title_auth_help)
+            .setMessage(R.string.msg_auth_help)
+            .setPositiveButton(R.string.btn_understood, null)
             .show()
     }
 

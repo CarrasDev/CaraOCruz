@@ -6,6 +6,16 @@
         android:icon="@android:drawable/ic_menu_view"/>
 
     <item
+        android:id="@+id/nav_online"
+        android:title="@string/menu_online"
+        android:icon="@android:drawable/ic_menu_share"/>
+
+    <item
+        android:id="@+id/nav_ranking"
+        android:title="@string/menu_ranking_top"
+        android:icon="@android:drawable/btn_star_big_on"/>
+
+    <item
         android:id="@+id/nav_history"
         android:title="@string/menu_ranking"
         android:icon="@android:drawable/ic_menu_myplaces"/>
@@ -25,18 +35,14 @@
         android:title="@string/menu_configuracion"
         android:icon="@android:drawable/ic_menu_preferences"/>
 
-
-    <!-- TODO Para la siguiente versión
     <item
-        android:id="@+id/nav_profile"
-        android:title="@string/menu_perfil"
-        android:icon="@android:drawable/ic_menu_manage"/>
+        android:id="@+id/nav_sign_out"
+        android:title="@string/menu_cerrar_sesion"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"/>
 
     <item
-        android:id="@+id/nav_settings"
-        android:title="@string/menu_configuracion"
-        android:icon="@android:drawable/ic_menu_preferences"/>
-
-    -->
+        android:id="@+id/nav_sign_in"
+        android:title="@string/menu_sign_in"
+        android:icon="@android:drawable/ic_menu_add"/>
 
 </menu>

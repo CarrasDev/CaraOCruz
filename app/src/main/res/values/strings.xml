@@ -4,6 +4,10 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Jugar</string>
+    <string name="menu_online">Juego Online</string>
+    <string name="menu_ranking_top">Top 10 ranking</string>
+    <string name="label_bote_acumulado">BOTE ACUMULADO</string>
+    <string name="msg_ganaste_bote">¡BRUTAL! Te has llevado el bote de %1$d monedas</string>
     <string name="menu_ranking">Historial</string>
     <string name="menu_musica">Música</string>
     <string name="menu_perfil">Perfil</string>
@@ -17,6 +21,17 @@
     <string name="btn_continue">Continuar</string>
     <string name="menu_ayuda">Ayuda</string>
     <string name="menu_selector_musica">Música</string>
+    <string name="menu_cerrar_sesion">Cerrar Sesión</string>
+    <string name="login_status_not_logged">Inicia sesión para jugar</string>
+    <string name="login_status_logged">Conectado como: %1$s</string>
+    <string name="error_unsupported_account">Error: Tipo de cuenta no soportado</string>
+    <string name="error_login_failed">Error al iniciar sesión: %1$s</string>
+    <string name="error_firebase_auth">Error en Firebase Auth: %1$s</string>
+    <string name="title_no_google_account">Sin cuenta de Google</string>
+    <string name="msg_no_google_account">No se han encontrado cuentas de Google en este dispositivo. ¿Deseas añadir una ahora para poder jugar?</string>
+    <string name="btn_add_account">Añadir cuenta</string>
+    <string name="btn_local_access">Acceso Local</string>
+    <string name="menu_sign_in">Iniciar Sesión</string>
 
     <!-- Pantalla Juego -->
     <string name="btn_cara">CARA</string>
@@ -70,7 +85,7 @@
 
     <!-- Pantalla Configuración -->
     <string name="title_configuracion">Configuración</string>
-    <string name="label_config_placeholder">Ajustes de la aplicación próximamente...</string>
+    <string name="label_config_placeholder">Ajustes de la aplicación próximamente…</string>
     <string name="label_geo_service">Servicio de Geolocalización</string>
     <string name="label_notif_service">Notificaciones de Victoria</string>
     <string name="label_screenshot_service">Solicitar Captura al Ganar</string>

@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.webkit.WebView
 import com.example.caraocruz.databinding.ActivityPresentationBinding
+import com.example.caraocruz.utils.AuthManager
 
 class PresentationActivity : AppCompatActivity() {
 
@@ -21,9 +22,16 @@ class PresentationActivity : AppCompatActivity() {
         // Pre-carga del motor WebView para evitar tirones en el fragmento de Ayuda
         WebView(this).destroy()
 
-        // Temporizador para pasar a la actividad principal
+        // Temporizador para pasar a la siguiente pantalla
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
+            val authManager = AuthManager.getInstance(this)
+            val destination = if (authManager.isUserLoggedIn()) {
+                MainActivity::class.java
+            } else {
+                LoginActivity::class.java
+            }
+            
+            val intent = Intent(this, destination)
             startActivity(intent)
             finish()
         }, 2500)        // 2,5 Segundos

@@ -26,7 +26,7 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
-        // No es estrictamente necesario manejarlo aquí si el ViewModel lo gestiona con try-catch
+
     }
 
     private val viewModel: JuegoViewModel by lazy {
@@ -126,24 +126,24 @@ class JuegoFragment : Fragment(R.layout.fragment_juego) {
             return
         }
 
-        // 1. Bloqueamos los botones para no aceptar más toques
+        // Bloqueamos los botones para no aceptar más toques
         binding.btnCara.isEnabled = false
         binding.btnCruz.isEnabled = false
 
-        // 2. Notificamos al ViewModel para reproducir el sonido y resetear la imagen (a través de StateFlow)
+        // Notificamos al ViewModel para reproducir el sonido y resetear la imagen (a través de StateFlow)
         viewModel.prepararLanzamiento()
 
-        // 3. Reseteamos la rotación y animamos
+        // Reseteamos la rotación y animamos
         binding.ivMoneda.rotationY = 0f
         binding.ivMoneda.animate()
             .rotationY(10800f) // Gira 30 veces exactamente sobre el eje vertical (más rápido)
             .setDuration(3000)
             .setInterpolator(android.view.animation.AccelerateDecelerateInterpolator())
             .withEndAction {
-                // 4. Al terminar, ejecutamos la lógica en el ViewModel que actualizará la imagen final
+                // Al terminar, ejecutamos la lógica en el ViewModel que actualizará la imagen final
                 viewModel.jugar(apuesta, esCara)
 
-                // 5. Desbloqueamos los botones
+                // Desbloqueamos los botones
                 binding.btnCara.isEnabled = true
                 binding.btnCruz.isEnabled = true
             }

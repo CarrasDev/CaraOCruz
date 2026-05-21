@@ -62,11 +62,11 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
                 nuevoBote = boteConApuesta;
             }
 
-            // 1. Actualizar saldos
+            // Actualizar saldos
             t.update(userRef, { saldo: nuevoSaldo });
             t.set(globalRef, { boteComun: nuevoBote }, { merge: true });
 
-            // 2. Registrar partida
+            // Registrar partida
             const nuevaPartidaRef = userRef.collection('partidas').doc();
             t.set(nuevaPartidaRef, {
                 apuesta: apuesta,
@@ -76,7 +76,7 @@ exports.procesarApuesta = functions.https.onRequest(async (req, res) => {
                 fecha: admin.firestore.FieldValue.serverTimestamp()
             });
 
-            // 3. Lógica de Ranking (Solo si gana)
+            // Lógica de Ranking (Solo si gana)
             if (gano && premio > 0) {
                 const rankingDocs = rankingSnap.docs;
 

@@ -90,4 +90,19 @@
     <string name="label_notif_service">Notificaciones de Victoria</string>
     <string name="label_screenshot_service">Solicitar Captura al Ganar</string>
     <string name="label_calendar_service">Registrar en Calendario</string>
+
+    <!-- Fragment Ranking -->
+    <string name="title_ranking_botes">TOP 10 BOTES GANADOS</string>
+    <string name="error_loading_ranking">Error al cargar el ranking</string>
+    <string name="btn_retry">Reintentar</string>
+
+    <!-- Fragment Juego Online -->
+    <string name="label_modo_online">MODO ONLINE</string>
+
+    <!-- Login Activity -->
+    <string name="title_auth_help">Ayuda de Autenticación</string>
+    <string name="msg_auth_help">Si ya tienes una cuenta en el dispositivo y este error persiste, es probable que la firma (SHA-1) de la aplicación no esté registrada en la consola de Firebase. \n\nEsto sucede a menudo al cambiar de ordenador de desarrollo.</string>
+    <string name="btn_understood">Entendido</string>
+    <string name="btn_learn_more">Saber más</string>
+    <string name="msg_add_google_account_manual">Añade una cuenta de Google en los Ajustes del sistema.</string>
 </resources>

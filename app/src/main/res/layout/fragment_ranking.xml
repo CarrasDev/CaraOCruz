@@ -10,7 +10,7 @@
         android:id="@+id/tvRankingTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TOP 10 BOTES GANADOS"
+        android:text="@string/title_ranking_botes"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -56,14 +56,14 @@
             android:id="@+id/tvErrorRanking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Error al cargar el ranking"
+            android:text="@string/error_loading_ranking"
             android:textColor="@android:color/darker_gray" />
 
         <Button
             android:id="@+id/btnRetryRanking"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reintentar"
+            android:text="@string/btn_retry"
             android:layout_marginTop="8dp" />
     </LinearLayout>
 

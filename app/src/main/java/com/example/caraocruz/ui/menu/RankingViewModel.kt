@@ -48,7 +48,8 @@ class RankingViewModel(application: Application) : AndroidViewModel(application)
                 // estamos recolectando de rankingLocal en el init
             } catch (e: Exception) {
                 if (_state.value !is RankingState.Success) {
-                    _state.value = RankingState.Error("No se pudo cargar el ranking")
+                    val errorMsg = getApplication<android.app.Application>().getString(com.example.caraocruz.R.string.error_loading_ranking)
+                    _state.value = RankingState.Error(errorMsg)
                 }
             }
         }

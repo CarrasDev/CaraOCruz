@@ -25,7 +25,7 @@
         android:id="@+id/tvOnlineLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MODO ONLINE"
+        android:text="@string/label_modo_online"
         android:textSize="12sp"
         android:textColor="#4CAF50"
         android:textStyle="bold"

@@ -6,7 +6,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="menu_jugar">Play</string>
     <string name="menu_online">Online Game</string>
-    <string name="menu_ranking_top">Top 10 Ranking</string>
+    <string name="menu_ranking_top">Top 10 ranking</string>
     <string name="label_bote_acumulado">ACCUMULATED JACKPOT</string>
     <string name="msg_ganaste_bote">AWESOME! You won the jackpot of %1$d coins</string>
     <string name="menu_ranking">History</string>
@@ -31,8 +31,10 @@
     <string name="title_no_google_account">No Google Account</string>
     <string name="msg_no_google_account">No Google accounts were found on this device. Would you like to add one now to be able to play?</string>
     <string name="btn_add_account">Add account</string>
-
+    <string name="btn_local_access">Local Access</string>
     <string name="menu_sign_in">Log In</string>
+
+    <!-- Game Screen -->
     <string name="btn_cara">HEADS</string>
     <string name="btn_cruz">TAILS</string>
     <string name="msg_haz_apuesta">Place your bet!</string>
@@ -45,11 +47,13 @@
     <string name="prompt_inicio">Enter your bet and choose</string>
     <string name="cantidad_a_apostar">Amount to bet</string>
 
+    <!-- Game Over Screen -->
     <string name="title_bancarrota">BANKRUPT!</string>
     <string name="msg_game_over">You are out of coins</string>
     <string name="btn_reiniciar">Restart with 100 Coins</string>
     <string name="btn_salir">Exit game</string>
 
+    <!-- History Screen + item_partida -->
     <string name="title_historial">Game History</string>
     <string name="msg_vacio">No matches recorded</string>
     <string name="label_resultado">Result: %1$s</string>
@@ -57,7 +61,7 @@
     <string name="label_cantidad">%1$s</string>
     <string name="label_fecha">%1$s</string>
     <string name="label_ubicacion">Location: %1$.4f, %2$.4f</string>
-    <string name="title_dialog_victoria">¡Victory!</string>
+    <string name="title_dialog_victoria">Victory!</string>
     <string name="msg_dialog_captura">Would you like to save a screenshot of your victory to the gallery?</string>
     <string name="btn_si">Yes</string>
     <string name="btn_no">No</string>
@@ -70,6 +74,7 @@
     <string name="resultado_cara">Heads</string>
     <string name="resultado_cruz">Tails</string>
 
+    <!-- Music Selector -->
     <string name="title_selector_musica">Music Selector</string>
     <string name="btn_select_file">Select audio file</string>
     <string name="btn_reset_music">Reset default music</string>
@@ -78,11 +83,27 @@
     <string name="msg_music_updated">Melody updated</string>
     <string name="msg_music_reset">Default music restored</string>
     <string name="msg_no_file_selected">No file selected</string>
+
+    <!-- Settings Screen -->
     <string name="title_configuracion">Settings</string>
     <string name="label_config_placeholder">App settings coming soon...</string>
     <string name="label_geo_service">Geolocation Service</string>
     <string name="label_notif_service">Victory Notifications</string>
     <string name="label_screenshot_service">Request screenshot on win</string>
-    <string name="label_calendar_service">"Register in Calendar  "</string>
-    <string name="btn_local_access">Local Acces</string>
+    <string name="label_calendar_service">Register in Calendar</string>
+
+    <!-- Fragment Ranking -->
+    <string name="title_ranking_botes">TOP 10 JACKPOTS WON</string>
+    <string name="error_loading_ranking">Error loading ranking</string>
+    <string name="btn_retry">Retry</string>
+
+    <!-- Fragment Online Game -->
+    <string name="label_modo_online">ONLINE MODE</string>
+
+    <!-- Login Activity -->
+    <string name="title_auth_help">Authentication Help</string>
+    <string name="msg_auth_help">If you already have an account on the device and this error persists, it is likely that the application signature (SHA-1) is not registered in the Firebase console. \n\nThis often happens when switching development computers.</string>
+    <string name="btn_understood">Understood</string>
+    <string name="btn_learn_more">Learn more</string>
+    <string name="msg_add_google_account_manual">Add a Google account in the system Settings.</string>
 </resources>

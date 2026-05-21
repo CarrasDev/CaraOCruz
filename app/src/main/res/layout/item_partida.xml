@@ -62,11 +62,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Ubicación: 0.0, 0.0"
+            android:text="@string/label_ubicacion"
             android:textColor="@android:color/darker_gray"
             android:textSize="12sp"
             android:visibility="gone"
-            tools:visibility="visible" />
+            tools:visibility="visible"
+            tools:text="Ubicación: 0.0, 0.0" />
 
     </LinearLayout>
 

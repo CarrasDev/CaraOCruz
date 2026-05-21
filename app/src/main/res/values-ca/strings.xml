@@ -2,71 +2,108 @@
 <resources>
     <string name="app_name">Cara o Creu</string>
     <string name="title_activity_presentation">PresentationActivity</string>
-    <string name="dummy_content">DUMMY</string>
+    <string name="dummy_button">Botó de prova</string>
+    <string name="dummy_content">CONTINGUT\nDE PROVA</string>
     <string name="menu_jugar">Jugar</string>
+    <string name="menu_online">Joc Online</string>
+    <string name="menu_ranking_top">Top 10 rànquing</string>
+    <string name="label_bote_acumulado">BOT ACUMULAT</string>
+    <string name="msg_ganaste_bote">BRUTAL! T\'has emportat el bot de %1$d monedes</string>
     <string name="menu_ranking">Historial</string>
     <string name="menu_musica">Música</string>
     <string name="menu_perfil">Perfil</string>
     <string name="menu_configuracion">Configuració</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="open">Obrir menú</string>
+    <string name="close">Tancar menú</string>
+    <string name="background">Fons de l\'aplicació</string>
+    <string name="hello_blank_fragment">Hola fragment buit</string>
     <string name="welcome_message">Benvingut a Cara o Creu</string>
     <string name="hint_user_name">Introdueix el teu nom</string>
     <string name="btn_continue">Continuar</string>
     <string name="menu_ayuda">Ajuda</string>
-
     <string name="menu_selector_musica">Música</string>
+    <string name="menu_cerrar_sesion">Tancar Sessió</string>
+    <string name="login_status_not_logged">Inicia sessió per jugar</string>
+    <string name="login_status_logged">Connectat com: %1$s</string>
+    <string name="error_unsupported_account">Error: Tipus de compte no suportat</string>
+    <string name="error_login_failed">Error en iniciar sessió: %1$s</string>
+    <string name="error_firebase_auth">Error a Firebase Auth: %1$s</string>
+    <string name="title_no_google_account">Sense compte de Google</string>
+    <string name="msg_no_google_account">No s\'han trobat comptes de Google en aquest dispositiu. Vols afegir-ne un ara per poder jugar?</string>
+    <string name="btn_add_account">Afegir compte</string>
+    <string name="btn_local_access">Accés Local</string>
+    <string name="menu_sign_in">Inicia Sessió</string>
+
+    <!-- Pantalla Joc -->
     <string name="btn_cara">CARA</string>
     <string name="btn_cruz">CREU</string>
     <string name="msg_haz_apuesta">Fes la teva aposta!</string>
-    <string name="msg_apuesta_cero">L\'aposta ha de ser major de zero</string>
-    <string name="msg_sin_monedas">No tens prous monedes</string>
+    <string name="msg_apuesta_cero">L\'aposta ha de ser major que zero</string>
+    <string name="msg_sin_monedas">No tens prou monedes</string>
     <string name="msg_ganaste">Has guanyat %1$d monedes</string>
     <string name="msg_perdiste">Has perdut %1$d monedes</string>
     <string name="msg_error_db">Error en desar a la BBDD</string>
     <string name="label_saldo">Saldo: %1$d monedes</string>
     <string name="prompt_inicio">Introdueix l\'aposta i tria</string>
-
     <string name="cantidad_a_apostar">Quantitat a apostar</string>
+
+    <!-- Pantalla Game Over -->
     <string name="title_bancarrota">FALLIDA!</string>
     <string name="msg_game_over">T\'has quedat sense monedes</string>
     <string name="btn_reiniciar">Reiniciar amb 100 monedes</string>
     <string name="btn_salir">Sortir del joc</string>
 
-    <string name="calendar_event_desc">Has guanyat %1$d monedes.</string>
-    <string name="notif_victory_title">Felicitats!</string>
-    <string name="notif_victory_text">Has guanyat l\'aposta de %1$d monedes.</string>
-    <string name="resultado_cara">Cara</string>
-    <string name="resultado_cruz">Creu</string>
-    <string name="dummy_button">Butó fals</string>
-    <string name="open">Obrir menú</string>
-    <string name="close">Tancar menú</string>
-    <string name="background">Fons de l\'aplicació</string>
+    <!-- Pantalla Historial + item_partida -->
     <string name="title_historial">Historial de Partides</string>
     <string name="msg_vacio">No hi ha partides registrades</string>
     <string name="label_resultado">Resultat: %1$s</string>
     <string name="label_apuesta">Aposta: %1$d monedes</string>
     <string name="label_cantidad">%1$s</string>
-    <string name="label_fecha">%1$</string>
+    <string name="label_fecha">%1$s</string>
     <string name="label_ubicacion">Ubicació: %1$.4f, %2$.4f</string>
-    <string name="title_dialog_victoria">¡Victòria!</string>
-    <string name="msg_dialog_captura">" Vols desar una captura de pantalla de la teva victòria a la galeria?"</string>
-    <string name="btn_si">Si</string>
+    <string name="title_dialog_victoria">Victòria!</string>
+    <string name="msg_dialog_captura">Vols desar una captura de pantalla de la teva victòria a la galeria?</string>
+    <string name="btn_si">Sí</string>
     <string name="btn_no">No</string>
     <string name="msg_captura_guardada">Captura desada a la galeria</string>
     <string name="msg_captura_error">Error en desar la captura</string>
     <string name="calendar_event_title">Has guanyat a Cara o Creu!</string>
+    <string name="calendar_event_desc">Has guanyat %1$d monedes.</string>
+    <string name="notif_victory_title">Felicitats!</string>
+    <string name="notif_victory_text">Has guanyat l\'aposta de %1$d monedes.</string>
+    <string name="resultado_cara">Cara</string>
+    <string name="resultado_cruz">Creu</string>
+
+    <!-- Selector de Música -->
     <string name="title_selector_musica">Selector de Música</string>
-    <string name="btn_select_file">" Seleccionar fitxer d’àudio"</string>
-    <string name="btn_reset_music">Restablir la música per defecte</string>
+    <string name="btn_select_file">Seleccionar fitxer d\'àudio</string>
+    <string name="btn_reset_music">Restablir música per defecte</string>
     <string name="current_music">Música actual: %1$s</string>
     <string name="default_music">Per defecte</string>
     <string name="msg_music_updated">Melodia actualitzada</string>
-    <string name="msg_music_reset">" Restaurada la música per defecte"</string>
-    <string name="msg_no_file_selected">" No s’ha seleccionat cap fitxer  "</string>
+    <string name="msg_music_reset">Restaurada música per defecte</string>
+    <string name="msg_no_file_selected">No s\'ha seleccionat cap fitxer</string>
+
+    <!-- Pantalla Configuració -->
     <string name="title_configuracion">Configuració</string>
-    <string name="label_config_placeholder">" Ajustos de l’aplicació pròximament..."</string>
+    <string name="label_config_placeholder">Ajustos de l\'aplicació pròximament…</string>
     <string name="label_geo_service">Servei de Geolocalització</string>
-    <string name="label_notif_service">" Notificacions de Victòria"</string>
+    <string name="label_notif_service">Notificacions de Victòria</string>
     <string name="label_screenshot_service">Sol·licitar captura en guanyar</string>
     <string name="label_calendar_service">Registrar al Calendari</string>
+
+    <!-- Fragment Ranking -->
+    <string name="title_ranking_botes">TOP 10 BOTS GUANYATS</string>
+    <string name="error_loading_ranking">Error en carregar el rànquing</string>
+    <string name="btn_retry">Reintentar</string>
+
+    <!-- Fragment Joc Online -->
+    <string name="label_modo_online">MODE ONLINE</string>
+
+    <!-- Login Activity -->
+    <string name="title_auth_help">Ajuda d\'Autenticació</string>
+    <string name="msg_auth_help">Si ja tens un compte al dispositiu i aquest error persisteix, és probable que la signatura (SHA-1) de l\'aplicació no estigui registrada a la consola de Firebase. \n\nAixò passa sovint en canviar d\'ordinador de desenvolupament.</string>
+    <string name="btn_understood">Entès</string>
+    <string name="btn_learn_more">Saber-ne més</string>
+    <string name="msg_add_google_account_manual">Afegeix un compte de Google als Ajustos del sistema.</string>
 </resources>

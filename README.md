@@ -75,6 +75,3 @@ Este proyecto demuestra el dominio de conceptos críticos de la programación na
 - Integración de **Hardware y Sensores** (GPS, Galería).
 - Consumo de **Servicios en la Nube** y persistencia híbrida.
 
----
-
-**Desarrollado con ❤️ para el Grado de Ingeniería Informática - UOC.**
